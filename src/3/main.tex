@@ -1,0 +1,79 @@
+\chapter{Vytvorenie knižnice na~nahrávanie obrázkov}
+\section{Ciele}
+
+Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~cieľ maximalizovať pohodlie užívateľa, minimalizovať zaťaženie pre~tvorcov stránky, sprístupniť knižnicu všetkým. Preto sme stanovili, že knižnica by mala:
+
+\begin{itemize}
+	\item byť nezávislá od~knižníc/frameworkov tretích strán, napr. \emph{jQuery},
+	\item podporovať nahrávanie či už zvolením obrázka cez~modálne okno alebo aj technológiou \emph{Drag&Drop}, 
+	\item byť jednuduchá na~implementovanie
+	\item byť dobre rozšíriteľná o~nové funkcie
+	\item podporovať nahrávanie bez~refreshu
+	\item podporovať mobilné zariadenia
+	\item podporovať nahrávanie viacerých obrázkov
+	\item byť dobre zdokumentovaná
+\end{itemize}
+
+
+\section{Riešenie}
+\subsection{Predstavenie}
+Najskôr sme plánovali využiť \emph{jQuery}, ale kvôli splneniu prvého cieľa (byť nezávislí od~knižníc/frameworkov tretích strán) sme sa rozhodli využiť \emph{Custom Element}. Vytvorili sme jeden, ktorý slúži na~úpravu obrázka, \emph{<x-cupe>} a~jeden na~podporu multiuploadu - \emph{<x-cupe-gallery>}. Oba vychádzajú z~rovnakého HTML, pričom \emph{<x-cupe-gallery>} interne využíva \emph{<x-cupe>}, preto sa v~tejto kapitole zameráme na~element \emph{<x-cupe>}. Nahrávanie viacerých obrázkov je bližšie popísané v~kapitole 3.5.
+
+Scénar nahrávania môže vyzerať takto:
+\begin{enumerate}
+	\item Užívateľ buď pomocou Drag&Drop nahraje obrázok alebo klikne na~element a~následne si z~modálneho okna zvolí obrázok
+	\item Obrázok sa zmenší, oreže a~zobrazí
+	\item Pokiaľ užívateľ nie je spokojný s~obrázokom, pokračuje prvým bodom
+	\item Pokiaľ užívateľ nie je spokojný s~orezaním, držaním myšy posúva obrázok, dokým nie je spokojný
+	\item Keď je užívateľ spokojný s~obrázkom aj jeho orezaním odošle formulár, a~až vtedy sa zmenšaná a~orezaná verzia nahraje na~server
+\end{enumerate}
+
+Hoc sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia a~teda všetky úkony je možné vykonať dotykom. Interne obe elementy využívajú nasledujúce HTML:
+
+\begin{lstlisting}[language=HTML]
+<canvas></canvas>
+<input type="file" style="display: none">
+<input type="text" style="display: none">
+\end{lstlisting}
+
+Element \emph{<canvas>} sa stará o~zobrazenie obrázka, a~na prácu s~ním sme vytvorili pomocnú triedu \emph{XCupeCanvasElement}, pomocou ktorej vieme rýchlo zmeniť rozmery. Keď užívateľ klikne na~\emph{<x-cupe>}, element vytvorí nový klik na~\emph{<input type="file"\textgreater}, čo spôsobí, že sa otvorí modálne okno a~užívateľ si môže zvoliť obrázok. Pre~zjednodušenie práce s~ním sme vytvorili triedu \emph{XCupeInputFileElement}. Do~\emph{<input type="text"\textgreater} sa vloží textová reprezentácia obrázka, čo umožňuje jeho odoslanie cez~POST. Opäť, aj pre~tento element sme vytvorili pomocnú triedu \emph{XCupeInputFileElement}. Detailné popísanie, ako knižnica funguje vrátane využitia jednotlivých elementov je ďalej popísané v~sekcií 3.4.
+
+\subsection{Inštalácia}
+
+Použitie \emph{Custom Elementu} nám umožnuje skutočne jednoduchý spôsob inštalácie, kde sa najskôr načítajú zdrojové súbory knižnice:
+\begin{enumerate}
+<link rel="import" href="dist/x-cupe.html">
+\end{enumerate}
+
+Následne stačí už len na~príslušnom mieste v~kóde vytvoriť element:
+\begin{enumerate}
+<x-cupe></x-cupe>
+\end{enumerate}
+
+V prípade nahrávania viacerých obrázkov:
+\begin{enumerate}
+<x-cupe-gallery></x-cupe-gallery>
+\end{enumerate}
+
+// TODO: schéma prepojenia jednotlivých elementov a~knižníc. Bolo by to vhodné?
+
+\section{Použité technológie, služby a~postupy}
+\subsection{Custom Element a~ShadowDOM}
+\subsection{Canvas}
+\subsection{Drag&Drop}
+\subsection{File Reader}
+\subsection{Promise}
+\subsection{TypeScript}
+\subsection{Mocha}
+\subsection{GitHub}
+
+\section{Postup nahrávania a~nastavenia}
+\subsection{Zvolenie obrázka}
+\subsection{Zmenšenie a~orezanie}
+\subsection{Posúvanie obrázka}
+\subsection{Odoslanie obrázka}
+
+\section{Nahrávanie viacerých obrázkov}
+\section{Rozšíriteľnosť}
+\section{Spracovanie obrázka na~PHP serveri}
+\section{Dokumentácia}

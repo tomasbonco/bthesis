@@ -1,0 +1,86 @@
+%
+% Knihovna pro efektivní nahrávání obrázků na webový server 
+% 
+% Licensed under MIT License
+%
+
+\documentclass[
+    monochrome,   % Enables colorful typesetting. Replace with
+             % `monochrome`, if you are going to print the
+             % thesis on a monochromatic printer.
+		table,   % Causes the coloring of tables. Replace with
+             % `notable` to restore plain tables.
+    twoside, % Enables double-sided typesetting. Replace
+             % with `oneside`, if you are going to print
+             % your thesis on only one side of the paper.
+    % More options are listed in the class documentation
+    % available at <https://www.ctan.org/pkg/fithesis>.
+]{fithesis/fithesis3}
+\usepackage[slovak]{babel} % By using `czech` or `slovak`
+% instead of `english`, you can typeset the entire thesis
+% in either Czech or Slovak, respectively. Changing the
+% language requires a clean compilation; click `recompile
+% from scratch`, when Overleaf raises an error.
+\thesissetup{
+	university    = mu,
+	faculty       = fi,
+    type          = bc,
+    author        = Tomáš Bončo,
+    gender        = m,
+    advisor       = Tomáš Obšívač,
+    title         = {Knižnica pre efektívne nahrávanie obrázkov na webový server},
+    TeXtitle      = {Knižnica pre efektívne nahrávanie obrázkov na webový server},
+    keywords      = {keyword1, keyword2, ...},
+    TeXkeywords   = {keyword1, keyword2, \ldots},
+}
+\thesislong{abstract}{
+	This is the abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+\thesislong{thanks}{
+	This is the acknowledgement for my thesis, which can
+    
+    span multiple paragraphs.
+}
+
+% Page creation engine
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[slovak]{babel}
+\usepackage[T1]{fontenc}
+
+
+% Main modules
+\usepackage{url}      % URL
+\usepackage{hyperref} % Links
+\usepackage{graphicx} % Pictures
+\usepackage{wrapfig}  % In-line Pictures
+\usepackage{verbatim} % Code
+\usepackage{moreverb} % Encoding
+\usepackage{listings} % Code
+\usepackage{color}    % Highlight
+
+
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+% Document
+\begin{document}
+
+% Chapter files listing
+\input{src/1/main.tex}
+\input{src/2/main.tex}
+\input{src/3/main.tex}
+\input{src/4/main.tex}
+\input{src/5/main.tex}
+% End of chapter files listing
+
+
+% Bibliography
+\bibliographystyle{ieeetr}
+\bibliography{../src/refs}
+
+
+\end{document}
