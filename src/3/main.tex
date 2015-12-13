@@ -127,13 +127,16 @@ Takisto sme si všimli, že ak zmenšíme veľmi veľký obrázok, jeho kvalita 
 
 \subsection{Posúvanie obrázka}
 
-Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnoťou výberu obrázka a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčastná pozícia myšy a~porovnáva sa s~pozíciou na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}.
+Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnoťou výberu obrázka a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčastná pozícia myšy a~porovnáva sa s~pozíciou na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}. Posúvanie obrázka sa dá vypnúť nastavím atribútu \emph{allow_move} na~hodnotu \emph{false}
 
-// TODO: Prečo neprebieha ukladanie ak zvyčajne prebieha, ak prebieha? 
+// TODO: Prečo neprebieha ukladanie ak zvyčajne prebieha, ak prebieha?
 
 \subsection{Odoslanie obrázka}
 
 \section{Nahrávanie viacerých obrázkov}
+
+Nahrávanie viacerých obrázkov je možné pomocou párového tágu \emph{<x-cupe-gallery>}. Ten interne využíva elementy \emph{<x-cupe>}, ktoré vytvára vždy pri~zvolení nového obrázka, či už pomocou modálneho okna alebo pomocou \emph{Drag&Drop}. Element \emph{<x-cupe-gallery>} podporuje všetky atribúty ako \emph{<x-cupe>}, avšak pri~ich zmene sa táto zmena pošle všetkým \emph{x-cupe} elementom. Výnimkou sú atribúty \emph{allow_drop} a~\emph{allow_select}, ktoré sú aplikujú len pre~\emph{<x-cupe-gallery>} a~v \emph{<x-cupe} sú vypnuté.
+
 \section{Rozšíriteľnosť}
 \section{Spracovanie obrázka na~PHP serveri}
 \section{Dokumentácia}
