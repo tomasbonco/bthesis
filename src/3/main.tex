@@ -127,7 +127,7 @@ Takisto sme si všimli, že ak zmenšíme veľmi veľký obrázok, jeho kvalita 
 
 \subsection{Posúvanie obrázka}
 
-Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnoťou výberu obrázka a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčastná pozícia myšy a~porovnáva sa s~pozíciou na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}. Posúvanie obrázka sa dá vypnúť nastavím atribútu \emph{allow_move} na~hodnotu \emph{false}
+Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnoťou výberu obrázka a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčasná pozícia myšy a~porovnáva sa s~pozíciou na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}. Posúvanie obrázka sa dá vypnúť nastavím atribútu \emph{allow_move} na~hodnotu \emph{false}
 
 // TODO: Prečo neprebieha ukladanie ak zvyčajne prebieha, ak prebieha?
 
@@ -135,8 +135,72 @@ Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvan
 
 \section{Nahrávanie viacerých obrázkov}
 
-Nahrávanie viacerých obrázkov je možné pomocou párového tágu \emph{<x-cupe-gallery>}. Ten interne využíva elementy \emph{<x-cupe>}, ktoré vytvára vždy pri~zvolení nového obrázka, či už pomocou modálneho okna alebo pomocou \emph{Drag&Drop}. Element \emph{<x-cupe-gallery>} podporuje všetky atribúty ako \emph{<x-cupe>}, avšak pri~ich zmene sa táto zmena pošle všetkým \emph{x-cupe} elementom. Výnimkou sú atribúty \emph{allow_drop} a~\emph{allow_select}, ktoré sú aplikujú len pre~\emph{<x-cupe-gallery>} a~v \emph{<x-cupe} sú vypnuté.
+Nahrávanie viacerých obrázkov je možné pomocou párového tágu \emph{<x-cupe-gallery>}. Ten interne využíva elementy \emph{<x-cupe>}, ktoré vytvára vždy pri~zvolení nového obrázka, či už pomocou modálneho okna alebo pomocou \emph{Drag&Drop}. Element \emph{<x-cupe-gallery>} podporuje všetky atribúty ako \emph{<x-cupe>}, avšak pri~ich zmene sa táto zmena pošle všetkým \emph{x-cupe} elementom. Výnimkou sú atribúty \emph{allow-drop} a~\emph{allow-select}, ktoré sa aplikujú len pre~\emph{<x-cupe-gallery>} a~v \emph{<x-cupe>} sú vypnuté.
+
 
 \section{Rozšíriteľnosť}
+
+Nakoľko naša knižnica používa na~spracovanie a~zobrazovanie obrazu tág \emph{<canvas>}, využíva a~aj poskytuje možnosť pracovať s~obrazom na~úrovni jednotlivých pixelov. To umožňuje vytváranie pokročilých rozšírení, ktoré napríklad dokážu zmeniť farebné otiene, využívať detekciu hrán, rozpoznávanie tvárí a~podobne.
+
+\subsection{Systém rozšírení}
+
+Predstavme si dve rozšírenia - "zoom" (rozšírenie umožňujúce zväčšovať a~zmenšovať obraz) a~"black\&white" (rozšírenie, ktoré prevedie obraz do~čierno-bielej škály). Chceli sme, aby tvorca stránky vedel stanoviť, ktoré \emph{<x-cupe>} elementy budú používať "black\&white", a~ktoré nie. Tiež sme chceli, aby vedel nastaviť rozšírenie "zoom" pre~všetky \emph{<x-cupe>} elementy. \textbf{Naším cieľom teda bolo, aby rozšírenie bolo možné aplikovať aj pre~jednotlivé \emph(<x-cupe>) elementy, ale aj univerzálne - pre~všetky \emph(<x-cupe>) elementy}. Naším ďalším cieľom bolo, aby \textbf{rozšírenia bolo možné kombinovať}, a~teda aby tvorca stránky vedel nastaviť obe rozšírenia - "zoom" aj "black\&white" na~rovnaký \emph{<x-cupe>} element. Naším posledným cieľom bolo, aby boli rozšírenia nezávislé moduly - samostatné súbory, ktoré o~sebe nevedia (resp. nemusia vedieť).
+
+Zhodnotili sme existujúce riešenia a~rozhodli sme sa, že rozšírenia budú funkcie, ktoré budú upravovať metódy našej knižnice. Tým dosiahneme "cibuľový efekt".
+
+\subsection{Cibuľový efekt}
+
+Pre lepšie vysvetlenie uvádzame vzorku kódu so~vzorového rozšírenia "zoom" (viď. 3.6.4), na~ktorom následne vysvetlíme, "cibuľový efekt\" a~jeho výhody.
+
+\begin{lstlisting}[language=JavaScript]
+var self = this;
+var originalRnDImg = controller.readAndDrawImage; // (A)
+controller.readAndDrawImage = function() // (B)
+{
+    return originalRnDImg.apply( self, arguments ) // (C)
+    .then( function()
+    {
+        // ... (D)
+    }
+}
+\end{lstlisting}
+
+\begin{description}
+	\item [(A)] Do~premennej \emph{originalRnDImg} uložíme pôvodnú metódu \emph{readAndDrawImage} \emph{XCupeController} triedy. 
+	\item [(B)] Prepíšeme pôvodnú metódu \emph{readAndDrawImage} novou funkciou, ktorá
+	\item [(C)] spustí pôvodnú metódu, a~keď tá prebehne úspešne, tak
+	\item [(D)] vykoná doplňujúci kód.
+\end{description}
+
+Je potrebné si uvedomiť, že metóda \emph{readAndDrawImage} ostáva zmenená a~keď k~nej bude pristupovať ďalšie rozšírenie (napr. "black\&white" popísaný v~3.6.1), opäť pridá ďalšiu vrstvu. Následne keď bude metódu volať \emph{XCupeController}, zavolá modifikáciu z~"black\&white", ktorá zavolá modifikáciu z~rozšírenia "zoom", ktoré zavolá pôvodnú metódu.
+
+
+Tým sme dosiahli, že:
+
+\begin{enumerate}
+	\item Je možné aplikovať súčasne niekoľko rozšírení na~jeden \emph{<x-cupe>} element.
+	\item Jednotlivé rozšírenia o~sebe nevedia. Všetky pristupujú (v prípade ukážky) k~\emph{XCupeController}. 
+\end{enumerate}
+
+
+\subsection{Aplikovanie rozšírenia}
+
+Rozšírenie je funkcia, pričom odporúčame, aby vždy dávala možnosť aplikovať rozšírenie zvlášť na~jednotlivé prvky ale tiež aj na~všetky prvky. Vo vzorovom rozšírení "zoom" (viď. 3.6.4) sme to dosiahli prvým parametrom, ktorý ak je prázdny tak sa aplikuje rozšírenie na~triedu XCupeController. V~prípade, že prázdny nie je, predpokladáme, že obsahuje odkaz na~už vytvorený element a~teda rozšírenie aplikujeme na~ňom. Pre~plné porozumenie uvádzame príklad:
+
+\begin{lstlisting}[language=JavaScript]
+// Aplikuje zoom pre~všetky XCupe elementy
+makeCupeZoomable();
+
+// Aplikuje zoom pre~vybraný XCupe element
+var cupeElement = new HTMLXCupeElement();
+makeCupeZoomable( cupeElement );
+\end{lstlisting}
+
+\subsection{Vzorové rozšírenie}
+
+Praktická časť tejto práce, v~zložke \emph{plugins} obsahuje vzorové rozšírenie \emph{zoom}. Toto rozšírenie má za~úlohu umožniť užívateľom zväčšovať a~zmenšovať obrázok pred~odoslaním.
+
+Keď užívateľ obrázok vloží, vyráta sa pomer medzi~zobrazovacou plochou a~skutočnou veľkosťou obrázka a~vyráta sa maximálne oddialenie. Za~najnižšie oddialenie (alebo maximálne priblíženie) je určená hodnota, kde jeden pixel nahrávaného obrázka zodpovedá jednému zobrazenému pixelu. Následné točenie stredným stlačídlom myši mení pomer, akým sa pôvodný obrázok zmenší predtým, než sa vykreslí.
+
 \section{Spracovanie obrázka na~PHP serveri}
 \section{Dokumentácia}
