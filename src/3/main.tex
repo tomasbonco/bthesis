@@ -1,7 +1,7 @@
 \chapter{Vytvorenie knižnice na~nahrávanie obrázkov}
 \section{Ciele}
 
-Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~cieľ maximalizovať pohodlie užívateľa, minimalizovať zaťaženie pre~tvorcov stránky, sprístupniť knižnicu všetkým. Preto sme stanovili, že knižnica by mala:
+Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~cieľ maximalizovať pohodlie užívateľa, minimalizovať zaťaženie pre~tvorcov stránky a~mala byť prístupná pre~čo najširšie publikum. Preto sme stanovili, že knižnica by mala:
 
 \begin{itemize}
 	\item byť nezávislá od~knižníc/frameworkov tretích strán, napr. \emph{jQuery},
@@ -17,7 +17,8 @@ Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~cieľ maximalizov
 
 \section{Riešenie}
 \subsection{Predstavenie}
-Najskôr sme plánovali využiť \emph{jQuery}, ale kvôli splneniu prvého cieľa (byť nezávislí od~knižníc/frameworkov tretích strán) sme sa rozhodli využiť \emph{Custom Element}. Vytvorili sme jeden, ktorý slúži na~úpravu obrázka, \emph{<x-cupe>} a~jeden na~podporu multiuploadu - \emph{<x-cupe-gallery>}. Oba vychádzajú z~rovnakého HTML, pričom \emph{<x-cupe-gallery>} interne využíva \emph{<x-cupe>}, preto sa v~tejto kapitole zameráme na~element \emph{<x-cupe>}. Nahrávanie viacerých obrázkov je bližšie popísané v~kapitole 3.5.
+Najskôr sme plánovali využiť \emph{jQuery}, ale kvôli splneniu prvého cieľa (byť nezávislí od~knižníc/frameworkov tretích strán) sme sa rozhodli využiť \emph{Custom Element}. Vytvorili sme jeden, ktorý slúži na~úpravu obrázka \emph{<x-cupe>} a~jeden na~podporu multiuploadu - \emph{<x-cupe-gallery>}. Oba vychádzajú z~rovnakého HTML, pričom \emph{<x-cupe-gallery>} interne využíva \emph{<x-cupe>}, preto sa ďalej v~tejto kapitole zameráme na~element \emph{<x-cupe>}. Nahrávanie viacerých obrázkov je bližšie popísané v~kapitole 3.5.
+
 
 Scénar nahrávania môže vyzerať takto:
 \begin{enumerate}
@@ -28,7 +29,7 @@ Scénar nahrávania môže vyzerať takto:
 	\item Keď je užívateľ spokojný s~obrázkom aj jeho orezaním odošle formulár, a~až vtedy sa zmenšaná a~orezaná verzia nahraje na~server
 \end{enumerate}
 
-Hoc sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia a~teda všetky úkony je možné vykonať dotykom. Interne obe elementy využívajú nasledujúce HTML:
+Hoc sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia a~teda všetky úkony je možné vykonať dotykom. Interne oba elementy využívajú nasledujúce HTML:
 
 \begin{lstlisting}[language=HTML]
 <canvas></canvas>
@@ -36,26 +37,58 @@ Hoc sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia
 <input type="text" style="display: none">
 \end{lstlisting}
 
-Element \emph{<canvas>} sa stará o~zobrazenie obrázka, a~na prácu s~ním sme vytvorili pomocnú triedu \emph{XCupeCanvasElement}, pomocou ktorej vieme rýchlo zmeniť rozmery. Keď užívateľ klikne na~\emph{<x-cupe>}, element vytvorí nový klik na~\emph{<input type="file"\textgreater}, čo spôsobí, že sa otvorí modálne okno a~užívateľ si môže zvoliť obrázok. Pre~zjednodušenie práce s~ním sme vytvorili triedu \emph{XCupeInputFileElement}. Do~\emph{<input type="text"\textgreater} sa vloží textová reprezentácia obrázka, čo umožňuje jeho odoslanie cez~POST. Opäť, aj pre~tento element sme vytvorili pomocnú triedu \emph{XCupeInputFileElement}. Detailné popísanie, ako knižnica funguje vrátane využitia jednotlivých elementov je ďalej popísané v~sekcií 3.4.
+Element \emph{<canvas>} sa stará o~zobrazenie obrázka, a~na prácu s~ním sme vytvorili pomocnú triedu \emph{XCupeCanvasElement}, pomocou ktorej vieme rýchlo zmeniť rozmery. Keď užívateľ klikne na~\emph{<x-cupe>}, element deleguje klik na~\emph{<input type="file"\textgreater}, čo spôsobí, že sa otvorí modálne okno a~užívateľ si môže zvoliť obrázok. Pre~zjednodušenie práce s~ním sme vytvorili triedu \emph{XCupeInputFileElement}. Do~\emph{<input type="text"\textgreater} sa vloží textová reprezentácia obrázka, čo umožňuje jeho odoslanie cez~POST. Opäť, aj pre~tento element sme vytvorili pomocnú triedu \emph{XCupeInputFileElement}. Detailné popísanie, ako knižnica funguje vrátane využitia jednotlivých elementov je ďalej popísané v~sekcií 3.4.
 
 \subsection{Inštalácia}
 
 Použitie \emph{Custom Elementu} nám umožnuje skutočne jednoduchý spôsob inštalácie, kde sa najskôr načítajú zdrojové súbory knižnice:
-\begin{enumerate}
+\begin{lstlisting}
 <link rel="import" href="dist/x-cupe.html">
-\end{enumerate}
+\end{lstlisting}
 
 Následne stačí už len na~príslušnom mieste v~kóde vytvoriť element:
-\begin{enumerate}
+\begin{lstlisting}
 <x-cupe></x-cupe>
-\end{enumerate}
+\end{lstlisting}
 
 V prípade nahrávania viacerých obrázkov:
-\begin{enumerate}
+\begin{lstlisting}
 <x-cupe-gallery></x-cupe-gallery>
-\end{enumerate}
+\end{lstlisting}
 
-// TODO: schéma prepojenia jednotlivých elementov a~knižníc. Bolo by to vhodné?
+\begin{figure}[!hb]
+	\centering
+	\begin{tikzpicture}[node distance=.8cm, start chain=going below,]
+		\node[punktchain] (file-read) {Prečítanie súboru};
+		
+			\begin{scope}[start branch=clicking,
+			every join/.style={->, thick, shorten <=1pt}, ]
+				\node[punktchain, on chain=going above left, join=by {<-}, xshift=2cm]
+					(modal) {Výber obrázka z~modálneho okna};
+					
+				\node[punktchain, on chain=going above, join=by {<-}] (x-cupe-click) {Kliknutie na~\emph{<x-cupe>}};
+			\end{scope}
+			
+			\begin{scope}[start branch=dragging,
+			every join/.style={->, thick, shorten <=1pt}, ]
+				\node[punktchain, on chain=going above right, join=by {<-}, xshift=-2cm]
+					(drag-n-drop) {Nahranie obrázka pomocou drag\&drop};
+			\end{scope}
+		\node[punktchain, join, on chain=going below] (resizing) {Zmenšenie};
+		\node[punktchain, join, on chain=going below] (cropping) {Výpočet orezania};
+		\node[punktchain, join, on chain=going below] (drawing) {Vykreslenie };
+		
+			\begin{scope}[start branch=mousemove,
+			every join/.style={<-, thick, shorten <=1pt}, bend right=15]
+				\node[punktchain, on chain=going above right, join=by {->}, yshift=-0.8cm]
+					(changing-crop) {Úprava orezania posúvaním}
+					edge[punktchain, ->, bend right=15] (cropping);
+			\end{scope}
+		\node[punktchain, join, on chain=going below] (form-a) {Uloženie a~odoslanie};
+	\end{tikzpicture}
+	
+	\caption{Schéma nahrávania obrázka pomocou \emph{<x-cupe>} elementu}
+\end{figure}
 
 \section{Použité technológie, služby a~postupy}
 \subsection{Custom Element a~ShadowDOM}
@@ -89,9 +122,11 @@ Naša knižnica využíva TypeScript pretože umožňuje rýchlejšie odhaľova�
 
 Počas tvorby sme používali Git a~výsledok našej práce sme uverejnili v~službe GitHub - webovej službe na~správu Git repozitárov. // TODO: pokračovať; prečo sme to spravili?
 
+
 \section{Postup nahrávania a~nastavenia}
 
-V tejto sekcií sa budeme samotnnému procesu nahratia obrázku, od~jeho zvolenia, úpravy po~odoslanie na~server.
+V tejto sekcií sa budeme samotnému procesu nahrávania obrázku, od~jeho zvolenia, úpravy po~odoslanie na~server.
+
 
 \subsection{Inicializácia knižnice}
 \subsection{Zvolenie obrázka}
@@ -150,9 +185,9 @@ Zhodnotili sme existujúce riešenia a~rozhodli sme sa, že rozšírenia budú f
 
 \subsection{Cibuľový efekt}
 
-Pre lepšie vysvetlenie uvádzame vzorku kódu so~vzorového rozšírenia "zoom" (viď. 3.6.4), na~ktorom následne vysvetlíme, "cibuľový efekt\" a~jeho výhody.
+Pre lepšie vysvetlenie uvádzame vzorku kódu so~vzorového rozšírenia "zoom" (viď. 3.6.4), na~ktorom následne vysvetlíme, "cibuľový efekt" a~jeho výhody.
 
-\begin{lstlisting}[language=JavaScript]
+\begin{lstlisting}[label=vytvaranie-cibuloveho-efektu,caption=Vytváranie cibuľového efektu]
 var self = this;
 var originalRnDImg = controller.readAndDrawImage; // (A)
 controller.readAndDrawImage = function() // (B)
@@ -201,6 +236,23 @@ makeCupeZoomable( cupeElement );
 Praktická časť tejto práce, v~zložke \emph{plugins} obsahuje vzorové rozšírenie \emph{zoom}. Toto rozšírenie má za~úlohu umožniť užívateľom zväčšovať a~zmenšovať obrázok pred~odoslaním.
 
 Keď užívateľ obrázok vloží, vyráta sa pomer medzi~zobrazovacou plochou a~skutočnou veľkosťou obrázka a~vyráta sa maximálne oddialenie. Za~najnižšie oddialenie (alebo maximálne priblíženie) je určená hodnota, kde jeden pixel nahrávaného obrázka zodpovedá jednému zobrazenému pixelu. Následné točenie stredným stlačídlom myši mení pomer, akým sa pôvodný obrázok zmenší predtým, než sa vykreslí.
+
+\begin{figure}[!hb]
+	\centering
+	\begin{tikzpicture}
+
+		\draw (0,0) rectangle (-5,-3) node[pos=.5] {\emph{<x-cupe>} element};
+		\draw (4,0) rectangle (-5,-5) node[pos=.85, xshift=3.2cm] {Nahraný obrázok};
+
+		\draw[tuborg, decoration={brace}] let \p1=(0.1,-0.1), \p2=(0.1,-2.9) in ($(\x1, \y1)$) -- ($(\x2, \y2)$) node[tubnode] {300px};
+		\draw[tuborg, decoration={brace}] let \p1=(-0.1,-3.1), \p2=(-4.9,-3.1) in ($(\x1, \y1)$) -- ($(\x2, \y2)$) node[tubnode, below] {500px};
+
+		\draw[tuborg, decoration={brace}] let \p1=(4.1, 0.1), \p2=(4.1, -4.9) in ($(\x1, \y1)$) -- ($(\x2, \y2)$) node[tubnode] {500px};
+		\draw[tuborg, decoration={brace}] let \p1=(3.9,-5.1), \p2=(-4.9,-5.1) in ($(\x1, \y1)$) -- ($(\x2, \y2)$) node[tubnode, below] {900px};
+
+	\end{tikzpicture}
+	\caption{Nákres možného scenára nahrávaného obrázka}
+\end{figure}
 
 \section{Spracovanie obrázka na~PHP serveri}
 \section{Dokumentácia}

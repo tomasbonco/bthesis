@@ -60,11 +60,78 @@
 \usepackage{moreverb} % Encoding
 \usepackage{listings} % Code
 \usepackage{color}    % Highlight
+\usepackage{tikz}
+\usepackage[section]{placeins}
+\usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,%
+    decorations.pathreplacing,decorations.pathmorphing,shapes,%
+    matrix,shapes.symbols}
 
 
 \usepackage{amsmath}
 \usepackage{tabularx}
 \usepackage{booktabs}
+
+% Styles
+\tikzset{
+>=stealth',
+  punktchain/.style={
+    rectangle, 
+    rounded corners, 
+    % fill=black!10,
+    draw=black, very thick,
+    text width=10em, 
+    minimum height=3em, 
+    text centered, 
+    on chain},
+  line/.style={draw, thick, <-},
+  element/.style={
+    tape,
+    top color=white,
+    bottom color=blue!50!black!60!,
+    minimum width=8em,
+    draw=blue!40!black!90, very thick,
+    text width=10em, 
+    minimum height=3.5em, 
+    text centered, 
+    on chain},
+  every join/.style={->, thick,shorten >=1pt},
+  decoration={brace},
+  tuborg/.style={decorate},
+  tubnode/.style={midway, right=2pt},
+}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywordstyle=\bfseries,
+  ndkeywordstyle=\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\ttfamily,
+  stringstyle=\ttfamily,
+  sensitive=true
+}
+
+\lstset{ 
+  extendedchars=true,
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  xleftmargin=\parindent,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape,
+  frame=tb,
+  xleftmargin=\fboxsep,
+  xrightmargin=-\fboxsep,
+  captionpos=b,
+ showtabs=false,
+}
+
+
 
 % Document
 \begin{document}

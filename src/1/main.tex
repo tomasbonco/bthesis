@@ -6,19 +6,31 @@ Aby sa dali veci robiť lepšie a~efektívnejšie, je najprv potrebné preskúma
 \section{HTML tág <input\textgreater}
 
 Historicky prvým spôsobom je nepárový tág \emph{<input type="file"\textgreater}. Objavil sa už v~roku 1997, keď konzorcium W3C vydalo štandard \emph{HTML 3.2} \cite{html32}. Umožňuje nahrávanie súborov a~teda aj obrázkov ako súčasť zaslaného formulára, a~teda sa vždy musí vyskytovať uprostred tágu <form\textgreater. Scénar nahrávania prebieha nasledovne:
+
+\begin{figure}[!hbt]
+	\centering
+	\begin{tikzpicture}[node distance=.8cm, start chain=going right,]
+		\node[punktchain, join] (input) {\emph{<input>} element};
+		\node[punktchain, join] (modal) {Zvolenie obrázka z~modálneho okna};
+		\node[punktchain, join, on chain=going below] (form-sending) {Odoslanie formulára};
+		\node[punktchain, join, on chain=going left] (server-processing) {Spracovanie na~serveri};
+	\end{tikzpicture}
+	
+	\caption{Schéma nahrávania obrázka pomocou \emph{<input>} elementu}
+\end{figure}
+
 \begin{enumerate}
-	\item Užívateľ myšou klikne na~tlačidlo "Zvoliť súbor"
+	\item Užívateľ myšou klikne na~\emph{<input>} element
 	\item Vyskočí modálne okno, z~ktorého užívateľ vyberie obrázok
 	\item Užívateľ odošle formulár, obrázok je odoslaný na~server, kde je spracovaný
 \end{enumerate}
 
 Výhody tohto riešenia sú predovšetkým:
 \begin{itemize}
-	\item Natívna podpora v~prehliadači - nie sú potrebné žiadne ďalšie JavaScriptové súbory
-	\item Jednoduché použitie
+	\item Natívna podpora v~prehliadačoch - nie sú potrebné žiadne ďalšie JavaScriptové súbory
+	\item Jednoduché na~implementáciu
+	\item Podpora \emph{drag&drop}
 \end{itemize}
-
-// TODO: schéma
 
 
 \section{FormData a~XMLHttpRequest}
@@ -27,7 +39,7 @@ Výhody tohto riešenia sú predovšetkým:
 
 Vďaka \emph{FormData} je možné odstrániť limitáciu, kde \emph{<input type="file"\textgreater} musí byť vložený do~formulára (<form\textgreater). Použitím \emph{XMLHttpRequest} eventu \emph{onprogress} je možné sledovať proces nahrávania \cite{MDN_XMLHttpRequest_progress}. Scénar nahrávania môže vyzerať nasledovne:
 \begin{enumerate}
-	\item Užívateľ myšou klikne na~tlačidlo "Zvoliť súbor"
+	\item Užívateľ myšou klikne na~\emph{<input>} element
 	\item Vyskočí modálne okno, z~ktorého užívateľ vyberie obrázok
 	\item Obrázok sa odošle na~server, zatiaľ čo sleduje proces nahrávania. Keď je obrázok plne nahratý a~spracovaný, odošle sa jeho odkaz naspäť užívateľovi do~prehliadača.
 	\item Užívateľovi sa zobrazí nahraný obrázok, pokiaľ s~ním nie je spokojný, postupuje od~bodu 1, ak je spokojný odošle formulár. V~tomto prípade nedochádza ku~žiadnej manipulácií s~obrázkom.
@@ -37,11 +49,24 @@ Výhody tohto riešenia sú predovšetkým:
 \begin{itemize}
 	\item Nie je potrebné umiestnenie vo formulári
 	\item Je možné zaslať obrázok na~pozadí, čo umožňuje využitie v~moderných webových aplikáciach, kde je refresh nežiadúci
-	\item Počas nahrávania je možné zobraziť progres
-	\item Po~nahratí obrázka na~server, je možné obrázok užívateľovi zobraziť. A~teda ho vidí pred~potvrdením formulára.
+	\item Počas nahrávania je možné zobraziť proces v~percentách
+	\item Po~nahratí obrázka na~server, je možné obrázok užívateľovi zobraziť. A~teda ho vidí pred~potvrdením formulára
+	\item Podpora \emph{drag&drop}
 \end{itemize}
 
-// TODO: schéma
+\begin{figure}[!ht]
+	\centering
+	\begin{tikzpicture}[node distance=.8cm, start chain=going below,]
+		\node[punktchain, join] (input) {\emph{<input>} tág};
+		\node[punktchain, join] (modal) {Modálne okno};
+		\node[punktchain, join] (file-choose) {Zvolenie obrázka};
+		\node[punktchain, join] (file-choose) {Odoslanie obrázka na~server};
+		\node[punktchain, join, dashed, on chain=going right] (server-processing) {Spracovanie na~serveri};
+		\node[punktchain, join, on chain=going below left] (server-processing) {Zobrazenie obrázka};
+	\end{tikzpicture}
+	
+	\caption{Schéma nahrávania obrázka pomocou \emph{<input>} elementu v~kombinácií s~\emph{FormData} a~{XMLHttpRequest}}
+\end{figure}
 
 
 \section{Flash a~Silverlight}
