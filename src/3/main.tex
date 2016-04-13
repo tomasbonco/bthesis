@@ -91,19 +91,67 @@ V prípade nahrávania viacerých obrázkov:
 \end{figure}
 
 \section{Použité technológie, služby a~postupy}
-\subsection{Custom Element a~ShadowDOM}
+\subsection{Webové komponenty}
+
+Webové komponenty (v originále Web Components) pozostávajú zo~štyroch oddelených technológií - \emph{Custom Elements}, \emph{HTML Templates}, \emph{Shadow DOM} a~\emph{HTML Imports}. Využívajú sa na~vytvorenie znovu použiteľných komponent užívateľského rozhrania. Keďže sú \footnote{Ako vysvetľuje ďalší odstavec, podpora v~čase písania tejto práce nebola úplná.} súčasťou prehliadačov, nepotrebujú externé knižnice ako \emph{jQuery} alebo \emph{Dojo}. Existujúce webové komponenty je možné používať jednoduchým importovaním v~HTML, teda bez~písania dodatočného (JavaScriptového) kódu. \cite{ MDN_WebComponents }
+
+V dobe písania tejto práce boli webové komponenty podporované plne len v~\emph{Chrome} a~v pokročilom stave vývoja v~prehliadači \emph{Firefox}\footnote{Funkciu je možné zapnúť v~\emph{about:config}\label{aboutconfig}}. Podrobnejší popis podpory uvádzame v~tabuľkách \ref{webcomponents-support-desktop} a~\ref{webcomponents-support-mobile}\footnote{V tabuľke neuvádzame prehliadač \emph{Opera}, pretože využíva rovnaké vykresľovacie jadro ako \emph{Chrome} \cite{Opera_History}}. Vzhľadom k~tomuto stavu v~práci používame náhradu (tzv. "polyfill") \emph{webcomponents.js} \cite{Webcomponents_polyfill}. Tá poskytuje podporu pre~webové komponenty aj do~všetkých aktuálnych dnes používaných prehliadačov, ktoré ju ešte nemajú zabudované. Výnimku tvorí \emph{Internet Explorer 10}, ktorý nepodporuje \emph{Custom Elements} a~\emph{HTML Imports}. \cite{Webcomponents_polyfill}
+
+
+\begin{table}[]
+\centering
+\begin{tabular}{@{}|l|l|l|l|l|l|l|l|l|@{}}
+\toprule
+                & IE 11  & Edge & Chrome & Safari & Firefox 								   \\ \midrule
+Templates       & Nie    & 13+  & 26+    & 7.1+   & 22+     								   \\ \midrule
+HTML Imports    & Nie    & Nie  & 47+    & Nie    & Nie\textsuperscript{\ref{aboutconfig}}    \\ \midrule
+Custom Elements & Nie    & Nie  & 47+    & Nie    & Nie\textsuperscript{\ref{aboutconfig}}    \\ \midrule
+Shadow DOM      & Nie    & Nie  & 47+    & Nie    & Nie\textsuperscript{\ref{aboutconfig}}    \\ \bottomrule
+\end{tabular}
+\caption{Podpora webových komponent v~prehliadačoch pre~počítače \cite{MDN_Template_Element} \cite{CIU}}
+\label{webcomponents-support-desktop}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{@{}|l|l|l|l|l|l|l|l|l|@{}}
+\toprule
+                & Android Browser & iOS Safari & Opera Mini \\ \midrule
+Templates       & 4.4+            & 8.4+       & Nie        \\ \midrule
+HTML Imports    & 47+             & Nie        & Nie        \\ \midrule
+Custom Elements & 4.4.4+          & Nie        & Nie        \\ \midrule
+Shadow DOM      & 4.4+            & Nie        & Nie        \\ \bottomrule
+\end{tabular}
+\caption{Podpora webových komponent v~mobilných prehliadačoch \cite{MDN_Template_Element} \cite{CIU}}
+\label{webcomponents-support-mobile}
+\end{table}
+
+
+\emph{Custom Elements} umožňujú vytváranie vlastných HTML elementov. Tie môžu mať svoje vlastné CSS štýly a~správanie. Kľúčovou súčasťou sú udalosti životného cyklu, ktoré umožňujú definovať správanie v~prípade, že bol element vytvorený, vložený do~\emph{DOM}\footnote{Document Object Model}, odstránený z~\emph{DOM} alebo sa zmenili atribúty. \cite{ MDN_WebComponents }
+
+\emph{HTML Templates} je v~podstate označenie pre~element \emph{<template>}, mechanizmus, ktorý umožňuje uložiť obsah v~prehliadači bez~toho, aby ho vykresľoval \cite{MDN_Template_Element}. Pomocou JavaScriptu je však jeho obsah možné čítať a~ďalej s~ním pracovať. 
+
+\emph{Shadow DOM} poskytuje zapuzdrenie \emph{HTML}, \emph{CSS} a~\emph{JavaScript}u do~webovej komponenty. A~robí to tak, že tieto nebudú súčasťou \emph{DOM} alebo hlavného dokumentu. Hlavná výhoda spočíva predovšetkým v~štýlovaní, kde použitie \emph{Shadow DOM} zaručuje, že \emph{CSS} iných časti stránky neovplyvňujú vzhľad komponentny, a~komponenta nemôže ovplyvniť vzhľad iných častí stránky. \cite{MDN_Shadow_DOM}
+
+
+
+
 \subsection{Canvas}
+\label{sec:canvas-element}
 
 Canvas je nový tág \emph{HTML5}, ktorý umožňuje pomocou JavaScriptu vykresľovať grafy, úpravovať fotografií, animovať a~dokonca aj spracovať videa. Využíva ho aj \emph{WebGL} na~hardvérovo akcelerovanú 3D grafiku na~webe\cite{MDN_Canvas}.
 
 V našej práci ho využívame na~zobrazovanie obrázka. Samotná knižnica už obsahuje potrebné nástroje na~vkladanie a~zmenšovanie obrázka, čo nám uľahčuje prácu a~zároveň nám \emph{<canvas>} umožňuje prístup k~jednotlivým pixelom, čo odcenia najm tvorcovia pokročilých rozšírení (napr. detekovať nevyužívanú plochu obrázka alebo prevod do~čierno-bielej verzie). Keď užívateľ presúva obrázok, kvôli orezaniu, prekresľujeme daný výrez do~\emph{<canvas>} pomocou \emph{requestAnimationFrame}\cite{MDN_RequestAnimationFrame}, pre~maximálnu plynulosť.
 
 \subsection{Drag&Drop}
+\label{sec:drag-n-drop}
+
 \subsection{File Reader}
+\label{sec:file-reader}
 
-File Reader umožňuje čítať obsah súborov vo webovom prostredí. Tie môžu byť načítané buď pomocou tágu \emph{<input>} alebo pomocou \emph{Drag&Drop} (viď. 3.3.3)\cite{MDN_FileReader}\footnote{Citovaný MDN udáva ešte aj HTMLCanvasElement.mozGetAsFile(), ktorý je neštandardizovaný a~v dobe písanie tejto práce podporovaný iba prehliadačom Firefox}.
+File Reader umožňuje čítať obsah súborov vo webovom prostredí. Tie môžu byť načítané buď pomocou tágu \emph{<input>} alebo pomocou \emph{Drag&Drop} (pozri \ref{sec:drag-n-drop)\cite{MDN_FileReader}\footnote{Citovaný MDN udáva ešte aj HTMLCanvasElement.mozGetAsFile(), ktorý je neštandardizovaný a~v dobe písanie tejto práce podporovaný iba prehliadačom Firefox}.
 
-Použili sme ho práve pre~prečítanie zvolených súborov, ktoré sme následne zobrazili v~\emph{<canvas>} (viď 3.3.2).
+Použili sme ho práve pre~prečítanie zvolených súborov, ktoré sme následne zobrazili v~\emph{<canvas>} (pozri \ref{sec:canvas-element}.
 
 \subsection{Promise}
 
@@ -118,20 +166,24 @@ TypeScript je typová nadstavba JavaScriptu, ktorá sa prekladá do~JavaScriptu.
 Naša knižnica využíva TypeScript pretože umožňuje rýchlejšie odhaľovať chyby, vedie k~písaniu rozhraní, čo môže značne pomôcť tvorcom rozšírení a~tiež kvôli podpore \emph{ECMAScript 2015}. Navyše jeho vlastnosť, že sa prekladá do~JavaScriptu nijak neobmedzuje tvorcov rozšírení alebo jeho celkové použitie.
 
 \subsection{Mocha}
+
+Mocha je JavaScriptový framework používaný na~jednotkové testy. Známy je predovšetkým pre~jednoduuchý zápis testov a~prehľadnú dokumentáciu. Zvolili sme ho, pretože autori tejto práce s~ním majú predchádzajúcfe skúsenosti.
+
+
 \subsection{GitHub}
 
-Počas tvorby sme používali Git a~výsledok našej práce sme uverejnili v~službe GitHub - webovej službe na~správu Git repozitárov. // TODO: pokračovať; prečo sme to spravili?
+Počas tvorby sme používali Git a~výsledok našej práce sme uverejnili v~službe GitHub - webovej službe na~správu Git repozitárov. Git je (v čase písania tejto práce) bezplatný nástroj na~spravovanie verzií. Na~rozdiel od~Apache Subversion (SVN) je distribuovaný. GitHub je server pre~Git, ktorý však pridáva vlastné funkcie. Pokým Git je nástroj ovládaný príkazovým riadkom, GitHub poskytuje webové rozhranie. Ďalej poskytuje nástroje pre~lepšiu spoluprácu, ako wiki stránky a~jednoduchú správu úloh, umožňuje nastaviť prístupové práva a~tiež možnosť kopírovať repozitáre medzi~užívateľmi \cite{Git_TechCrunch}. 
 
 
 \section{Postup nahrávania a~nastavenia}
 
-V tejto sekcií sa budeme samotnému procesu nahrávania obrázku, od~jeho zvolenia, úpravy po~odoslanie na~server.
+V tejto sekcií sa budeme venovať samotnému procesu nahrávania obrázku, od~jeho zvolenia, úpravy po~odoslanie na~server.
 
 
 \subsection{Inicializácia knižnice}
 \subsection{Zvolenie obrázka}
 
-Užívateľ môže obrázok zvoliť dvoma spôsobmi - výberom z~modálneho okna alebo pomocou \emph{Drag&Drop}. V~prípade nahrávania obrázka cez~modálne okno, užívateľ musí kliknúť na~\emph{<x-cupe>} element, do~ktorého chce obrázok nahrať. Interne sa tento klik prevedie na~\emph{<input type="file"\textgreater} a~to spôsobí otvorenie modálneho okna. Po~tom, čo si užívateľ zvolí obrázok, je tento súbor pomocou \emph{File Reader} (viď. 3.3.4) prečítaný a~pripravený na~ďalšie spracovanie. V~prípade, že chceme tento spôsob nahrávania zakázať, stačí nastaviť atribút \emph{allow-select} na~hodnotu \emph{false}.
+Užívateľ môže obrázok zvoliť dvoma spôsobmi - výberom z~modálneho okna alebo pomocou \emph{Drag&Drop}. V~prípade nahrávania obrázka cez~modálne okno, užívateľ musí kliknúť na~\emph{<x-cupe>} element, do~ktorého chce obrázok nahrať. Interne sa tento klik prevedie na~\emph{<input type="file"\textgreater} a~to spôsobí otvorenie modálneho okna. Po~tom, čo si užívateľ zvolí obrázok, je tento súbor pomocou \emph{File Reader} (pozri \ref{sec:file-reader}) prečítaný a~pripravený na~ďalšie spracovanie. V~prípade, že chceme tento spôsob nahrávania zakázať, stačí nastaviť atribút \emph{allow-select} na~hodnotu \emph{false}.
 
 V prípade použitia Drag&Drop a~teda označenie obrázka, jeho presunutie ponad cieľový element a~následne pustenie myši/oddialenie prsta od~dotykovej plochy, je postup podobný. Element (<x-cupe>) vie pomocou zachytenia udalosti \emph{drop} zachytiť presúvaný obrázok a~dalej ho rovnako ako pri~modálnom okne pomocou \emph{File Reader} prečítať. Ak chceme tento spôsob zakázať, je potrebné nastaviť atribút \emph{allow-drop} na~hodnotu \emph{false}.
 
@@ -156,17 +208,21 @@ Po zvolení obrázka spravidla prebieha jeho zmenšenie a~orezanie. Pre~túto č
 \end{itemize}
 
 
-Obrázok sa orezáva posúvaním obrázka (viď 3.4.4) a~základným nastavením je orezanie na~stred. To sa dá zmeniť atribútom \emph{align}, pričom valídne hodnoty pozostávajú z~kombinácie slov \emph{left}, \emph{right}, \emph{top}, \emph{bottom} a~\emph{center}, napríklad: \emph{<x-cupe align="left bottom"\textgreater}. Pri~zadaní iba jednej osi pre~zarovnanie sa automaticky predpokladá, že druhá sa má zarovnať na~stred. Orezanie sa dá úplne vypnúť a~to nastavením atribútu \emph{crop} na~hodnotu \emph{false}. Vnútorne knižnica pracuje tak, že sa textové hodnoty prerátajú na~odsadenie obrázku zľava a~zhora, ale obrázok sa nijako nemodifikuje. To nastáva až pri~vykreslení.
+Obrázok sa orezáva posúvaním obrázka (pozri \ref{sec:posuvanie-obrazka}) a~základným nastavením je orezanie na~stred. To sa dá zmeniť atribútom \emph{align}, pričom valídne hodnoty pozostávajú z~kombinácie slov \emph{left}, \emph{right}, \emph{top}, \emph{bottom} a~\emph{center}, napríklad: \emph{<x-cupe align="left bottom"\textgreater}. Pri~zadaní iba jednej osi pre~zarovnanie sa automaticky predpokladá, že druhá sa má zarovnať na~stred. Orezanie sa dá úplne vypnúť a~to nastavením atribútu \emph{crop} na~hodnotu \emph{false}. Vnútorne knižnica pracuje tak, že sa textové hodnoty prerátajú na~odsadenie obrázku zľava a~zhora, ale obrázok sa nijako nemodifikuje. To nastáva až pri~vykreslení.
 
 Takisto sme si všimli, že ak zmenšíme veľmi veľký obrázok, jeho kvalita je nízka. Oproti pôvodnému obrázku je zdanlivo ostrejší a~to je spôsobené nevyhovujúcim spôsobom prekresľovania obrázka, tzv. \emph{downsampling}-om. Problém je, že prehliadač musí z~plochy napríklad 4x4 pixely vytvoriť iba jeden pixel a~aby to spravil najrychlejšie, jeden z~nich vyberie, pričom sa neberie do~úvahy kontext. Preto sme aplikovali jednoduchý algoritmus, ktorý obrázok zmenší postupne. Počet prekreslení je možné nastaviť atribútom \emph{quality} a~jeho predvolená hodnota je 3. Čím vyššia táto hodnota je, tým dlhšie trvá proces od~zvolenia obrázka po~jeho vykreslenie. Keď je táto hodnota príliš nízka (napríklad 1), tak je slabšia kvalita. Zmenšený obrázok sa uloží, aby pri~jeho ďalšej manipulácií ho nebolo potrebné opäť zmenšovať.
 
 \subsection{Posúvanie obrázka}
+\label{sec:posuvanie-obrazka}
 
 Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnoťou výberu obrázka a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčasná pozícia myšy a~porovnáva sa s~pozíciou na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}. Posúvanie obrázka sa dá vypnúť nastavím atribútu \emph{allow_move} na~hodnotu \emph{false}
 
-// TODO: Prečo neprebieha ukladanie ak zvyčajne prebieha, ak prebieha?
+Vzhľadom k~tomu, že ukladanie (pozri \ref{sec:odoslanie-obrazka}) je časovo náročná operácia, počas posúvanie k~nemu nedochádza. Keď ale užívateľ posúvanie ukončí, obrázok je uložený.
 
 \subsection{Odoslanie obrázka}
+\label{sec:odoslanie-obrazka}
+
+Pre odoslanie obrázka stačí elementu (\emph{<x-cupe>} alebo \emph{<x-cupe-gallery>}) nastaviť atribút \emph{name}. 
 
 \section{Nahrávanie viacerých obrázkov}
 
@@ -178,6 +234,7 @@ Nahrávanie viacerých obrázkov je možné pomocou párového tágu \emph{<x-cu
 Nakoľko naša knižnica používa na~spracovanie a~zobrazovanie obrazu tág \emph{<canvas>}, využíva a~aj poskytuje možnosť pracovať s~obrazom na~úrovni jednotlivých pixelov. To umožňuje vytváranie pokročilých rozšírení, ktoré napríklad dokážu zmeniť farebné otiene, využívať detekciu hrán, rozpoznávanie tvárí a~podobne.
 
 \subsection{Systém rozšírení}
+\label{sec:system-rozsireni}
 
 Predstavme si dve rozšírenia - "zoom" (rozšírenie umožňujúce zväčšovať a~zmenšovať obraz) a~"black\&white" (rozšírenie, ktoré prevedie obraz do~čierno-bielej škály). Chceli sme, aby tvorca stránky vedel stanoviť, ktoré \emph{<x-cupe>} elementy budú používať "black\&white", a~ktoré nie. Tiež sme chceli, aby vedel nastaviť rozšírenie "zoom" pre~všetky \emph{<x-cupe>} elementy. \textbf{Naším cieľom teda bolo, aby rozšírenie bolo možné aplikovať aj pre~jednotlivé \emph(<x-cupe>) elementy, ale aj univerzálne - pre~všetky \emph(<x-cupe>) elementy}. Naším ďalším cieľom bolo, aby \textbf{rozšírenia bolo možné kombinovať}, a~teda aby tvorca stránky vedel nastaviť obe rozšírenia - "zoom" aj "black\&white" na~rovnaký \emph{<x-cupe>} element. Naším posledným cieľom bolo, aby boli rozšírenia nezávislé moduly - samostatné súbory, ktoré o~sebe nevedia (resp. nemusia vedieť).
 
@@ -185,7 +242,7 @@ Zhodnotili sme existujúce riešenia a~rozhodli sme sa, že rozšírenia budú f
 
 \subsection{Cibuľový efekt}
 
-Pre lepšie vysvetlenie uvádzame vzorku kódu so~vzorového rozšírenia "zoom" (viď. 3.6.4), na~ktorom následne vysvetlíme, "cibuľový efekt" a~jeho výhody.
+Pre lepšie vysvetlenie uvádzame vzorku kódu so~vzorového rozšírenia "zoom" (pozri \ref{sec:vzorove-rozsirenie}, na~ktorom následne vysvetlíme, "cibuľový efekt" a~jeho výhody.
 
 \begin{lstlisting}[label=vytvaranie-cibuloveho-efektu,caption=Vytváranie cibuľového efektu]
 var self = this;
@@ -207,7 +264,7 @@ controller.readAndDrawImage = function() // (B)
 	\item [(D)] vykoná doplňujúci kód.
 \end{description}
 
-Je potrebné si uvedomiť, že metóda \emph{readAndDrawImage} ostáva zmenená a~keď k~nej bude pristupovať ďalšie rozšírenie (napr. "black\&white" popísaný v~3.6.1), opäť pridá ďalšiu vrstvu. Následne keď bude metódu volať \emph{XCupeController}, zavolá modifikáciu z~"black\&white", ktorá zavolá modifikáciu z~rozšírenia "zoom", ktoré zavolá pôvodnú metódu.
+Je potrebné si uvedomiť, že metóda \emph{readAndDrawImage} ostáva zmenená a~keď k~nej bude pristupovať ďalšie rozšírenie (napr. "black\&white" popísaný v~\ref{sec:system-rozsireni}), opäť pridá ďalšiu vrstvu. Následne keď bude metódu volať \emph{XCupeController}, zavolá modifikáciu z~"black\&white", ktorá zavolá modifikáciu z~rozšírenia "zoom", ktoré zavolá pôvodnú metódu.
 
 
 Tým sme dosiahli, že:
@@ -220,7 +277,7 @@ Tým sme dosiahli, že:
 
 \subsection{Aplikovanie rozšírenia}
 
-Rozšírenie je funkcia, pričom odporúčame, aby vždy dávala možnosť aplikovať rozšírenie zvlášť na~jednotlivé prvky ale tiež aj na~všetky prvky. Vo vzorovom rozšírení "zoom" (viď. 3.6.4) sme to dosiahli prvým parametrom, ktorý ak je prázdny tak sa aplikuje rozšírenie na~triedu XCupeController. V~prípade, že prázdny nie je, predpokladáme, že obsahuje odkaz na~už vytvorený element a~teda rozšírenie aplikujeme na~ňom. Pre~plné porozumenie uvádzame príklad:
+Rozšírenie je funkcia, pričom odporúčame, aby vždy dávala možnosť aplikovať rozšírenie zvlášť na~jednotlivé prvky ale tiež aj na~všetky prvky. Vo vzorovom rozšírení "zoom" (pozri \ref{sec:vzorove-rozsirenie}) sme to dosiahli prvým parametrom, ktorý ak je prázdny tak sa aplikuje rozšírenie na~triedu XCupeController. V~prípade, že prázdny nie je, predpokladáme, že obsahuje odkaz na~už vytvorený element a~teda rozšírenie aplikujeme na~ňom. Pre~plné porozumenie uvádzame príklad:
 
 \begin{lstlisting}[language=JavaScript]
 // Aplikuje zoom pre~všetky XCupe elementy
@@ -231,7 +288,9 @@ var cupeElement = new HTMLXCupeElement();
 makeCupeZoomable( cupeElement );
 \end{lstlisting}
 
+
 \subsection{Vzorové rozšírenie}
+\label{sec:vzorove-rozsirenie}
 
 Praktická časť tejto práce, v~zložke \emph{plugins} obsahuje vzorové rozšírenie \emph{zoom}. Toto rozšírenie má za~úlohu umožniť užívateľom zväčšovať a~zmenšovať obrázok pred~odoslaním.
 
