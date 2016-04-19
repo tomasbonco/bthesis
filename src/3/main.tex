@@ -17,6 +17,7 @@ Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~cieľ maximalizov
 
 \section{Riešenie}
 \subsection{Predstavenie}
+\label{sec:predstavenie-riesenia}
 Najskôr sme plánovali využiť \emph{jQuery}, ale kvôli splneniu prvého cieľa (byť nezávislí od~knižníc/frameworkov tretích strán) sme sa rozhodli využiť \emph{Custom Element}. Vytvorili sme jeden, ktorý slúži na~úpravu obrázka \emph{<x-cupe>} a~jeden na~podporu multiuploadu - \emph{<x-cupe-gallery>}. Oba vychádzajú z~rovnakého HTML, pričom \emph{<x-cupe-gallery>} interne využíva \emph{<x-cupe>}, preto sa ďalej v~tejto kapitole zameráme na~element \emph{<x-cupe>}. Nahrávanie viacerých obrázkov je bližšie popísané v~kapitole 3.5.
 
 
@@ -95,7 +96,7 @@ V prípade nahrávania viacerých obrázkov:
 
 Webové komponenty (v originále Web Components) pozostávajú zo~štyroch oddelených technológií - \emph{Custom Elements}, \emph{HTML Templates}, \emph{Shadow DOM} a~\emph{HTML Imports}. Využívajú sa na~vytvorenie znovu použiteľných komponent užívateľského rozhrania. Keďže sú \footnote{Ako vysvetľuje ďalší odstavec, podpora v~čase písania tejto práce nebola úplná.} súčasťou prehliadačov, nepotrebujú externé knižnice ako \emph{jQuery} alebo \emph{Dojo}. Existujúce webové komponenty je možné používať jednoduchým importovaním v~HTML, teda bez~písania dodatočného (JavaScriptového) kódu. \cite{ MDN_WebComponents }
 
-V dobe písania tejto práce boli webové komponenty podporované plne len v~\emph{Chrome} a~v pokročilom stave vývoja v~prehliadači \emph{Firefox}\footnote{Funkciu je možné zapnúť v~\emph{about:config}\label{aboutconfig}}. Podrobnejší popis podpory uvádzame v~tabuľkách \ref{webcomponents-support-desktop} a~\ref{webcomponents-support-mobile}\footnote{V tabuľke neuvádzame prehliadač \emph{Opera}, pretože využíva rovnaké vykresľovacie jadro ako \emph{Chrome} \cite{Opera_History}}. Vzhľadom k~tomuto stavu v~práci používame náhradu (tzv. "polyfill") \emph{webcomponents.js} \cite{Webcomponents_polyfill}. Tá poskytuje podporu pre~webové komponenty aj do~všetkých aktuálnych dnes používaných prehliadačov, ktoré ju ešte nemajú zabudované. Výnimku tvorí \emph{Internet Explorer 10}, ktorý nepodporuje \emph{Custom Elements} a~\emph{HTML Imports}. \cite{Webcomponents_polyfill}
+V dobe písania tejto práce boli webové komponenty podporované plne len v~\emph{Chrome} a~v pokročilom stave vývoja v~prehliadači \emph{Firefox}\footnote{Funkciu je možné zapnúť v~\emph{about:config}\label{aboutconfig}}. Podrobnejší popis podpory uvádzame v~tabuľkách \ref{tab:webcomponents-support-desktop} a~\ref{tab:webcomponents-support-mobile}\footnote{V tabuľke neuvádzame prehliadač \emph{Opera}, pretože využíva rovnaké vykresľovacie jadro ako \emph{Chrome} \cite{Opera_History}}. Vzhľadom k~tomuto stavu v~práci používame náhradu (tzv. "polyfill") \emph{webcomponents.js} \cite{Webcomponents_polyfill}. Tá poskytuje podporu pre~webové komponenty aj do~všetkých aktuálnych dnes používaných prehliadačov, ktoré ju ešte nemajú zabudované. Výnimku tvorí \emph{Internet Explorer 10}, ktorý nepodporuje \emph{Custom Elements} a~\emph{HTML Imports}. \cite{Webcomponents_polyfill}
 
 
 \begin{table}[]
@@ -109,7 +110,7 @@ Custom Elements & Nie    & Nie  & 47+    & Nie    & Nie\textsuperscript{\ref{abo
 Shadow DOM      & Nie    & Nie  & 47+    & Nie    & Nie\textsuperscript{\ref{aboutconfig}}    \\ \bottomrule
 \end{tabular}
 \caption{Podpora webových komponent v~prehliadačoch pre~počítače \cite{MDN_Template_Element} \cite{CIU}}
-\label{webcomponents-support-desktop}
+\label{tab:webcomponents-support-desktop}
 \end{table}
 
 \begin{table}[]
@@ -123,7 +124,7 @@ Custom Elements & 4.4.4+          & Nie        & Nie        \\ \midrule
 Shadow DOM      & 4.4+            & Nie        & Nie        \\ \bottomrule
 \end{tabular}
 \caption{Podpora webových komponent v~mobilných prehliadačoch \cite{MDN_Template_Element} \cite{CIU}}
-\label{webcomponents-support-mobile}
+\label{tab:webcomponents-support-mobile}
 \end{table}
 
 
@@ -132,8 +133,6 @@ Shadow DOM      & 4.4+            & Nie        & Nie        \\ \bottomrule
 \emph{HTML Templates} je v~podstate označenie pre~element \emph{<template>}, mechanizmus, ktorý umožňuje uložiť obsah v~prehliadači bez~toho, aby ho vykresľoval \cite{MDN_Template_Element}. Pomocou JavaScriptu je však jeho obsah možné čítať a~ďalej s~ním pracovať. 
 
 \emph{Shadow DOM} poskytuje zapuzdrenie \emph{HTML}, \emph{CSS} a~\emph{JavaScript}u do~webovej komponenty. A~robí to tak, že tieto nebudú súčasťou \emph{DOM} alebo hlavného dokumentu. Hlavná výhoda spočíva predovšetkým v~štýlovaní, kde použitie \emph{Shadow DOM} zaručuje, že \emph{CSS} iných časti stránky neovplyvňujú vzhľad komponentny, a~komponenta nemôže ovplyvniť vzhľad iných častí stránky. \cite{MDN_Shadow_DOM}
-
-
 
 
 \subsection{Canvas}
@@ -222,7 +221,15 @@ Vzhľadom k~tomu, že ukladanie (pozri \ref{sec:odoslanie-obrazka}) je časovo n
 \subsection{Odoslanie obrázka}
 \label{sec:odoslanie-obrazka}
 
-Pre odoslanie obrázka stačí elementu (\emph{<x-cupe>} alebo \emph{<x-cupe-gallery>}) nastaviť atribút \emph{name}. 
+Pre odoslanie obrázka stačí vložiť element (\emph{<x-cupe>} alebo \emph{<x-cupe-gallery>}) do~elementu \emph{<form>} a~nastaviť mu atribút \emph{name}. Po~odoslaní formulára sa obrázky prenášajú vo formáte PNG ako Base64 reťazce. Interne každý \emph{<x-cupe>} element obsahuje \emph{<input type="text"\textgreater} (ďalej označovaný "input"), ako je spomenuté v~sekcií \ref{predstavenie-riesenia}. Tomu sa nastaví \emph{name} a~jeho hodnota je odoslaná na~server (po odoslaní formulára). Keďže nevieme, kedy užívateľ odošle formulár, obrázok sa do~inputu pribežne ukladá - po~načítaní obrázka a~potom, ako skonči jeho posúvanie (pozri \ref{sec:posuvanie-obrazka}).
+
+Samotné ukladanie je časovo náročná operácia, ktorá môže byť pri~použití \emph{XMLHttpRequest} úplne zbytočná. Preto je možné túto funkciu vypnúť jednoduchým neuvedením atribútu \emph{name} a~využívať metódu \emph{getContent()} elementu \emph{<x-cupe>}. Vďaka nej je možné získať prístup priamo k~vlastnosti \emph{context} elementu \emph{<canvas>}, alebo uložiť obrázok vo formátoch \emph{PNG}, \emph{JPG} a~\emph{WEBP}\footnote{Nemusí byť podporovaný v~každom prehliadači}. V~prípade formátov \emph{JPG} a~\emph{WEBP} je tiež možné nastaviť kvalitu v~rozsahu od~0 (0%) po~1 (100%), predvolená hodnota je 0.92. Obrázky sú ukladané (a odosielané) v~96 dpi \cite{Canvas_toURL}. Funkcia vracia obrázok ako Base64 reťazec. Použitie znázorňuje ukážka \ref{pouzitie-getContent-metody}.
+
+\begin{lstlisting}[label=pouzitie-getContent-metody,caption=Použitie metódy getContent() pre~získanie obrázka]
+var xcupe = document.querySelector('<x-cupe>');
+var content = xcupe.getContent( 1, 'image/jpg', 0.85 );
+\end{lstlisting}
+
 
 \section{Nahrávanie viacerých obrázkov}
 
@@ -294,7 +301,7 @@ makeCupeZoomable( cupeElement );
 
 Praktická časť tejto práce, v~zložke \emph{plugins} obsahuje vzorové rozšírenie \emph{zoom}. Toto rozšírenie má za~úlohu umožniť užívateľom zväčšovať a~zmenšovať obrázok pred~odoslaním.
 
-Keď užívateľ obrázok vloží, vyráta sa pomer medzi~zobrazovacou plochou a~skutočnou veľkosťou obrázka a~vyráta sa maximálne oddialenie. Za~najnižšie oddialenie (alebo maximálne priblíženie) je určená hodnota, kde jeden pixel nahrávaného obrázka zodpovedá jednému zobrazenému pixelu. Následné točenie stredným stlačídlom myši mení pomer, akým sa pôvodný obrázok zmenší predtým, než sa vykreslí.
+Keď užívateľ obrázok vloží, vyráta sa pomer medzi~zobrazovacou plochou a~skutočnou veľkosťou obrázka a~vyráta sa maximálne oddialenie. Za~najnižšie oddialenie (alebo maximálne priblíženie) je určená hodnota, kde jeden pixel nahrávaného obrázka zodpovedá jednému zobrazenému pixelu. Následné točenie stredným stlačidlom myši mení pomer, akým sa pôvodný obrázok zmenší predtým, než sa vykreslí.
 
 \begin{figure}[!hb]
 	\centering
@@ -311,7 +318,20 @@ Keď užívateľ obrázok vloží, vyráta sa pomer medzi~zobrazovacou plochou a
 
 	\end{tikzpicture}
 	\caption{Nákres možného scenára nahrávaného obrázka}
+	\label{fig:zoom-scenar}
 \end{figure}
+
+Pre lepšie porozumenie opíšeme postup pre~vzorový scénar popísaný obrázkom \ref{fig:zoom-scenar}. 
+
+\begin{itemize}
+	\item[Inicializácia.] Na~začiatku sa určí minimálne priblíženie (vtedy vidíme najväčšiu časť obrázka) na~hodnotu 1, maximálne priblíženie na~hodnotu 1, aktuálne priblíženie na~hodnotu 1 a~krok na~0,1.
+
+	\item[Nahranie obrázka.] Po~nahraní obrázka sa vyráta pomer šírky (900/500 = 1,8) a~výšky (500/300 = 1,6) medzi~nahrávaným obrázkom a~rozmermi \emph{<x-cupe>} a~menší z~týchto pomerov sa uloží ako maximálny zoom.
+
+	\item[Vykreslenie obrázka.] Element \emph{<x-cupe>} sa štandardne snaží zmenšiť obrázok tak, aby bolo vidno, čo najviac jeho obsahu pri~zachovaní pomerov strán. To znamená, že v~tomto prípade nastaví výšku na~300px, a~šírku na~540px, pričom vykreslí 500px a~umožní užívateľovi posúvať obrázok po~šírke o~40px. V~rozšírení \emph{zoom} sa na~konci tohto výpočtu prenásobia oba rozmery hodnotou aktuálneho priblíženia, čím sa pomerne zväčšia. V~prípade priblíženia s~hodnotou 1,4 budú teda rozmery 420px a~700px.
+
+	\item[Zväčšovanie obrázka.] Pri~točení stredným tlačidlom myši sa určí smer - +1 pre~točenie smerom hore a~-1 pre~točenie smerom dole a~vynásobia sa krokom. Získame tak hodnotu buď 0,1 alebo -0.1 a~túto hodnotu prirátame k~aktuálnemu zoomu.
+\end{itemize}
 
 \section{Spracovanie obrázka na~PHP serveri}
 \section{Dokumentácia}
