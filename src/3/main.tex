@@ -1,5 +1,8 @@
 \chapter{Vytvorenie knižnice na~nahrávanie obrázkov}
+\label{sec:solution}
+
 \section{Ciele}
+\label{sec:goals}
 
 Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~cieľ maximalizovať pohodlie užívateľa, minimalizovať zaťaženie pre~tvorcov stránky a~mala byť prístupná pre~čo najširšie publikum. Preto sme stanovili, že knižnica by mala:
 
@@ -214,14 +217,14 @@ Takisto sme si všimli, že ak zmenšíme veľmi veľký obrázok, jeho kvalita 
 \subsection{Posúvanie obrázka}
 \label{sec:posuvanie-obrazka}
 
-Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnoťou výberu obrázka a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčasná pozícia myšy a~porovnáva sa s~pozíciou na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}. Posúvanie obrázka sa dá vypnúť nastavím atribútu \emph{allow_move} na~hodnotu \emph{false}
+Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnoťou výberu obrázka a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčasná pozícia myšy a~porovnáva sa s~pozíciou na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}. Posúvanie obrázka sa dá vypnúť nastavím atribútu \emph{allow\_move} na~hodnotu \emph{false}
 
 Vzhľadom k~tomu, že ukladanie (pozri \ref{sec:odoslanie-obrazka}) je časovo náročná operácia, počas posúvanie k~nemu nedochádza. Keď ale užívateľ posúvanie ukončí, obrázok je uložený.
 
 \subsection{Odoslanie obrázka}
 \label{sec:odoslanie-obrazka}
 
-Pre odoslanie obrázka stačí vložiť element (\emph{<x-cupe>} alebo \emph{<x-cupe-gallery>}) do~elementu \emph{<form>} a~nastaviť mu atribút \emph{name}. Po~odoslaní formulára sa obrázky prenášajú vo formáte PNG ako Base64 reťazce. Interne každý \emph{<x-cupe>} element obsahuje \emph{<input type="text"\textgreater} (ďalej označovaný "input"), ako je spomenuté v~sekcií \ref{predstavenie-riesenia}. Tomu sa nastaví \emph{name} a~jeho hodnota je odoslaná na~server (po odoslaní formulára). Keďže nevieme, kedy užívateľ odošle formulár, obrázok sa do~inputu pribežne ukladá - po~načítaní obrázka a~potom, ako skonči jeho posúvanie (pozri \ref{sec:posuvanie-obrazka}).
+Pre odoslanie obrázka stačí vložiť element (\emph{<x-cupe>}) do~elementu \emph{<form>} a~nastaviť mu atribút \emph{name}. Po~odoslaní formulára sa obrázky prenášajú vo formáte PNG ako Base64 reťazce. Interne každý \emph{<x-cupe>} element obsahuje \emph{<input type="text"\textgreater} (ďalej označovaný "input"), ako je spomenuté v~sekcií \ref{predstavenie-riesenia}. Tomu sa nastaví \emph{name} a~jeho hodnota je odoslaná na~server (po odoslaní formulára). Keďže nevieme, kedy užívateľ odošle formulár, obrázok sa do~inputu pribežne ukladá - po~načítaní obrázka a~potom, ako skonči jeho posúvanie (pozri \ref{sec:posuvanie-obrazka}).
 
 Samotné ukladanie je časovo náročná operácia, ktorá môže byť pri~použití \emph{XMLHttpRequest} úplne zbytočná. Preto je možné túto funkciu vypnúť jednoduchým neuvedením atribútu \emph{name} a~využívať metódu \emph{getContent()} elementu \emph{<x-cupe>}. Vďaka nej je možné získať prístup priamo k~vlastnosti \emph{context} elementu \emph{<canvas>}, alebo uložiť obrázok vo formátoch \emph{PNG}, \emph{JPG} a~\emph{WEBP}\footnote{Nemusí byť podporovaný v~každom prehliadači}. V~prípade formátov \emph{JPG} a~\emph{WEBP} je tiež možné nastaviť kvalitu v~rozsahu od~0 (0%) po~1 (100%), predvolená hodnota je 0.92. Obrázky sú ukladané (a odosielané) v~96 dpi \cite{Canvas_toURL}. Funkcia vracia obrázok ako Base64 reťazec. Použitie znázorňuje ukážka \ref{pouzitie-getContent-metody}.
 
@@ -229,6 +232,15 @@ Samotné ukladanie je časovo náročná operácia, ktorá môže byť pri~použ
 var xcupe = document.querySelector('<x-cupe>');
 var content = xcupe.getContent( 1, 'image/jpg', 0.85 );
 \end{lstlisting}
+
+V prípade elementu \emph{<x-cupe-gallery>} sa pridáva na~začiatok ďalší parameter, ktorý špecifikuje tvar, v~akom má vrátiť výsledok a~to buď ako pole ("array") alebo ako mapu ("map"). V~prípade poľa vracia obrázky z~\emph{<x-cupe>} zaradom. V~prípade mapy, vracia mapu, kde je elementu priradený obsah.
+
+Nahrávanie viacerých obrázkov cez~formulár zatiaľ nie je možné. Keďže \emph{Shadow DOM} vytvára HTML štruktúru, ktorá ale nie je súčasťou DOM, formulár (element \emph{<form>}) nemá prístup k~elementom \emph{<input>} v~Shadow DOM a~teda nie je možné obrázky poslať. Tento problém sa dá vyriešiť dvoma spôsobami:
+
+\begin{itemize}
+	\item \emph{Custom Element} využíva \emph{Shadow DOM} na~internú reprezentáciu, ale tiež môže reflektovať aj obsah, ktorý je vložený dovnútra elementu v~DOM na~konkrétne miesto v~\emph{Shadow DOM}. Problémom však je, že sa tvorcovia prehiadačov nevedia dohodnúť na~tom, ako by to malo fungovať \cite{WebComponents_state}. Kým v~pôvodnej špecifikácií sa objavuje nový element \emph{<content>}, \emph{MDN}\footnote{Mozilla Developer Network - najväčšia a~najlepšia dokumentácia k~webovým technológiám} ho už neodporúča používať \cite{MDN_Content_Element}. Miesto toho navrhuje používať element \emph{<slot>}, lenže jeho presná špecifikácia a~podpora nie je známa. Ani náhrada (tzv. "polyfill") \emph{webcomponents.js}, ktorú používame, aby sme dosiahli maximálnu možnú kompatibilitu s~používanými prehliadačmi ho zatiaľ nepodporuje.
+	\item Vložiť element \emph{<input>} do~\emph{CustomElement}u, ale nie do~\emph{Shadow DOM}. Je to jednoduchý trik. Keďže takýto element je súčasťou DOM, ale nie je súčasťou \emph{ShadowDOM} prehiadač nevie ako ho má vykresliť, a~preto ho ani nevykreslí. Avšak pri~odosielaní formulára jeho obsah odosiela. Tento trik využívame v~elemente \emph{<x-cupe>}, avšak nemôžeme ho využiť v~\emph{<x-cupe-gallery>}, pretože ak by sme nevkladali elementy \emph{<x-cupe>} v~\emph{<x-cupe-gallery>} do~\emph{ShadowDOM} neboli by viditeľné a~to je nechcený jav.
+\end{itemize}
 
 
 \section{Nahrávanie viacerých obrázkov}
@@ -333,5 +345,19 @@ Pre lepšie porozumenie opíšeme postup pre~vzorový scénar popísaný obrázk
 	\item[Zväčšovanie obrázka.] Pri~točení stredným tlačidlom myši sa určí smer - +1 pre~točenie smerom hore a~-1 pre~točenie smerom dole a~vynásobia sa krokom. Získame tak hodnotu buď 0,1 alebo -0.1 a~túto hodnotu prirátame k~aktuálnemu zoomu.
 \end{itemize}
 
+
 \section{Spracovanie obrázka na~PHP serveri}
+
+Spracovanie obrázka na~PHP serveri je veľmi jednoduché. Nakoľko sa na~PHP server posiela textový reťazec, obsahujúci hlavičku a~samotný obrázok zakódovaný do~\emph{Base64} reťazca a~zároveň jazyk PHP už obsahuje funkciu \emph{imagecreatefromstring()}, ktorá dokáže vytvoriť obrázok z~\emph{Base64} reťazca, vzorovbé uloženie prebieha v~3 krokoch:
+
+\begin{enumerate}
+	\item Oddelenie hlavičky od~obsahu obrázka (jeho \emph{Base64} reprezentácie) cez~\emph{explode()}.
+	\item Vytvorenie obrázka z~Base64 reťazca pomocou \emph{imagecreatefromstring}.
+	\item Uloženie obrázka funkciou \emph{imagepng()}. Naše vzorové spracovanie v~tomto kroku tiež generuje pre~obrázok nový názov.
+\end{enumerate}
+
+Vzorové riešenie predpokladá s~odoslaním formulára (elementu \emph{<form>}), kde sa obrázky odosielajú vždy vo formáte PNG. V~prípade posielania a~ukladania obrázkov v~iných formátov je riešenie obdobné.
+
+Nakoľko obrázok je už zmenšený a~orezaný jeho ďalšie spracovanie nie je potrebné.
+
 \section{Dokumentácia}
