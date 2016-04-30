@@ -6,5 +6,20 @@ Keďže si uvedomujeme, že použitie elementu \emph{<canvas>} na~zobrazenie obr
 
 Po predstavedstavení a~rozbore nášho riešenia v~kapitole \ref{sec:solution}, sme ho v~ďalšej kapitole otestovali a~porovnali s~vybranými inými riešeniami, ktoré sú založené na~podobných princípoch. Na~konci tejto kapitoly ešte uvádzame odporúčané použitie a~uvažujeme, akým spôsobom by sa mohlo naše riešenie ďalej posúvať. 
 
-\section{Odporúčané použitie}
+
+\section{Prínosy a~odporúčané použitie}
+
+Knižnica umožňuje okamžite zobraziť obrázok bez~potreby serveru. Všetky zmeny sa dejú v~prehliadači a~teda skúsenosť používateľa nie je zaťažená načítavaním. Odporúčame ju používať na~projekty, kde je známe finálne rozlíšenie zobrazovaného obrázka (napr. blogy, internetové obchody, firemné stránky, profilové obrázky) a~nie je potrebné si uchovávať pôvodný veľký obrázok. Hoc je možné použiť knižnicu aj v~takýhto prípadoch, strácajú sa ďalšie prínosy knižnice. A~to skutočnosť, že sa odosiela zmenšená a~orezaná verzia, ktorá tak menej zaťažuje sieť a~v prípade spoplatnených mobilných dát šetrí peniaze používateľa. Tiež sa stráca výhoda, pri~ktorej nie je potrebné implementovať zmenšovanie a~orezávanie obrázka na~serveri. V~prípade odosielania obrázka ako \emph{Base64} reťazca (štandardný spôsob) je dokonca množstvo prenášaných dát asi o~30\% väčšie.
+
+
 \section{Nápady na~vylepšenie}
+
+Vzhľadom k~limitáciam, na~ktoré sme počas vývoja narazili dúfame, že našu prácu bude možné v~budúcnosti vylepšiť v~nasledujúcich oblastiach:
+
+\begin{description}
+	
+	\item[Zrkadlenie časti obsahu Custom Elementu do~DOM] Ako sme v~kapitole \ref{sec:odoslanie-obrazka} nezhoda medzi~tvorcami prehliadačov spôsobuje, že v~dobe písania sa už neodporúča na~zrkadlenie využiť element \emph{<content>} ale ešte sa neodporúča používať element \emph{<slot>}. Po~štandardizovaní štandardu a~následnom zapracovaní do~knižnice by to umožnilo odosielanie viacerých obrázkov vo formulári (elemente \emph{form})-
+	
+	\item[Odosielanie obrázkov ako \emph{Blob}] Vzhľadom k~tomu, že ukladanie obrázka ako \emph{Base64} reťazec, zväčšuje jeho veľkosť o~30\%, ideálne by bolo ukladať ho a~prenášať ho ako \emph{Blob}. To je v~dobe písania tejto práce podporované len v~prehliadači Mozilla Firefox, IE 11 a~Google Chrome ohlásil podporu v~budúcej verzií (50) \cite{Canvas_toBlob}.
+	
+\end{description}
