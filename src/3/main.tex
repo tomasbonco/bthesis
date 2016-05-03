@@ -4,44 +4,46 @@
 \section{Ciele}
 \label{sec:goals}
 
-Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~cieľ maximalizovať pohodlie užívateľa, minimalizovať zaťaženie pre~tvorcov stránky a~mala byť prístupná pre~čo najširšie publikum. Preto sme stanovili, že knižnica by mala:
+Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~úlohu maximalizovať pohodlie užívateľa, minimalizovať zaťaženie pre~tvorcov stránky a~mala by byť prístupná pre~čo najširšie publikum. Preto sme stanovili, že knižnica by mala:
 
 \begin{itemize}
 	\item byť nezávislá od~knižníc/frameworkov tretích strán, napr. \emph{jQuery},
-	\item podporovať nahrávanie či už zvolením obrázka cez~modálne okno alebo aj technológiou \emph{Drag&Drop}, 
-	\item byť jednuduchá na~implementovanie
-	\item byť dobre rozšíriteľná o~nové funkcie
-	\item podporovať nahrávanie bez~refreshu
-	\item podporovať mobilné zariadenia
-	\item podporovať nahrávanie viacerých obrázkov
-	\item byť dobre zdokumentovaná
+	\item podporovať nahrávanie, či už zvolením obrázka cez~modálne okno alebo aj technológiou \emph{Drag\&Drop}, 
+	\item byť jednuduchá na~implementovanie,
+	\item byť dobre rozšíriteľná o~nové funkcie,
+	\item podporovať nahrávanie bez~obnovenia stránky,
+	\item podporovať mobilné zariadenia,
+	\item podporovať nahrávanie viacerých obrázkov,
+	\item byť dobre zdokumentovaná.
 \end{itemize}
 
 
 \section{Riešenie}
 \subsection{Predstavenie}
 \label{sec:predstavenie-riesenia}
-Najskôr sme plánovali využiť \emph{jQuery}, ale kvôli splneniu prvého cieľa (byť nezávislí od~knižníc/frameworkov tretích strán) sme sa rozhodli využiť \emph{Custom Element}. Vytvorili sme jeden, ktorý slúži na~úpravu obrázka \emph{<x-cupe>} a~jeden na~podporu multiuploadu - \emph{<x-cupe-gallery>}. Oba vychádzajú z~rovnakého HTML, pričom \emph{<x-cupe-gallery>} interne využíva \emph{<x-cupe>}, preto sa ďalej v~tejto kapitole zameráme na~element \emph{<x-cupe>}. Nahrávanie viacerých obrázkov je bližšie popísané v~kapitole 3.5.
+Najskôr sme plánovali využiť \emph{jQuery}, ale kvôli splneniu prvého cieľa (byť nezávislí od~knižníc/frameworkov tretích strán) sme sa rozhodli využiť \emph{Custom Element}. Vytvorili sme jeden, ktorý slúži na~úpravu obrázka \emph{<x-cupe>} a~jeden na~podporu nahrávania viacerých obrázkov - \emph{<x-cupe-gallery>}. Oba vychádzajú z~rovnakého HTML, pričom \emph{<x-cupe-gallery>} interne využíva \emph{<x-cupe>}, preto sa ďalej v~tejto kapitole zameráme na~element \emph{<x-cupe>}. Nahrávanie viacerých obrázkov je bližšie popísané v~kapitole 3.5.
 
 
 Scénar nahrávania môže vyzerať takto:
 \begin{enumerate}
-	\item Užívateľ buď pomocou Drag&Drop nahraje obrázok alebo klikne na~element a~následne si z~modálneho okna zvolí obrázok
-	\item Obrázok sa zmenší, oreže a~zobrazí
-	\item Pokiaľ užívateľ nie je spokojný s~obrázokom, pokračuje prvým bodom
-	\item Pokiaľ užívateľ nie je spokojný s~orezaním, držaním myšy posúva obrázok, dokým nie je spokojný
-	\item Keď je užívateľ spokojný s~obrázkom aj jeho orezaním odošle formulár, a~až vtedy sa zmenšaná a~orezaná verzia nahraje na~server
+	\item Užívateľ buď pomocou \emph{Drag\&Drop} nahraje obrázok, alebo klikne na~element a~následne si z~modálneho okna zvolí obrázok.
+	\item Obrázok sa zmenší, oreže a~zobrazí.
+	\item Pokiaľ užívateľ nie je spokojný s~obrázokom, pokračuje prvým bodom.
+	\item Pokiaľ užívateľ nie je spokojný s~orezaním, držaním stlačeného ľavého tlačidla myši posúva obrázok, dokým nie je spokojný.
+	\item Keď je užívateľ spokojný s~obrázkom aj jeho orezaním, odošle formulár. Až vtedy sa zmenšená a~orezaná verzia nahraje na~server.
 \end{enumerate}
 
-Hoc sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia a~teda všetky úkony je možné vykonať dotykom. Interne oba elementy využívajú nasledujúce HTML:
+Hoc sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia, a~teda všetky úkony je možné vykonať dotykom. Interne oba elementy využívajú nasledujúce HTML:
 
-\begin{lstlisting}[language=HTML]
+\begin{lstlisting}[language=HTML,caption=Interná štruktúra elementov \emph{<x-cupe>} a~\emph{<x-cupe-gallery>}.]
 <canvas></canvas>
 <input type="file" style="display: none">
 <input type="text" style="display: none">
 \end{lstlisting}
 
-Element \emph{<canvas>} sa stará o~zobrazenie obrázka, a~na prácu s~ním sme vytvorili pomocnú triedu \emph{XCupeCanvasElement}, pomocou ktorej vieme rýchlo zmeniť rozmery. Keď užívateľ klikne na~\emph{<x-cupe>}, element deleguje klik na~\emph{<input type="file"\textgreater}, čo spôsobí, že sa otvorí modálne okno a~užívateľ si môže zvoliť obrázok. Pre~zjednodušenie práce s~ním sme vytvorili triedu \emph{XCupeInputFileElement}. Do~\emph{<input type="text"\textgreater} sa vloží textová reprezentácia obrázka, čo umožňuje jeho odoslanie cez~POST. Opäť, aj pre~tento element sme vytvorili pomocnú triedu \emph{XCupeInputFileElement}. Detailné popísanie, ako knižnica funguje vrátane využitia jednotlivých elementov je ďalej popísané v~sekcií 3.4.
+% TODO: Fix Listening
+
+Element \emph{<canvas>} sa stará o~zobrazenie obrázka. Na~prácu s~ním sme vytvorili pomocnú triedu \emph{XCupeCanvasElement}, pomocou ktorej vieme rýchlo zmeniť rozmery. Keď užívateľ klikne na~\emph{<x-cupe>}, element deleguje klik na~\emph{<input type="file"\textgreater}, čo spôsobí, že sa otvorí modálne okno a~užívateľ si môže zvoliť obrázok. Pre~zjednodušenie práce s~ním sme vytvorili triedu \emph{XCupeInputFileElement}. Do~\emph{<input type="text"\textgreater} sa vloží textová reprezentácia obrázka, čo umožňuje jeho odoslanie cez~POST. Opäť, aj pre~tento element sme vytvorili pomocnú triedu \emph{XCupeInputFileElement}. Detailné fungovanie knižnice je popísané v~sekcii \ref{sec:upload-and-settings}.
 
 \subsection{Inštalácia}
 
@@ -76,7 +78,7 @@ V prípade nahrávania viacerých obrázkov:
 			\begin{scope}[start branch=dragging,
 			every join/.style={->, thick, shorten <=1pt}, ]
 				\node[punktchain, on chain=going above right, join=by {<-}, xshift=-2cm]
-					(drag-n-drop) {Nahranie obrázka pomocou drag\&drop};
+					(drag-n-drop) {Nahranie obrázka pomocou \emph{Drag\&Drop}};
 			\end{scope}
 		\node[punktchain, join, on chain=going below] (resizing) {Zmenšenie};
 		\node[punktchain, join, on chain=going below] (cropping) {Výpočet orezania};
@@ -91,7 +93,7 @@ V prípade nahrávania viacerých obrázkov:
 		\node[punktchain, join, on chain=going below] (form-a) {Uloženie a~odoslanie};
 	\end{tikzpicture}
 	
-	\caption{Schéma nahrávania obrázka pomocou \emph{<x-cupe>} elementu}
+	\caption{Schéma nahrávania obrázka pomocou \emph{<x-cupe>} elementu.}
 \end{figure}
 
 \section{Použité technológie, služby a~postupy}
@@ -178,6 +180,7 @@ Počas tvorby sme používali Git a~výsledok našej práce sme uverejnili v~slu
 
 
 \section{Postup nahrávania a~nastavenia}
+\label{sec:upload-and-settings}
 
 V tejto sekcií sa budeme venovať samotnému procesu nahrávania obrázku, od~jeho zvolenia, úpravy po~odoslanie na~server.
 
@@ -228,7 +231,7 @@ Pre odoslanie obrázka stačí vložiť element (\emph{<x-cupe>}) do~elementu \e
 
 Samotné ukladanie je časovo náročná operácia, ktorá môže byť pri~použití \emph{XMLHttpRequest} úplne zbytočná. Preto je možné túto funkciu vypnúť jednoduchým neuvedením atribútu \emph{name} a~využívať metódu \emph{getContent()} elementu \emph{<x-cupe>}. Vďaka nej je možné získať prístup priamo k~vlastnosti \emph{context} elementu \emph{<canvas>}, alebo uložiť obrázok vo formátoch \emph{PNG}, \emph{JPG} a~\emph{WEBP}\footnote{Nemusí byť podporovaný v~každom prehliadači}. V~prípade formátov \emph{JPG} a~\emph{WEBP} je tiež možné nastaviť kvalitu v~rozsahu od~0 (0\%) po~1 (100\%), predvolená hodnota je 0.92. Obrázky sú ukladané (a odosielané) v~96 dpi \cite{Canvas_toURL}. Funkcia vracia obrázok ako Base64 reťazec. Použitie znázorňuje ukážka \ref{pouzitie-getContent-metody}.
 
-\begin{lstlisting}[label=pouzitie-getContent-metody,caption=Použitie metódy getContent() pre~získanie obrázka]
+\begin{lstlisting}[label=pouzitie-getContent-metody,caption=Použitie metódy getContent() pre~získanie obrázka.]
 var xcupe = document.querySelector('<x-cupe>');
 var content = xcupe.getContent( 1, 'image/jpg', 0.85 );
 \end{lstlisting}
