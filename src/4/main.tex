@@ -10,35 +10,35 @@ Testy sme vykonávali s~dvoma obrázkami - s~obrázkom ABSTRACT ($3000\times2000
 \begin{description}
 	
 	\item[http://scottcheng.github.io/cropit/ (A)] (30.4.2016)\\
-	je jQuery rozšírením, umožňuje nahrávať obrázky pomocou drag&drop aj vybraním obrázka cez~modálne okno. Podporuje približovanie (len pomocou posuvnika) a~tiež rotovanie obrázka. Na~vykresľovanie obrázku nepoužíva \emph{<canvas>} ale \emph{<img>}, s~tým, že keď je potrebné obrázok uložiť prekreslí vybraný výsek obrázka do~elementu \emph{canvas} z~ktorého výsledok vyexportuje. Aj napriek tomu, že na~stránke projektu sa uvádza, že je veľmi rýchle aj pri~veľkých obrázkoch, v~naších meraniach trvalo nahranie obrázka PANORAMA 26 sekúnd a~následné posúvanie nebolo možné, nakoľko sa obrázok prekresľoval niekoľko sekúnd.
+	je jQuery rozšírením, umožňuje nahrávať obrázky pomocou \emph{Drag\&Drop} aj vybraním obrázka cez~modálne okno. Podporuje približovanie (len pomocou posuvnika), a~tiež rotovanie obrázka. Na~vykresľovanie obrázka nepoužíva \emph{<canvas>}, ale \emph{<img>}, s~tým, že keď je potrebné obrázok uložiť, prekreslí vybraný výsek obrázka do~elementu \emph{canvas}, z~ktorého výsledok vyexportuje. Aj napriek tomu, že na~stránke projektu sa uvádza, že je veľmi rýchle aj pri~veľkých obrázkoch, v~našich meraniach trvalo nahranie obrázka PANORAMA 26 sekúnd, a~následné posúvanie nebolo možné, nakoľko sa obrázok prekresľoval niekoľko sekúnd.
 	
 	%25.99
 	
 	\item[http://foliotek.github.io/Croppie/ (B)] (30.4.2016)\\
-	je ďalšie jQuery rozšírenie, ktoré úpravu obrázkov. Podporuje približovanie aj stredným tlačidlom myši. Samotná knižnica nepodporuje nahrávanie obrázkov. Umožňuje úpravu obrázkov už nahraných a~to takým splôsobom, že ich vykreslí to elementu \emph{<img>}, ktorým umožňuje posúvať a~pri uložení prekreslí výrez obrázka do~canvasu, ktorý vyexportuje. Vzorové použitie však ukazuje aj prípad, kedy sa knižnica dokáže spracovať nahrané dáta. V~tom prípade celý obrázok vykreslí do~elementu \emph{<canvas>}. Následne s~ním pracuje rovnako ako s~v prvom prípade s~elementom \emph{<img>}. Nahrávanie obrázku PANORAMA trvalo primerne 13 sekúnd (od odoslanie po~zobrazenie obrázka) ale na~jeho plynulé posúvanie bolo potrebné čakať ešte zhruba minútu a~pol. Myslíme si, že je to spôsobené tým, že vytvorený element \emph{<canvas>} mal rovnaké rozlíšenie ako originálny obrázok, čo značne predĺžovalo dobu vykreslenia v~prehliadači. Vzorové použitie považujeme za~jednoduché.
+	je ďalšie jQuery rozšírenie, ktoré slúži na~úpravu obrázkov. Podporuje približovanie aj stredným tlačidlom myši. Samotná knižnica nepodporuje nahrávanie obrázkov. Umožňuje úpravu obrázkov už nahraných, a~to takým spôsobom, že ich vykreslí do~elementu \emph{<img>}, ktorým umožňuje posúvať a~pri uložení prekreslí výrez obrázka do~canvasu, ktorý vyexportuje. Vzorové použitie však ukazuje aj prípad, kedy knižnica dokáže spracovať nahrané dáta. V~tom prípade celý obrázok vykreslí do~elementu \emph{<canvas>}. Následne s~ním pracuje rovnako ako v~prvom prípade s~elementom \emph{<img>}. Nahrávanie obrázka PANORAMA trvalo priemerne 13 sekúnd (od odoslania po~zobrazenie obrázka), ale na~jeho plynulé posúvanie bolo potrebné čakať ešte zhruba minútu a~pol. Myslíme si, že je to spôsobené tým, že vytvorený element \emph{<canvas>} mal rovnaké rozlíšenie ako originálny obrázok, čo značne predlžovalo dobu vykreslenia v~prehliadači. Vzorové použitie považujeme za~jednoduché.
 	
 	%15.34
 	%2.06.11
 	
 	\item[http://andyvr.github.io/picEdit/ (C)] (30.4.2016)\\
-	umožňuje nahrávanie obrázka cez~modálne okno. Obrázok následne vykreslí ako pozadie elementu \emph{<div>}. Priblížovanie mení parametre\footnote{používajú sa CSS parametre \emph{background-size} a~\emph{background-position}}, akými sa toto pozadie zobrazuje. Následné ukladanie prebieha opäť cez~prekreslenie do~elementu \emph{<canvas>} z~ktorého je výsek vyexportovaný. Nahranie obrázku PANORAMA bolo celkom rýchle, avšak posúvanie nebolo možné a~priblížovanie trvalo dlhú dobu.
+	umožňuje nahrávanie obrázka cez~modálne okno. Obrázok následne vykreslí ako pozadie elementu \emph{<div>}. Približovanie mení parametre\footnote{používajú sa CSS parametre \emph{background-size} a~\emph{background-position}}, akými sa toto pozadie zobrazuje. Následné ukladanie prebieha opäť cez~prekreslenie do~elementu \emph{<canvas>}, z~ktorého je výsek vyexportovaný. Nahranie obrázka PANORAMA bolo celkom rýchle, avšak posúvanie nebolo možné a~približovanie trvalo dlhú dobu.
 	
 	
 	\item[http://codecanyon.stbeets.nl/ (D)](30.4.2016)\\
-	toto platené (11\$) rozšírenie jQuery umožňuje nahrávanie obrázkov aj cez~modálne okno, aj cez~\emph{Drag\&Drop}. Nahraný obrázok vykresľuje v~elemente \emph{<img>}, ktorým umožňuje posúvať a~následne uloženie obrázka spôsobí prekreslenie do~elementu \emph{<canvas>}. Uloženie je potrebné spraviť ručne. Pri~nahratí obrázka ABSTRACT posúvanie mierne sekalo, pri~nahratí obrázku PANORAMA nebolo možné.
+	je platené (11\$) rozšírenie jQuery umožňuje nahrávanie obrázkov aj cez~modálne okno, aj cez~\emph{Drag\&Drop}. Nahraný obrázok vykresľuje v~elemente \emph{<img>}, ktorým umožňuje posúvať, a~následné uloženie obrázka spôsobí prekreslenie do~elementu \emph{<canvas>}. Uloženie je potrebné spraviť ručne. Pri~nahratí obrázka ABSTRACT posúvanie mierne sekalo, pri~nahratí obrázka PANORAMA nebolo možné.
 
 \end{description}
 
 Tieto vybrané knižnice sme porovnali v~nasledujúcich vlastnostiach:
 \begin{enumerate}
-	\item Závislosti na~knižniciach tretích strán
-	\item Podpora odosielania obrázka cez~formulár (element \emph{<form>})
-	\item Nahrávanie viacerých obrázkov
-	\item Podpora nahrávania cez~\emph{Drag&Drop}
-	\item Možnosť stanoviť orezanie (napríklad posúvaním obrázka)
-	\item Podpora priblížovania
-	\item Čas nahratia obrázka ABSTRACT
-	\item Čas nahratia obrázka PANORAMA 
+	\item Závislosti na~knižniciach tretích strán.
+	\item Podpora odosielania obrázka cez~formulár (element \emph{<form>}).
+	\item Nahrávanie viacerých obrázkov.
+	\item Podpora nahrávania cez~\emph{Drag\&Drop}.
+	\item Možnosť stanoviť orezanie (napríklad posúvaním obrázka).
+	\item Podpora približovania.
+	\item Čas nahratia obrázka ABSTRACT\footnote{Test prebiehal na~ultrabooku ASUS Zenbook UX31A (Intel i7-3517U, 4GB RAM, Microsoft Windows 10, Opera 38.) }.
+	\item Čas nahratia obrázka PANORAMA\footnotemark[\value{footnote}].
 \end{enumerate}
 
 \begin{table}[!htb]
@@ -55,8 +55,8 @@ Tieto vybrané knižnice sme porovnali v~nasledujúcich vlastnostiach:
 	7 			   & 0,7s                  & 2,78s                  & 1,89s                  & 1,46s                  & 1,85s                  \\ \midrule
 	8   		   & 3,78s                 & 25,99s                 & min. 15,34s 			 & 6,25s                  & 20,49s                 \\ \bottomrule
 	\end{tabular}
-	\caption{Porovnanie našej knižnice s~inými vybranými riešeniami}
+	\caption{Porovnanie našej knižnice s~inými vybranými riešeniami.}
 	\label{my-label}
 \end{table}
 
-Nepodarilo sa nám nájsť riešenie, ktoré by fungovalo obdobne ako naše (používalo po~celú dobu len element \emph{<canvas>}). Každé z~vybraných riešení však k~problematike nahrávania a~zobrazovania obrázka pristupuje inak. Žiadne z~vybraných riešení nebolo schopné vysporiadať sa so~skutočne veľkým obrázkom, zatiaľ čo naše riešenie ho nie len nahralo v~rekordne krátkom čase, ale zároveň hneď umožňovalo aj jeho plynulú manipuláciu.
+Nepodarilo sa nám nájsť riešenie, ktoré by fungovalo obdobne ako naše (používalo po~celú dobu len element \emph{<canvas>}). Každé z~vybraných riešení k~problematike nahrávania a~zobrazovania obrázka pristupuje inak. Žiadne z~vybraných riešení nebolo schopné vysporiadať sa so~skutočne veľkým obrázkom, zatiaľčo naše riešenie ho nie len nahralo v~rekordne krátkom čase, ale zároveň hneď umožňovalo aj jeho plynulú manipuláciu.
