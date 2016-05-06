@@ -45,7 +45,7 @@ Hoc sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia
 
 Element \emph{<canvas>} sa stará o~zobrazenie obrázka. Na~prácu s~ním sme vytvorili pomocnú triedu \emph{XCupeCanvasElement}, pomocou ktorej vieme rýchlo zmeniť rozmery. Keď užívateľ klikne na~\emph{<x-cupe>}, element deleguje klik na~\emph{<input type="file"\textgreater}, čo spôsobí, že sa otvorí modálne okno a~užívateľ si môže zvoliť obrázok. Pre~zjednodušenie práce s~ním sme vytvorili triedu \emph{XCupeInputFileElement}. Do~\emph{<input type="text"\textgreater} sa vloží textová reprezentácia obrázka, čo umožňuje jeho odoslanie cez~POST. Opäť, aj pre~tento element sme vytvorili pomocnú triedu \emph{XCupeInputFileElement}. Detailné fungovanie knižnice je popísané v~sekcii \ref{sec:upload-and-settings}.
 
-\subsection{Inštalácia}
+\subsection{Použitie}
 
 Použitie \emph{Custom Elementu} nám umožnuje skutočne jednoduchý spôsob inštalácie, kde sa najskôr načítajú zdrojové súbory knižnice:
 \begin{lstlisting}
@@ -101,7 +101,7 @@ V prípade nahrávania viacerých obrázkov:
 
 Webové komponenty (v originále Web Components) pozostávajú zo~štyroch oddelených technológií - \emph{Custom Elements}, \emph{HTML Templates}, \emph{Shadow DOM} a~\emph{HTML Imports}. Využívajú sa na~vytvorenie znovu použiteľných komponentov užívateľského rozhrania. Keďže sú \footnote{Ako vysvetľuje ďalší odstavec, podpora v~čase písania tejto práce nebola úplná.} súčasťou prehliadačov, nepotrebujú externé knižnice ako \emph{jQuery} alebo \emph{Dojo}. Existujúce webové komponenty je možné používať jednoduchým importovaním v~HTML, teda bez~písania dodatočného (JavaScriptového) kódu. \cite{MDN_WebComponents}
 
-V dobe písania tejto práce boli webové komponenty podporované plne len v~\emph{Chrome} a~v pokročilom stave vývoja v~prehliadači \emph{Firefox}\footnote{Funkciu je možné zapnúť v~\emph{about:config}\label{aboutconfig}}. Podrobnejší popis podpory uvádzame v~tabuľkách \ref{tab:webcomponents-support-desktop} a~\ref{tab:webcomponents-support-mobile}\footnote{V tabuľke neuvádzame prehliadač \emph{Opera}, pretože využíva rovnaké vykresľovacie jadro ako \emph{Chrome} \cite{Opera_History}}. Vzhľadom k~tomuto stavu v~práci používame náhradu (tzv. "polyfill") \emph{webcomponents.js} \cite{Webcomponents_polyfill}. Tá poskytuje podporu pre~webové komponenty aj do~všetkých aktuálnych dnes používaných prehliadačov, ktoré ich ešte nemajú zabudované. Výnimku tvorí \emph{Internet Explorer 10}, ktorý nepodporuje \emph{Custom Elements} a~\emph{HTML Imports}. \cite{Webcomponents_polyfill}
+V dobe písania tejto práce boli webové komponenty podporované plne len v~\emph{Chrome} a~v pokročilom stave vývoja v~prehliadači \emph{Firefox}\footnote{Funkciu je možné zapnúť v~\emph{about:config}\label{aboutconfig}}. Podrobnejší popis podpory uvádzame v~tabuľkách \ref{tab:webcomponents-support-desktop} a~\ref{tab:webcomponents-support-mobile}\footnote{V tabuľke neuvádzame prehliadač \emph{Opera}, pretože využíva rovnaké vykresľovacie jadro ako \emph{Chrome} \cite{Opera_History}}. Vzhľadom k~tomuto stavu v~práci používame náhradu (tzv. \quoted{polyfill}) \emph{webcomponents.js} \cite{Webcomponents_polyfill}. Tá poskytuje podporu pre~webové komponenty aj do~všetkých aktuálnych dnes používaných prehliadačov, ktoré ich ešte nemajú zabudované. Výnimku tvorí \emph{Internet Explorer 10}, ktorý nepodporuje \emph{Custom Elements} a~\emph{HTML Imports}. \cite{Webcomponents_polyfill}
 
 
 \begin{table}[]
@@ -150,6 +150,8 @@ V našej práci ho využívame na~zobrazovanie obrázka. Samotná knižnica už 
 \subsection{Drag\&Drop}
 \label{sec:drag-n-drop}
 
+\emph{Drag\&Drop} je novinkou \emph{HTML5}. Umožňuje predovšetkým presúvanie elementov na~stránke, čím rieši problémy, ktoré sa zložito snažili vyriešiť knižnice tretích strán (napr. \emph{jQuery}). Okrem~toho však umožňuje aj presúvanie súborov z~počítača do~okna prehliadača, z~čoho ťaží aj táto práca.
+
 \subsection{File Reader}
 \label{sec:file-reader}
 
@@ -159,7 +161,7 @@ Použili sme ho práve pre~prečítanie zvolených súborov, ktoré sme následn
 
 \subsection{Promise}
 
-\emph{Promise} je objekt určený pre~asynchrónne výpočty a~výpočty naplánované na~neskôr (napríklad cez~\emph{setTimeout} alebo \emph{setInterval}). Nevracia priamo metódu, ale vracia "prísľub", že niekedy v~budúcnosti hodnota bude dostupná \cite{MDN_Promise}. V~silno asynchrónnej aplikácii zabraňuje tzv. "callback hell", kde množstvo callbackov bráni zrozumiteľnosti a~ladeniu kódu.
+\emph{Promise} je objekt určený pre~asynchrónne výpočty a~výpočty naplánované na~neskôr (napríklad cez~\emph{setTimeout} alebo \emph{setInterval}). Nevracia priamo metódu, ale vracia \quoted{prísľub}, že niekedy v~budúcnosti hodnota bude dostupná \cite{MDN_Promise}. V~silno asynchrónnej aplikácii zabraňuje tzv. \quoted{callback hell}, kde množstvo callbackov bráni zrozumiteľnosti a~ladeniu kódu.
 
 \emph{Promise} používame naiesto predávania callbackov, predovšetkým pri~čítaní užívateľovho obrázka.
 
@@ -184,8 +186,6 @@ Počas tvorby sme používali Git a~výsledok našej práce sme uverejnili v~slu
 
 V tejto sekcii sa budeme venovať samotnému procesu nahrávania obrázka, od~jeho zvolenia, úpravy po~odoslanie na~server.
 
-
-\subsection{Inicializácia knižnice}
 \subsection{Zvolenie obrázka}
 
 Užívateľ môže obrázok zvoliť dvoma spôsobmi - výberom z~modálneho okna alebo pomocou \emph{Drag\&Drop}. V~prípade nahrávania obrázka cez~modálne okno, užívateľ musí kliknúť na~\emph{<x-cupe>} element, do~ktorého chce obrázok nahrať. Interne sa tento klik prevedie na~\emph{<input type="file"\textgreater} a~to spôsobí otvorenie modálneho okna. Po~tom, čo si užívateľ zvolí obrázok, je tento súbor pomocou \emph{File Reader} (pozri \ref{sec:file-reader}) prečítaný a~pripravený na~ďalšie spracovanie. V~prípade, že chceme tento spôsob nahrávania zakázať, stačí nastaviť atribút \emph{allow-select} na~hodnotu \emph{false}.
@@ -236,12 +236,12 @@ var xcupe = document.querySelector('<x-cupe>');
 var content = xcupe.getContent( 1, 'image/jpg', 0.85 );
 \end{lstlisting}
 
-V prípade elementu \emph{<x-cupe-gallery>} sa pridáva na~začiatok ďalší parameter, ktorý špecifikuje tvar, v~akom má vrátiť výsledok, a~to buď ako pole ("array") alebo ako mapu ("map"). V~prípade poľa vracia obrázky z~\emph{<x-cupe>} zaradom. V~prípade mapy vracia mapu, kde je elementu priradený obsah.
+V prípade elementu \emph{<x-cupe-gallery>} sa pridáva na~začiatok ďalší parameter, ktorý špecifikuje tvar, v~akom má vrátiť výsledok, a~to buď ako pole (\quoted{array}) alebo ako mapu (\quoted{map}). V~prípade poľa vracia obrázky z~\emph{<x-cupe>} zaradom. V~prípade mapy vracia mapu, kde je elementu priradený obsah.
 
 Nahrávanie viacerých obrázkov cez~formulár zatiaľ nie je možné. Keďže \emph{Shadow DOM} vytvára HTML štruktúru, ktorá ale nie je súčasťou DOM, formulár (element \emph{<form>}) nemá prístup k~elementom \emph{<input>} v~Shadow DOM, a~teda nie je možné obrázky poslať. Tento problém sa dá vyriešiť dvoma spôsobmi:
 
 \begin{itemize}
-	\item \emph{Custom Element} využíva \emph{Shadow DOM} na~internú reprezentáciu, ale tiež môže reflektovať aj obsah, ktorý je vložený dovnútra elementu v~DOM na~konkrétne miesto v~\emph{Shadow DOM}. Problémom však je, že sa tvorcovia prehliadačov nevedia dohodnúť na~tom, ako by to malo fungovať \cite{WebComponents_state}. Kým v~pôvodnej špecifikácii sa objavuje nový element \emph{<content>}, \emph{MDN}\footnote{Mozilla Developer Network - najväčšia a~najlepšia dokumentácia k~webovým technológiám.} ho už neodporúča používať \cite{MDN_Content_Element}. Miesto toho navrhuje používať element \emph{<slot>}, lenže jeho presná špecifikácia a~podpora nie je známa. Ani náhrada (tzv. "polyfill") \emph{webcomponents.js}, ktorú používame, aby sme dosiahli maximálnu možnú kompatibilitu s~používanými prehliadačmi ho zatiaľ nepodporuje.
+	\item \emph{Custom Element} využíva \emph{Shadow DOM} na~internú reprezentáciu, ale tiež môže reflektovať aj obsah, ktorý je vložený dovnútra elementu v~DOM na~konkrétne miesto v~\emph{Shadow DOM}. Problémom však je, že sa tvorcovia prehliadačov nevedia dohodnúť na~tom, ako by to malo fungovať \cite{WebComponents_state}. Kým v~pôvodnej špecifikácii sa objavuje nový element \emph{<content>}, \emph{MDN}\footnote{Mozilla Developer Network - najväčšia a~najlepšia dokumentácia k~webovým technológiám.} ho už neodporúča používať \cite{MDN_Content_Element}. Miesto toho navrhuje používať element \emph{<slot>}, lenže jeho presná špecifikácia a~podpora nie je známa. Ani náhrada (tzv. \quoted{polyfill}) \emph{webcomponents.js}, ktorú používame, aby sme dosiahli maximálnu možnú kompatibilitu s~používanými prehliadačmi ho zatiaľ nepodporuje.
 	\item Vložiť element \emph{<input>} do~\emph{CustomElement}u, ale nie do~\emph{Shadow DOM}. Je to jednoduchý trik. Keďže takýto element je súčasťou DOM, ale nie je súčasťou \emph{ShadowDOM}, prehliadač nevie, ako ho má vykresliť, a~preto ho ani nevykreslí. Avšak pri~odosielaní formulára jeho obsah odosiela. Tento trik využívame v~elemente \emph{<x-cupe>}, avšak nemôžeme ho využiť v~\emph{<x-cupe-gallery>}, pretože ak by sme nevkladali elementy \emph{<x-cupe>} v~\emph{<x-cupe-gallery>} do~\emph{ShadowDOM}, neboli by viditeľné a~to je nežiadúce.
 \end{itemize}
 
@@ -258,13 +258,13 @@ Nakoľko naša knižnica používa na~spracovanie a~zobrazovanie obrazu tág \em
 \subsection{Systém rozšírení}
 \label{sec:system-rozsireni}
 
-Predstavme si dve rozšírenia - "zoom" (rozšírenie umožňujúce zväčšovať a~zmenšovať obraz) a~"black\&white" (rozšírenie, ktoré prevedie obraz do~čierno-bielej škály). Chceli sme, aby tvorca stránky vedel stanoviť, ktoré \emph{<x-cupe>} elementy budú používať "black\&white", a~ktoré nie. Tiež sme chceli, aby vedel nastaviť rozšírenie "zoom" pre~všetky \emph{<x-cupe>} elementy. \textbf{Naším cieľom teda bolo, aby rozšírenie bolo možné aplikovať aj pre~jednotlivé \emph(<x-cupe>) elementy, ale aj univerzálne - pre~všetky \emph(<x-cupe>) elementy}. Naším ďalším cieľom bolo, aby \textbf{rozšírenia bolo možné kombinovať}, a~teda aby tvorca stránky vedel nastaviť obe rozšírenia - "zoom" aj "black\&white" na~rovnaký \emph{<x-cupe>} element. Naším posledným cieľom bolo, aby boli rozšírenia nezávislé moduly - samostatné súbory, ktoré o~sebe nevedia (resp. nemusia vedieť).
+Predstavme si dve rozšírenia - \quoted{zoom} (rozšírenie umožňujúce zväčšovať a~zmenšovať obraz) a~\quoted{black\&white} (rozšírenie, ktoré prevedie obraz do~čierno-bielej škály). Chceli sme, aby tvorca stránky vedel stanoviť, ktoré \emph{<x-cupe>} elementy budú používať \quoted{black\&white}, a~ktoré nie. Tiež sme chceli, aby vedel nastaviť rozšírenie \quoted{zoom} pre~všetky \emph{<x-cupe>} elementy. \textbf{Naším cieľom teda bolo, aby rozšírenie bolo možné aplikovať aj pre~jednotlivé \emph(<x-cupe>) elementy, ale aj univerzálne - pre~všetky \emph(<x-cupe>) elementy}. Naším ďalším cieľom bolo, aby \textbf{rozšírenia bolo možné kombinovať}, a~teda aby tvorca stránky vedel nastaviť obe rozšírenia - \quoted{zoom} aj \quoted{black\&white} na~rovnaký \emph{<x-cupe>} element. Naším posledným cieľom bolo, aby boli rozšírenia nezávislé moduly - samostatné súbory, ktoré o~sebe nevedia (resp. nemusia vedieť).
 
-Zhodnotili sme existujúce riešenia a~rozhodli sme sa, že rozšírenia budú funkcie, ktoré budú upravovať metódy našej knižnice. Tým dosiahneme "cibuľový efekt".
+Zhodnotili sme existujúce riešenia a~rozhodli sme sa, že rozšírenia budú funkcie, ktoré budú upravovať metódy našej knižnice. Tým dosiahneme \quoted{cibuľový efekt}.
 
 \subsection{Cibuľový efekt}
 
-Pre lepšie vysvetlenie uvádzame vzorku kódu zo~vzorového rozšírenia "zoom" (pozri \ref{sec:vzorove-rozsirenie}), na~ktorom následne vysvetlíme "cibuľový efekt" a~jeho výhody.
+Pre lepšie vysvetlenie uvádzame vzorku kódu zo~vzorového rozšírenia \quoted{zoom} (pozri \ref{sec:vzorove-rozsirenie}), na~ktorom následne vysvetlíme \quoted{cibuľový efekt} a~jeho výhody.
 
 \begin{lstlisting}[label=vytvaranie-cibuloveho-efektu,caption=Vytváranie cibuľového efektu.]
 var self = this;
@@ -286,7 +286,7 @@ controller.readAndDrawImage = function() // (B)
 	\item [(D)] vykoná doplňujúci kód.
 \end{description}
 
-Je potrebné si uvedomiť, že metóda \emph{readAndDrawImage} ostáva zmenená a~keď k~nej bude pristupovať ďalšie rozšírenie (napr. "black\&white" popísaný v~\ref{sec:system-rozsireni}), opäť pridá ďalšiu vrstvu. Následne, keď bude metódu volať \emph{XCupeController}, zavolá modifikáciu z~"black\&white", ktorá zavolá modifikáciu z~rozšírenia "zoom", ktoré zavolá pôvodnú metódu.
+Je potrebné si uvedomiť, že metóda \emph{readAndDrawImage} ostáva zmenená a~keď k~nej bude pristupovať ďalšie rozšírenie (napr. \quoted{black\&white} popísaný v~\ref{sec:system-rozsireni}), opäť pridá ďalšiu vrstvu. Následne, keď bude metódu volať \emph{XCupeController}, zavolá modifikáciu z~\quoted{black\&white}, ktorá zavolá modifikáciu z~rozšírenia \quoted{zoom}, ktoré zavolá pôvodnú metódu.
 
 
 Tým sme dosiahli, že:
@@ -299,7 +299,7 @@ Tým sme dosiahli, že:
 
 \subsection{Aplikovanie rozšírenia}
 
-Rozšírenie je funkcia, pričom odporúčame, aby vždy dávala možnosť aplikovať rozšírenie zvlášť na~jednotlivé prvky, ale tiež aj na~všetky prvky. Vo vzorovom rozšírení "zoom" (pozri \ref{sec:vzorove-rozsirenie}) sme to dosiahli prvým parametrom, ktorý, ak je prázdny, tak sa aplikuje rozšírenie na~triedu \emph{XCupeController}. V~prípade, že prázdny nie je, predpokladáme, že obsahuje odkaz na~už vytvorený element, a~teda rozšírenie aplikujeme na~ňom. Pre~plné porozumenie uvádzame príklad:
+Rozšírenie je funkcia, pričom odporúčame, aby vždy dávala možnosť aplikovať rozšírenie zvlášť na~jednotlivé prvky, ale tiež aj na~všetky prvky. Vo vzorovom rozšírení \quoted{zoom} (pozri \ref{sec:vzorove-rozsirenie}) sme to dosiahli prvým parametrom, ktorý, ak je prázdny, tak sa aplikuje rozšírenie na~triedu \emph{XCupeController}. V~prípade, že prázdny nie je, predpokladáme, že obsahuje odkaz na~už vytvorený element, a~teda rozšírenie aplikujeme na~ňom. Pre~plné porozumenie uvádzame príklad:
 
 \begin{lstlisting}[language=JavaScript]
 // Aplikuje zoom pre~všetky XCupe elementy
