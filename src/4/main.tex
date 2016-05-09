@@ -1,6 +1,14 @@
 \chapter{Validácia riešenia}
 \section{Podpora mobilných zariadení}
 
+% Android 5.0.2 - LG G2
+Naše riešenie sme testovali na~dvoch zariadeniach - LG G2 (Android 5.0.2, natívny prehliadač aj Chrome) a~iPhone 6 (iOS 9.3.1, Safari aj Chrome) a~v oboch prípadoch boli výsledky úspešné. Cieľom bolo overiť, či naše riešenie funguje správne na~dvoch najväčších platformách. Implementácia sa pre~mobilné prehliadače jemne líši. Kým užívatelia na~stolových počítačoch používajú v~prevažnej miere myš, mobilné zariadenia sú dotykové, a~teda bolo potrebné zabezpečiť, aby sa dotyky správne interpretovali - používanie \emph{event.changedTouches[0].pageX} miesto \emph{event.pageX} a~tiež povolenie posúvania obrázka len jedným prstom.
+
+Takisto sme si všimli, že náhrada (\quoted{polyfill}) \emph{webcomponents.js}, ktorú používame, aby sme dosiahli plnú podporu na~dosiaľ nepodporovaných prehliadačoch, nesvytvára pseudotriedu \emph{:host} na~mobilných zariadeniach, preto je potrebné do~CSS manuálne vložiť spôsob, akým sa má element vykresliť, ako uvádza ukážka \ref{sourcecode_host}.
+
+\begin{lstlisting}[label=sourcecode_host,caption=Štýly potrebné pre~správne fungovanie na~mobilných zariadeniach.]
+x-cupe, x-cupe-gallery { display: inline-block; }
+\end{lstlisting}
 
 \section{Porovnanie s~ďalšími riešeniami}
 
