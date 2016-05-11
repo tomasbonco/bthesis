@@ -5,7 +5,7 @@ Aby sa dali veci robiť lepšie a~efektívnejšie, je najprv potrebné preskúma
 
 \section{HTML tág <input\textgreater}
 
-Historicky prvým spôsobom je nepárový tág \emph{<input type="file"\textgreater}. Objavil sa už v~roku 1997, keď konzorcium W3C vydalo štandard \emph{HTML 3.2} \cite{html32}. Umožňuje nahrávanie súborov, a~teda aj obrázkov, ako súčasť zaslaného formulára (musí sa vyskytovať uprostred tágu <form\textgreater). Scénar nahrávania prebieha nasledovne:
+Historicky prvým spôsobom je nepárový tág \emph{<input type="file"\textgreater}. Objavil sa už v~roku 1997, keď konzorcium W3C vydalo štandard \emph{HTML 3.2} \cite{html32}. Umožňuje nahrávanie súborov, a~teda aj obrázkov, ako súčasť zaslaného formulára (musí sa vyskytovať uprostred tágu <form\textgreater). Scenár nahrávania prebieha nasledovne:
 
 \begin{figure}[!hbt]
 	\centering
@@ -37,7 +37,7 @@ Výhody tohto riešenia sú predovšetkým:
 
 \emph{XMLHttpRequest Level 2} pridáva nové rozhranie \emph{FormData}, ktoré umožňuje vytvoriť reprezentáciu formulára v~tvare kľúč-hodnota, čím umožňuje zaslať formulár pomocou \emph{XMLHttpRequest} \cite{MDN_Formdata}. \emph{XMLHttpRequest} je API, ktoré umožňuje prenášať dáta medzi~prehliadačom a~serverom bez~toho, aby nastalo obnovenie stránky \cite{MDN_XMLHttpRequest}.
 
-Vďaka \emph{FormData} je možné odstrániť obmedzenie, kde \emph{<input type="file"\textgreater} musí byť vložený do~formulára (<form\textgreater). Použitím \emph{XMLHttpRequest} eventu \emph{onprogress} je možné sledovať proces nahrávania \cite{MDN_XMLHttpRequest_progress}. Scénar nahrávania môže vyzerať nasledovne:
+Vďaka \emph{FormData} je možné odstrániť obmedzenie, kde \emph{<input type="file"\textgreater} musí byť vložený do~formulára (<form\textgreater). Použitím \emph{XMLHttpRequest} eventu \emph{onprogress} je možné sledovať proces nahrávania \cite{MDN_XMLHttpRequest_progress}. Scenár nahrávania môže vyzerať nasledovne:
 \begin{enumerate}
 	\item Užívateľ myšou klikne na~\emph{<input>} element.
 	\item Vyskočí modálne okno, z~ktorého užívateľ vyberie obrázok.
@@ -65,7 +65,7 @@ Výhody tohto riešenia sú predovšetkým:
 		\node[punktchain, join, on chain=going below left] (image-display) {Zobrazenie obrázka};
 	\end{tikzpicture}
 	
-	\caption{Schéma nahrávania obrázka pomocou \emph{<input>} elementu v~kombinácií s~\emph{FormData} a~{XMLHttpRequest}.}
+	\caption{Schéma nahrávania obrázka pomocou \emph{<input>} elementu v~kombinácii s~\emph{FormData} a~{XMLHttpRequest}.}
 \end{figure}
 
 
@@ -75,4 +75,4 @@ V dobe písania tejto práce boli stále veľmi rozšírené riešenia, založen
 
 O~niečo podobné sa pokúšal Microsoft s~technológiou Silverlight (ďalej len Silverlight). Obe technológie nepoužívajú Javascript, ale iné jazyky - v~prípade technológie Flash ide o~ActionScript a~v prípade Silverlight ide o~Visual Basic, C\#, Ruby alebo Python. \textbf{V~týchto technológiách by preto bolo možné napísať aj celú našu knižnicu}, avšak nemohli by sme dosiahnuť podporu mobilných zariadení a~obe technológie vyžadujú inštaláciu rozšírení tretích strán do~prehliadača.
 
-Hlavným dôvodom neúspechu technológie Flash a~Silverlight sa stalo odmietnutie podpory od~firmy Apple (pozri \ref{sec:mobile-support}). V~súčasnej dobe nie je podporovaný na~mobilných zariadeniach s~operačným systémom iOS, Android a~Windows Phone. Samotné Adobe už prestáva ďalej Flash podporovať a~zameriava sa radšej na~HTML5\cite{Flash_dead}.
+Hlavným dôvodom neúspechu technológie Flash a~Silverlight sa stalo odmietnutie podpory od~firmy Apple (pozri \ref{sec:mobile-support}). V~súčasnej dobe nie je podporovaný na~mobilných zariadeniach s~operačným systémom iOS, Android a~Windows Phone. Samotné Adobe už prestáva ďalej Flash podporovať a~zameriava sa radšej na~HTML5 \cite{Flash_dead}.

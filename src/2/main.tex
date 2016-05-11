@@ -4,18 +4,18 @@
 \section{Podpora mobilných zariadení}
 \label{sec:mobile-support}
 
-V roku 2010, Steve Jobs, spoluzakladateľ a~v tom čase aj výkonný riaditeľ Applu vydal vyhlásenie \emph{Thoughts on Flash}\cite{Apple_flash}, v~ktorom vysvetľuje, prečo zariadenia iPhone, iPod a~iPad nepodporujú \emph{Adobe Flash}. Kritizuje \emph{Adobe Flash} z~uzavretosti, vysokej systémovej záťaže, slabej bezpečnosti a~chýbajúcej podpore dotykových zariadení.
-BBC v~roku 2012 informovala\cite{Android_flash}, že Adobe sťahuje \emph{Adobe Flash Player} z~\emph{Google Play Store}, čo dovtedy umožňovalo prehrávať \emph{Adobe Flash} na~mobilných zariadeniach. To znamená, že mobilné operačné systémy, ktoré dohromady zaberajú 96,7\% trhu\cite{Mobile_OS_share} nepodporujú \emph{Adobe Flash}.
+V roku 2010, Steve Jobs, spoluzakladateľ a~v tom čase aj výkonný riaditeľ Applu vydal vyhlásenie \emph{Thoughts on Flash} \cite{Apple_flash}, v~ktorom vysvetľuje, prečo zariadenia iPhone, iPod a~iPad nepodporujú \emph{Adobe Flash}. Kritizuje \emph{Adobe Flash} z~uzavretosti, vysokej systémovej záťaže, slabej bezpečnosti a~chýbajúcej podpory dotykových zariadení.
+BBC v~roku 2012 informovala \cite{Android_flash}, že Adobe sťahuje \emph{Adobe Flash Player} z~\emph{Google Play Store}, čo dovtedy umožňovalo prehrávať \emph{Adobe Flash} na~mobilných zariadeniach. To znamená, že mobilné operačné systémy, ktoré dohromady zaberajú 96,7\% trhu \cite{Mobile_OS_share} nepodporujú \emph{Adobe Flash}.
 
 
 \section{Zbytočné súbory na~serveri}
 
-Nahrávanie obrázkov bez~toho, aby užívateľ najskôr obrázok videl, môže viesť k~tomu, že užívateľ nahraje nesprávny obrázok. Tak isto môže vzniknúť problém, kde užívateľ kvôli nesprávnemu spracovaniu obrázka na~serveri (napríklad nesprávny orez, pozri \ref{sec:orezanie-obrazka}), môže zmeniť svoje rozhodnutie. Takto vznikajú na~serveri súbory - obrázky, ktoré sa nikdy nepoužijú. Jedno z~riešení tohto problému je pravidelné mazanie nevyužívaných obrázkov.   
+Nahrávanie obrázkov bez~toho, aby užívateľ najskôr obrázok videl, môže viesť k~tomu, že užívateľ nahraje nesprávny obrázok. Takisto môže vzniknúť problém, kedy užívateľ kvôli nesprávnemu spracovaniu obrázka na~serveri (napríklad nesprávny orez, pozri \ref{sec:orezanie-obrazka}), môže zmeniť svoje rozhodnutie. Takto vznikajú na~serveri súbory - obrázky, ktoré sa nikdy nepoužijú. Jedno z~riešení tohto problému je pravidelné mazanie nevyužívaných obrázkov.   
 
 \section{Orezanie obrázka}
 \label{sec:orezanie-obrazka}
 
-Pri spracovaní na~serveri zvyčajne dochádza k~zmenšeniu a~orezaniu obrázka. Spravidla sa obrázky orezávajú na~stred. To však môže byť nesprávne, ako ukazuje obrázok \ref{fig:jg_image}, kde orezanie na~stred odreže osobu - najdôležitejšiu časť obrázka. Čiastočným riešením je využitie detekcie tvárí. Pokročilé riešenia si však vyžadujú pokročilú analýzu obrazu, kde sa analyzuje kontrast a~hrany. Vďaka tomu je možné detekovať východ slnka, alebo budovu na~obrázku. 
+Pri spracovaní na~serveri zvyčajne dochádza k~zmenšeniu a~orezaniu obrázka. Spravidla sa obrázky orezávajú na~stred. To však môže byť nesprávne, ako ukazuje obrázok \ref{fig:jg_image}, kde orezanie na~stred odreže osobu - najdôležitejšiu časť obrázka. Čiastočným riešením je využitie detekcie tvárí. Pokročilé riešenia si však vyžadujú pokročilú analýzu obrazu, kde sa analyzuje kontrast a~hrany. Vďaka tomu je možné detegovať východ slnka, alebo budovu na~obrázku. 
 
 \begin{figure}[!ht]
 	\centering

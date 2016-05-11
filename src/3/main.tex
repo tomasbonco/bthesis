@@ -9,7 +9,7 @@ Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~úlohu maximalizo
 \begin{itemize}
 	\item byť nezávislá od~knižníc/frameworkov tretích strán, napr. \emph{jQuery},
 	\item podporovať nahrávanie, či už zvolením obrázka cez~modálne okno alebo aj technológiou \emph{Drag\&Drop}, 
-	\item byť jednuduchá na~implementovanie,
+	\item byť jednoduchá na~implementovanie,
 	\item byť dobre rozšíriteľná o~nové funkcie,
 	\item podporovať nahrávanie bez~obnovenia stránky,
 	\item podporovať mobilné zariadenia,
@@ -24,7 +24,7 @@ Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~úlohu maximalizo
 Najskôr sme plánovali využiť \emph{jQuery}, ale kvôli splneniu prvého cieľa (byť nezávislí od~knižníc/frameworkov tretích strán) sme sa rozhodli využiť \emph{Custom Element}. Vytvorili sme jeden, ktorý slúži na~úpravu obrázka \emph{<x-cupe>} a~jeden na~podporu nahrávania viacerých obrázkov - \emph{<x-cupe-gallery>}. Oba vychádzajú z~rovnakého HTML, pričom \emph{<x-cupe-gallery>} interne využíva \emph{<x-cupe>}, preto sa ďalej v~tejto kapitole zameriame na~element \emph{<x-cupe>}. Nahrávanie viacerých obrázkov je bližšie popísané v~kapitole 3.5.
 
 
-Scénar nahrávania môže vyzerať takto:
+Scenár nahrávania môže vyzerať takto:
 \begin{enumerate}
 	\item Užívateľ buď pomocou \emph{Drag\&Drop} nahraje obrázok, alebo klikne na~element a~následne si z~modálneho okna zvolí obrázok.
 	\item Obrázok sa zmenší, oreže a~zobrazí.
@@ -114,7 +114,7 @@ HTML Imports    & Nie    & Nie  & 47+    & Nie    & Nie\textsuperscript{\ref{abo
 Custom Elements & Nie    & Nie  & 47+    & Nie    & Nie\textsuperscript{\ref{aboutconfig}}    \\ \midrule
 Shadow DOM      & Nie    & Nie  & 47+    & Nie    & Nie\textsuperscript{\ref{aboutconfig}}    \\ \bottomrule
 \end{tabular}
-\caption{Podpora webových komponentov v~prehliadačoch pre~počítače \cite{MDN_Template_Element}. \cite{CIU}}
+\caption{Podpora webových komponentov v~prehliadačoch pre~počítače. \cite{MDN_Template_Element}\cite{CIU}}
 \label{tab:webcomponents-support-desktop}
 \end{table}
 
@@ -128,7 +128,7 @@ HTML Imports    & 47+             & Nie        & Nie        \\ \midrule
 Custom Elements & 4.4.4+          & Nie        & Nie        \\ \midrule
 Shadow DOM      & 4.4+            & Nie        & Nie        \\ \bottomrule
 \end{tabular}
-\caption{Podpora webových komponentov v~mobilných prehliadačoch \cite{MDN_Template_Element}. \cite{CIU}}
+\caption{Podpora webových komponentov v~mobilných prehliadačoch. \cite{MDN_Template_Element}\cite{CIU}}
 \label{tab:webcomponents-support-mobile}
 \end{table}
 
@@ -137,7 +137,7 @@ Shadow DOM      & 4.4+            & Nie        & Nie        \\ \bottomrule
 
 \emph{HTML Templates} je v~podstate označenie pre~element \emph{<template>}, mechanizmus, ktorý umožňuje uložiť obsah v~prehliadači bez~toho, aby ho vykresľoval \cite{MDN_Template_Element}. Pomocou JavaScriptu je však jeho obsah možné čítať a~ďalej s~ním pracovať. 
 
-\emph{Shadow DOM} poskytuje zapuzdrenie \emph{HTML}, \emph{CSS} a~\emph{JavaScript}u do~webového komponentu. Robí to tak, že tieto nebudú súčasťou \emph{DOM} alebo hlavného dokumentu. Hlavná výhoda spočíva predovšetkým v~štýlovaní, kde použitie \emph{Shadow DOM} zaručuje, že \emph{CSS} iných časti stránky neovplyvňujú vzhľad komponentny, a~komponent nemôže ovplyvniť vzhľad iných častí stránky. \cite{MDN_Shadow_DOM}
+\emph{Shadow DOM} poskytuje zapuzdrenie \emph{HTML}, \emph{CSS} a~\emph{JavaScript}u do~webového komponentu. Robí to tak, že tieto nebudú súčasťou \emph{DOM} alebo hlavného dokumentu. Hlavná výhoda spočíva predovšetkým v~štýlovaní, kde použitie \emph{Shadow DOM} zaručuje, že \emph{CSS} iných časti stránky neovplyvňujú vzhľad komponentu, a~komponent nemôže ovplyvniť vzhľad iných častí stránky. \cite{MDN_Shadow_DOM}
 
 
 \subsection{Canvas}
@@ -145,7 +145,7 @@ Shadow DOM      & 4.4+            & Nie        & Nie        \\ \bottomrule
 
 Canvas je nový tág \emph{HTML5}, ktorý umožňuje pomocou JavaScriptu vykresľovať grafy, upravovať fotografie, animovať a~dokonca aj spracovať videá. Využíva ho aj \emph{WebGL} na~hardvérovo akcelerovanú 3D grafiku na~webe \cite{MDN_Canvas}.
 
-V našej práci ho využívame na~zobrazovanie obrázka. Samotná knižnica už obsahuje potrebné nástroje na~vkladanie a~zmenšovanie obrázka, čo nám uľahčuje prácu a~zároveň nám \emph{<canvas>} umožňuje prístup k~jednotlivým pixelom, čo ocenia najmä tvorcovia pokročilých rozšírení (napr. detekovať nevyužívanú plochu obrázka alebo prevod do~čierno-bielej verzie). Keď užívateľ presúva obrázok kvôli orezaniu, prekresľujeme daný výrez do~\emph{<canvas>} pomocou \emph{requestAnimationFrame}\cite{MDN_RequestAnimationFrame} pre~maximálnu plynulosť.
+V našej práci ho využívame na~zobrazovanie obrázka. Samotná knižnica už obsahuje potrebné nástroje na~vkladanie a~zmenšovanie obrázka, čo nám uľahčuje prácu a~zároveň nám \emph{<canvas>} umožňuje prístup k~jednotlivým pixelom, čo ocenia najmä tvorcovia pokročilých rozšírení (napr. detegovať nevyužívanú plochu obrázka alebo prevod do~čierno-bielej verzie). Keď užívateľ presúva obrázok kvôli orezaniu, prekresľujeme daný výrez do~\emph{<canvas>} pomocou \emph{requestAnimationFrame} \cite{MDN_RequestAnimationFrame} pre~maximálnu plynulosť.
 
 \subsection{Drag\&Drop}
 \label{sec:drag-n-drop}
@@ -155,7 +155,9 @@ V našej práci ho využívame na~zobrazovanie obrázka. Samotná knižnica už 
 \subsection{File Reader}
 \label{sec:file-reader}
 
-File Reader umožňuje čítať obsah súborov vo webovom prostredí. Tie môžu byť načítané buď pomocou tágu \emph{<input>} alebo pomocou \emph{Drag\&Drop} (pozri \ref{sec:drag-n-drop})\cite{MDN_FileReader}\footnote{Citovaný MDN udáva ešte aj HTMLCanvasElement.mozGetAsFile(), ktorý je neštandardizovaný a~v dobe písanie tejto práce podporovaný iba prehliadačom Firefox.}.
+File Reader umožňuje čítať obsah súborov vo webovom prostredí. Tie môžu byť načítané buď pomocou tágu \emph{<input>} alebo pomocou \emph{Drag\&Drop} (pozri \ref{sec:drag-n-drop}) 
+
+\cite{MDN_FileReader}\footnote{Citovaný MDN udáva ešte aj HTMLCanvasElement.mozGetAsFile(), ktorý je neštandardizovaný a~v dobe písanie tejto práce podporovaný iba prehliadačom Firefox.}.
 
 Použili sme ho práve pre~prečítanie zvolených súborov, ktoré sme následne zobrazili v~\emph{<canvas>} (pozri \ref{sec:canvas-element}).
 
@@ -163,7 +165,7 @@ Použili sme ho práve pre~prečítanie zvolených súborov, ktoré sme následn
 
 \emph{Promise} je objekt určený pre~asynchrónne výpočty a~výpočty naplánované na~neskôr (napríklad cez~\emph{setTimeout} alebo \emph{setInterval}). Nevracia priamo metódu, ale vracia \quoted{prísľub}, že niekedy v~budúcnosti hodnota bude dostupná \cite{MDN_Promise}. V~silno asynchrónnej aplikácii zabraňuje tzv. \quoted{callback hell}, kde množstvo callbackov bráni zrozumiteľnosti a~ladeniu kódu.
 
-\emph{Promise} používame naiesto predávania callbackov, predovšetkým pri~čítaní užívateľovho obrázka.
+\emph{Promise} používame namiesto predávania callbackov, predovšetkým pri~čítaní užívateľovho obrázka.
 
 \subsection{TypeScript}
 
@@ -173,12 +175,12 @@ Naša knižnica využíva TypeScript, pretože umožňuje rýchlejšie odhaľova
 
 \subsection{Mocha}
 
-Mocha je JavaScriptový framework používaný na~jednotkové testy. Známy je predovšetkým pre~jednoduchý zápis testov a~prehľadnú dokumentáciu. Zvolili sme ho, pretože autori tejto práce s~ním majú predchádzajúce skúsenosti.
+Mocha je JavaScriptový framework používaný na~jednotkové testy. Známy je predovšetkým pre~jednoduchý zápis testov a~prehľadnú dokumentáciu. Zvolili sme ho, pretože s~ním máme predchádzajúce skúsenosti.
 
 
 \subsection{GitHub}
 
-Počas tvorby sme používali Git a~výsledok našej práce sme uverejnili v~službe GitHub - webovej službe na~správu Git repozitárov. Git je (v čase písania tejto práce) bezplatný nástroj na~spravovanie verzií. Na~rozdiel od~Apache Subversion (SVN) je distribuovaný. GitHub je server pre~Git, ktorý však pridáva vlastné funkcie. Pokým Git je nástroj ovládaný príkazovým riadkom, GitHub poskytuje webové rozhranie. Ďalej poskytuje nástroje pre~lepšiu spoluprácu, ako wiki stránky a~jednoduchú správu úloh, umožňuje nastaviť prístupové práva, a~tiež možnosť kopírovať repozitáre medzi~užívateľmi \cite{Git_TechCrunch}. 
+Počas tvorby sme používali Git a~výsledok našej práce sme uverejnili v~službe GitHub - webovej službe na~správu Git repozitárov. Git je (v čase písania tejto práce) bezplatný nástroj na~spravovanie verzií. Na~rozdiel od~Apache Subversion (SVN) je distribuovaný. GitHub je server pre~Git, ktorý však pridáva vlastné funkcie. Pokým Git je nástroj ovládaný príkazovým riadkom, GitHub poskytuje webové rozhranie. Ďalej poskytuje nástroje pre~lepšiu spoluprácu ako wiki stránky a~jednoduchú správu úloh, umožňuje nastaviť prístupové práva, a~tiež možnosť kopírovať repozitáre medzi~užívateľmi \cite{Git_TechCrunch}. 
 
 
 \section{Postup nahrávania a~nastavenia}
@@ -198,29 +200,29 @@ Po zvolení obrázka spravidla prebieha jeho zmenšenie a~orezanie. Pre~túto č
 
 \begin{description}
 	\item[Nahrávaný obrázok je väčší a~mal by sa zmenšiť; orezávanie je zapnuté] \hfill \\
-	Očakávame, že práve tento scénar bude najvyužívanejší. V~tomto scenári sa obrázok pomerne zmenší tak, aby pomerne kratšia strana nahrávaného obrázka bola zhodná s~príslušnou stranou finálneho obrázka. To je z~toho dôvodu, aby užívateľ mohol hýbať obrázkom v~ose, ktorá je pomerne dlhšia (a teda v~tej, v~ktorej má posúvanie zmysel).
+	Očakávame, že práve tento scenár bude najvyužívanejší. V~tomto scenári sa obrázok pomerne zmenší tak, aby pomerne kratšia strana nahrávaného obrázka bola zhodná s~príslušnou stranou finálneho obrázka. To je z~toho dôvodu, aby užívateľ mohol hýbať obrázkom v~ose, ktorá je pomerne dlhšia (a teda v~tej, v~ktorej má posúvanie zmysel).
 	\item[Nahrávaný obrázok je väčší a~mal by sa zmenšiť; orezávanie je vypnuté] \hfill \\
 	V~tomto prípade sa snažíme vložiť celý nahrávaný obrázok do~finálneho obrázka. Dosiahneme to pomerným zmenšením obrázka tak, aby pomerne dlhšia strana bola zhodná s~príslušnou stranou finálneho obrázka.
-	\item[Nahrávaný obrázok je menší a~mal by si zväčšiť; orezávanie je zapnuté] \hfill \\
+	\item[Nahrávaný obrázok je menší a~mal by sa zväčšiť; orezávanie je zapnuté] \hfill \\
 	Cieľom našej knižnice je, aby správca stránky vždy dostal z~prehliadača taký obrázok, aký požaduje. Nemusí potom upravovať obrázok na~serveri. To však znamená, že môže nastať prípad, že užívateľ zvolí menší nahrávaný obrázok, než je požadovaný finálny obrázok. V~tom prípade prebieha spracovanie obrazu rovnako, ako v~prvom scenári, len miesto zmenšovania sa obrázok zväčšuje.
-	\item[Nahrávaný obrázok je menší a~mal si zväčšiť; orezávanie je vypnuté] \hfill \\
+	\item[Nahrávaný obrázok je menší a~mal by sa zväčšiť; orezávanie je vypnuté] \hfill \\
 	Postupujeme rovnako ako v~prípade s~väčším obrázkom. Miesto zmenšovania však obrázok zväčšujeme.
 	\item[Finálny obrázok má len jeden fixný rozmer] \hfill \\
-	Tento scenár je vhodný, ak vytvárame napr. obrázkové galérie, pričom chceme, aby obrázky mali pevnú šírku a~ľubovoľne dlhú výrku. Ak chceme variabilnú šírku, je potrebné nastaviť atribút \emph{width} elementu \emph{<x-cupe>} na~hodnotu \emph{-1}. V~prípade, že chceme variabilnú výšku, je potrebné obdobne nastaviť parameter \emph{height} na~hodnotu \emph{-1}. V~tomto scenári sa obrázok pomerne zmenší podľa fixnej príslušnej strany finálneho obrázka. Druhá strana finálneho obrázka sa nastaví pomerne k~zmenšej výške finálneho obrázka. V~tomto scenári nie je možné obrázok orezávať.
+	Tento scenár je vhodný, ak vytvárame napr. obrázkové galérie, pričom chceme, aby obrázky mali pevnú šírku a~ľubovoľne dlhú výšku. Ak chceme variabilnú šírku, je potrebné nastaviť atribút \emph{width} elementu \emph{<x-cupe>} na~hodnotu \emph{-1}. V~prípade, že chceme variabilnú výšku, je potrebné obdobne nastaviť parameter \emph{height} na~hodnotu \emph{-1}. V~tomto scenári sa obrázok pomerne zmenší podľa fixnej príslušnej strany finálneho obrázka. Druhá strana finálneho obrázka sa nastaví pomerne k~menšej výške finálneho obrázka. V~tomto scenári nie je možné obrázok orezávať.
 	\item[Finálny obrázok nemá fixný rozmer] \hfill \\
-	Tento scénar je vhodný, ak chceme aby užívatelia, mohli zaslať obrázok v~ľubovoľných rozmeroch a~zároveň ho pred~odoslaním mohli vidieť. Finálny obrázok bude mať rozmery nahrávaného obrázka a~ten teda nie je zmenšovaný ani orezávaný. Pre~vytvorenie tejto situácie treba nastaviť aj atribút \emph{width}, aj atribút \emph{height} na~hodnotu \emph{-1}.
+	Tento scenár je vhodný, ak chceme, aby užívatelia mohli zaslať obrázok v~ľubovoľných rozmeroch a~zároveň ho pred~odoslaním mohli vidieť. Finálny obrázok bude mať rozmery nahrávaného obrázka a~ten teda nie je zmenšovaný ani orezávaný. Pre~vytvorenie tejto situácie treba nastaviť aj atribút \emph{width}, aj atribút \emph{height} na~hodnotu \emph{-1}.
 	
 \end{description}
 
 
 Obrázok sa orezáva posúvaním obrázka (pozri \ref{sec:posuvanie-obrazka}) a~základným nastavením je orezanie na~stred. To sa dá zmeniť atribútom \emph{align}, pričom valídne hodnoty pozostávajú z~kombinácie slov \emph{left}, \emph{right}, \emph{top}, \emph{bottom} a~\emph{center}, napríklad: \emph{<x-cupe align="left bottom"\textgreater}. Pri~zadaní iba jednej osi pre~zarovnanie sa automaticky predpokladá, že druhá sa má zarovnať na~stred. Orezanie sa dá úplne vypnúť, a~to nastavením atribútu \emph{crop} na~hodnotu \emph{false}. Vnútorne knižnica pracuje tak, že sa textové hodnoty prerátajú na~odsadenie obrázka zľava a~zhora, ale obrázok sa nijako nemodifikuje. To nastáva až pri~vykreslení.
 
-Takisto sme si všimli, že ak zmenšíme veľmi veľký obrázok, jeho kvalita je nízka. Oproti pôvodnému obrázku je zdanlivo ostrejší, a~to je spôsobené nevyhovujúcim spôsobom prekresľovania obrázka, tzv. \emph{downsampling}-om. Problém je, že prehliadač musí z~plochy napríklad 4x4 pixely vytvoriť iba jeden pixel a~aby to spravil najrýchlejšie, jeden z~nich vyberie, pričom sa neberie do~úvahy kontext. Preto sme aplikovali jednoduchý algoritmus, ktorý obrázok zmenší postupne. Počet prekreslení je možné nastaviť atribútom \emph{quality} a~jeho predvolená hodnota je 3. Čím vyššia táto hodnota je, tým dlhšie trvá proces od~zvolenia obrázka po~jeho vykreslenie. Keď je táto hodnota príliš nízka (napríklad 1), tak je slabšia kvalita. Zmenšený obrázok sa uloží, aby pri~jeho ďalšej manipulácií ho nebolo potrebné opäť zmenšovať.
+Takisto sme si všimli, že ak zmenšíme veľmi veľký obrázok, jeho kvalita je nízka. Oproti pôvodnému obrázku je zdanlivo ostrejší, a~to je spôsobené nevyhovujúcim spôsobom prekresľovania obrázka, tzv. \emph{downsampling}-om. Problém je, že prehliadač musí z~plochy napríklad 4x4 pixely vytvoriť iba jeden pixel a~aby to spravil najrýchlejšie, jeden z~nich vyberie, pričom sa neberie do~úvahy kontext. Preto sme aplikovali jednoduchý algoritmus, ktorý obrázok zmenší postupne. Počet prekreslení je možné nastaviť atribútom \emph{quality} a~jeho predvolená hodnota je 3. Čím vyššia táto hodnota je, tým dlhšie trvá proces od~zvolenia obrázka po~jeho vykreslenie. Keď je táto hodnota príliš nízka (napríklad 1), tak je slabšia kvalita. Zmenšený obrázok sa uloží, aby pri~jeho ďalšej manipulácii ho nebolo potrebné opäť zmenšovať.
 
 \subsection{Posúvanie obrázka}
 \label{sec:posuvanie-obrazka}
 
-Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnoťou výberu obrázka, a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčasná pozícia myši a~porovnáva sa s~pozíciou, na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}. Posúvanie obrázka sa dá vypnúť nastavím atribútu \emph{allow\_move} na~hodnotu \emph{false}.
+Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnosťou výberu obrázka, a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100 ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčasná pozícia myši a~porovnáva sa s~pozíciou, na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}. Posúvanie obrázka sa dá vypnúť nastavím atribútu \emph{allow\_move} na~hodnotu \emph{false}.
 
 Vzhľadom k~tomu, že ukladanie (pozri \ref{sec:odoslanie-obrazka}) je časovo náročná operácia, počas posúvania k~nemu nedochádza. Keď ale užívateľ posúvanie ukončí, obrázok je uložený.
 
@@ -336,7 +338,7 @@ Keď užívateľ obrázok vloží, vyráta sa pomer medzi~zobrazovanou plochou a
 	\label{fig:zoom-scenar}
 \end{figure}
 
-Pre lepšie porozumenie opíšeme postup pre~vzorový scénar popísaný obrázkom \ref{fig:zoom-scenar}. 
+Pre lepšie porozumenie opíšeme postup pre~vzorový scenár popísaný obrázkom \ref{fig:zoom-scenar}. 
 
 \begin{description}
 	\item[Inicializácia.] Na~začiatku sa určí minimálne priblíženie (vtedy vidíme najväčšiu časť obrázka) na~hodnotu 1, maximálne priblíženie na~hodnotu 1, aktuálne priblíženie na~hodnotu 1 a~krok na~0,1.
