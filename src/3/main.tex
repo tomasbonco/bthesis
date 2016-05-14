@@ -143,44 +143,47 @@ Shadow DOM      & 4.4+            & Nie        & Nie        \\ \bottomrule
 \subsection{Canvas}
 \label{sec:canvas-element}
 
-Canvas je nový tág \emph{HTML5}, ktorý umožňuje pomocou JavaScriptu vykresľovať grafy, upravovať fotografie, animovať a~dokonca aj spracovať videá. Využíva ho aj \emph{WebGL} na~hardvérovo akcelerovanú 3D grafiku na~webe \cite{MDN_Canvas}.
+\emph{Canvas} je nový tag \emph{HTML5}, ktorý umožňuje pomocou JavaScriptu vykresľovať grafy, upravovať fotografie, animovať a~dokonca aj spracovať videá. Využíva ho aj \emph{WebGL} na~hardvérovo akcelerovanú 3D grafiku na~webe \cite{MDN_Canvas}.
 
 V našej práci ho využívame na~zobrazovanie obrázka. Samotná knižnica už obsahuje potrebné nástroje na~vkladanie a~zmenšovanie obrázka, čo nám uľahčuje prácu a~zároveň nám \emph{<canvas>} umožňuje prístup k~jednotlivým pixelom, čo ocenia najmä tvorcovia pokročilých rozšírení (napr. detegovať nevyužívanú plochu obrázka alebo prevod do~čierno-bielej verzie). Keď užívateľ presúva obrázok kvôli orezaniu, prekresľujeme daný výrez do~\emph{<canvas>} pomocou \emph{requestAnimationFrame} \cite{MDN_RequestAnimationFrame} pre~maximálnu plynulosť.
+
 
 \subsection{Drag\&Drop}
 \label{sec:drag-n-drop}
 
 \emph{Drag\&Drop} je novinkou \emph{HTML5}. Umožňuje predovšetkým presúvanie elementov na~stránke, čím rieši problémy, ktoré sa zložito snažili vyriešiť knižnice tretích strán (napr. \emph{jQuery}). Okrem~toho však umožňuje aj presúvanie súborov z~počítača do~okna prehliadača, z~čoho ťaží aj táto práca.
 
+
 \subsection{File Reader}
 \label{sec:file-reader}
 
-File Reader umožňuje čítať obsah súborov vo webovom prostredí. Tie môžu byť načítané buď pomocou tágu \emph{<input>} alebo pomocou \emph{Drag\&Drop} (pozri \ref{sec:drag-n-drop}) 
+\emph{File Reader} umožňuje čítať obsah súborov vo webovom prostredí. Tie môžu byť načítané buď pomocou tagu \emph{<input>} alebo pomocou \emph{Drag\&Drop} (pozri \ref{sec:drag-n-drop}) 
 
 \cite{MDN_FileReader}\footnote{Citovaný MDN udáva ešte aj HTMLCanvasElement.mozGetAsFile(), ktorý je neštandardizovaný a~v dobe písanie tejto práce podporovaný iba prehliadačom Firefox.}.
 
 Použili sme ho práve pre~prečítanie zvolených súborov, ktoré sme následne zobrazili v~\emph{<canvas>} (pozri \ref{sec:canvas-element}).
 
+
 \subsection{Promise}
 
 \emph{Promise} je objekt určený pre~asynchrónne výpočty a~výpočty naplánované na~neskôr (napríklad cez~\emph{setTimeout} alebo \emph{setInterval}). Nevracia priamo metódu, ale vracia \quoted{prísľub}, že niekedy v~budúcnosti hodnota bude dostupná \cite{MDN_Promise}. V~silno asynchrónnej aplikácii zabraňuje tzv. \quoted{callback hell}, kde množstvo callbackov bráni zrozumiteľnosti a~ladeniu kódu.
 
-\emph{Promise} používame namiesto predávania callbackov, predovšetkým pri~čítaní užívateľovho obrázka.
+\emph{Promise} používame namiesto preposielania callbackov, predovšetkým pri~čítaní užívateľovho obrázka.
 
 \subsection{TypeScript}
 
-TypeScript je typová nadstavba JavaScriptu, ktorá sa prekladá do~JavaScriptu. Tým, že sa rýchlo vyvíja, okrem~typovosti prináša aj funkcie \emph{ECMAScript 2015 (ES6)}, čo umožňuje programátorom používať funkcie, ktoré v~čase písania tejto bakalárskej práce ešte nie sú implementované v~prehliadačoch.
+\emph{TypeScript} je typová nadstavba JavaScriptu, ktorá sa prekladá do~JavaScriptu. Tým, že sa rýchlo vyvíja, okrem~typovosti prináša aj funkcie \emph{ECMAScript 2015 (ES6)}, čo umožňuje programátorom používať funkcie, ktoré v~čase písania tejto bakalárskej práce ešte nie sú implementované v~prehliadačoch.
 
-Naša knižnica využíva TypeScript, pretože umožňuje rýchlejšie odhaľovať chyby, vedie k~písaniu rozhraní, čo môže značne pomôcť tvorcom rozšírení, a~tiež kvôli podpore \emph{ECMAScript 2015}. Navyše, jeho vlastnosť, že sa prekladá do~JavaScriptu nijak neobmedzuje tvorcov rozšírení alebo jeho celkové použitie.
+Naša knižnica využíva \emph{TypeScript}, pretože umožňuje rýchlejšie odhaľovať chyby, vedie k~písaniu rozhraní, čo môže značne pomôcť tvorcom rozšírení, a~tiež kvôli podpore \emph{ECMAScript 2015}. Navyše, jeho vlastnosť, že sa prekladá do~JavaScriptu nijak neobmedzuje tvorcov rozšírení alebo jeho celkové použitie.
 
 \subsection{Mocha}
 
-Mocha je JavaScriptový framework používaný na~jednotkové testy. Známy je predovšetkým pre~jednoduchý zápis testov a~prehľadnú dokumentáciu. Zvolili sme ho, pretože s~ním máme predchádzajúce skúsenosti.
+\emph{Mocha} je JavaScriptový framework používaný na~jednotkové testy. Známy je predovšetkým pre~jednoduchý zápis testov a~prehľadnú dokumentáciu. Zvolili sme ho, pretože s~ním máme predchádzajúce skúsenosti.
 
 
 \subsection{GitHub}
 
-Počas tvorby sme používali Git a~výsledok našej práce sme uverejnili v~službe GitHub - webovej službe na~správu Git repozitárov. Git je (v čase písania tejto práce) bezplatný nástroj na~spravovanie verzií. Na~rozdiel od~Apache Subversion (SVN) je distribuovaný. GitHub je server pre~Git, ktorý však pridáva vlastné funkcie. Pokým Git je nástroj ovládaný príkazovým riadkom, GitHub poskytuje webové rozhranie. Ďalej poskytuje nástroje pre~lepšiu spoluprácu ako wiki stránky a~jednoduchú správu úloh, umožňuje nastaviť prístupové práva, a~tiež možnosť kopírovať repozitáre medzi~užívateľmi \cite{Git_TechCrunch}. 
+Počas tvorby sme používali \emph{Git} a~výsledok našej práce sme uverejnili v~službe \emph{GitHub} - webovej službe na~správu \emph{Git} repozitárov. \emph{Git} je (v čase písania tejto práce) bezplatný nástroj na~spravovanie verzií. Na~rozdiel od~\emph{Apache Subversion} (SVN) je distribuovaný. \emph{GitHub} je server pre~\emph{Git}, ktorý však pridáva vlastné funkcie. Pokým \emph{Git} je nástroj ovládaný príkazovým riadkom, \emph{GitHub} poskytuje webové rozhranie. Ďalej poskytuje nástroje pre~lepšiu spoluprácu ako wiki stránky a~jednoduchú správu úloh, umožňuje nastaviť prístupové práva, a~tiež možnosť kopírovať repozitáre medzi~užívateľmi \cite{Git_TechCrunch}. 
 
 
 \section{Postup nahrávania a~nastavenia}
@@ -250,12 +253,12 @@ Nahrávanie viacerých obrázkov cez~formulár zatiaľ nie je možné. Keďže \
 
 \section{Nahrávanie viacerých obrázkov}
 
-Nahrávanie viacerých obrázkov je možné pomocou párového tágu \emph{<x-cupe-gallery>}. Ten interne využíva elementy \emph{<x-cupe>}, ktoré vytvára vždy pri~zvolení nového obrázka, či už pomocou modálneho okna alebo pomocou \emph{Drag\&Drop}. Element \emph{<x-cupe-gallery>} podporuje všetky atribúty ako \emph{<x-cupe>}, avšak pri~ich zmene sa táto zmena pošle všetkým \emph{x-cupe} elementom. Výnimkou sú atribúty \emph{allow-drop} a~\emph{allow-select}, ktoré sa aplikujú len pre~\emph{<x-cupe-gallery>} a~v \emph{<x-cupe>} sú vypnuté.
+Nahrávanie viacerých obrázkov je možné pomocou párového tagu \emph{<x-cupe-gallery>}. Ten interne využíva elementy \emph{<x-cupe>}, ktoré vytvára vždy pri~zvolení nového obrázka, či už pomocou modálneho okna alebo pomocou \emph{Drag\&Drop}. Element \emph{<x-cupe-gallery>} podporuje všetky atribúty ako \emph{<x-cupe>}, avšak pri~ich zmene sa táto zmena pošle všetkým \emph{x-cupe} elementom. Výnimkou sú atribúty \emph{allow-drop} a~\emph{allow-select}, ktoré sa aplikujú len pre~\emph{<x-cupe-gallery>} a~v \emph{<x-cupe>} sú vypnuté.
 
 
 \section{Rozšíriteľnosť}
 
-Nakoľko naša knižnica používa na~spracovanie a~zobrazovanie obrazu tág \emph{<canvas>}, využíva a~aj poskytuje možnosť pracovať s~obrazom na~úrovni jednotlivých pixelov. To umožňuje vytváranie pokročilých rozšírení, ktoré napríklad dokážu zmeniť farebné odtiene, využívať detekciu hrán, rozpoznávanie tvárí a~podobne.
+Nakoľko naša knižnica používa na~spracovanie a~zobrazovanie obrazu tag \emph{<canvas>}, využíva a~aj poskytuje možnosť pracovať s~obrazom na~úrovni jednotlivých pixelov. To umožňuje vytváranie pokročilých rozšírení, ktoré napríklad dokážu zmeniť farebné odtiene, využívať detekciu hrán, rozpoznávanie tvárí a~podobne.
 
 \subsection{Systém rozšírení}
 \label{sec:system-rozsireni}
@@ -318,7 +321,7 @@ XCupeZoom( cupeElement );
 
 Praktická časť tejto práce, v~zložke \emph{plugins} obsahuje vzorové rozšírenie \emph{zoom}. Toto rozšírenie má za~úlohu umožniť užívateľom zväčšovať a~zmenšovať obrázok pred~odoslaním.
 
-Keď užívateľ obrázok vloží, vyráta sa pomer medzi~zobrazovanou plochou a~skutočnou veľkosťou obrázka a~vyráta sa maximálne oddialenie. Za~najnižšie oddialenie (alebo maximálne priblíženie) je určená hodnota, kde jeden pixel nahrávaného obrázka zodpovedá jednému zobrazenému pixelu. Následné točenie stredným stlačidlom myši mení pomer, akým sa pôvodný obrázok zmenší predtým, než sa vykreslí.
+Keď užívateľ obrázok vloží, vyráta sa pomer medzi~zobrazovanou plochou a~skutočnou veľkosťou obrázka a~vyráta sa maximálne oddialenie. Za~najnižšie oddialenie (alebo maximálne priblíženie) je určená hodnota, kde jeden pixel nahrávaného obrázka zodpovedá jednému zobrazenému pixelu. Následné točenie stredným tlačidlom myši mení pomer, akým sa pôvodný obrázok zmenší predtým, než sa vykreslí.
 
 \begin{figure}[!hb]
 	\centering
@@ -347,7 +350,7 @@ Pre lepšie porozumenie opíšeme postup pre~vzorový scenár popísaný obrázk
 
 	\item[Vykreslenie obrázka.] Element \emph{<x-cupe>} sa štandardne snaží zmenšiť obrázok tak, aby bolo vidno čo najviac jeho obsahu pri~zachovaní pomerov strán. To znamená, že v~tomto prípade nastaví výšku na~300px, a~šírku na~540px, pričom vykreslí 500px a~umožní užívateľovi posúvať obrázok po~šírke o~40px. V~rozšírení \emph{zoom} sa na~konci tohto výpočtu prenásobia oba rozmery hodnotou aktuálneho priblíženia, čím sa pomerne zväčšia. V~prípade priblíženia s~hodnotou 1,4 budú teda rozmery 420px a~700px.
 
-	\item[Zväčšovanie obrázka.] Pri~točení stredným tlačidlom myši sa určí smer - +1 pre~točenie smerom hore a~-1 pre~točenie smerom dole a~vynásobia sa krokom. Získame tak hodnotu buď 0,1 alebo -0.1 a~túto hodnotu prirátame k~aktuálnemu priblíženiu.
+	\item[Zväčšovanie obrázka.] Pri~točení stredným tlačidlom myši sa určí smer - +1 pre~točenie smerom hore a~-1 pre~točenie smerom dole a~vynásobia sa krokom. Získame tak hodnotu buď 0,1 alebo -0,1 a~túto hodnotu prirátame k~aktuálnemu priblíženiu.
 \end{description}
 
 
