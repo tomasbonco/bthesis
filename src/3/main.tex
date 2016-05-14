@@ -307,10 +307,10 @@ Tým sme dosiahli, že:
 Rozšírenie je funkcia, pričom odporúčame, aby vždy dávala možnosť aplikovať rozšírenie zvlášť na~jednotlivé prvky, ale tiež aj na~všetky prvky. Vo vzorovom rozšírení \quoted{zoom} (pozri \ref{sec:vzorove-rozsirenie}) sme to dosiahli prvým parametrom, ktorý, ak je prázdny, tak sa aplikuje rozšírenie na~triedu \emph{XCupeController}. V~prípade, že prázdny nie je, predpokladáme, že obsahuje odkaz na~už vytvorený element, a~teda rozšírenie aplikujeme na~ňom. Pre~plné porozumenie uvádzame príklad:
 
 \begin{lstlisting}[language=JavaScript]
-// Aplikuje zoom pre~všetky XCupe elementy
+// Applies zoom for all x-cupe elements
 XCupeZoom();
 
-// Aplikuje zoom pre~vybraný XCupe element
+// Applies zoom for selected x-cupe element
 var cupeElement = new HTMLXCupeElement();
 XCupeZoom( cupeElement );
 \end{lstlisting}
