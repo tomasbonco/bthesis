@@ -21,16 +21,16 @@ Ciele, ktoré sme stanovili pri~vytváraní knižnice majú za~úlohu maximalizo
 \section{Riešenie}
 \subsection{Predstavenie}
 \label{sec:predstavenie-riesenia}
-Najskôr sme plánovali využiť \emph{jQuery}, ale kvôli splneniu prvého cieľa (byť nezávislí od~knižníc/frameworkov tretích strán) sme sa rozhodli využiť \emph{Custom Element}. Vytvorili sme jeden, ktorý slúži na~úpravu obrázka \emph{<x-cupe>} a~jeden na~podporu nahrávania viacerých obrázkov - \emph{<x-cupe-gallery>}. Oba vychádzajú z~rovnakého HTML, pričom \emph{<x-cupe-gallery>} interne využíva \emph{<x-cupe>}, preto sa ďalej v~tejto kapitole zameriame na~element \emph{<x-cupe>}. Nahrávanie viacerých obrázkov je bližšie popísané v~kapitole 3.5.
+Najskôr sme plánovali využiť \emph{jQuery}, ale kvôli splneniu prvého cieľa (byť nezávislí od~knižníc/frameworkov tretích strán) sme sa rozhodli využiť \emph{Custom Element}. Vytvorili sme jeden, ktorý slúži na~úpravu obrázka \emph{<x-cupe>} a~jeden na~podporu nahrávania viacerých obrázkov -- \emph{<x-cupe-gallery>}. Oba vychádzajú z~rovnakého HTML, pričom \emph{<x-cupe-gallery>} interne využíva \emph{<x-cupe>}, preto sa ďalej v~tejto kapitole zameriame na~element \emph{<x-cupe>}. Nahrávanie viacerých obrázkov je bližšie popísané v~kapitole 3.5.
 
 
 Scenár nahrávania môže vyzerať takto:
 \begin{enumerate}
-	\item Užívateľ buď pomocou \emph{Drag\&Drop} nahraje obrázok, alebo klikne na~element a~následne si z~modálneho okna zvolí obrázok.
+	\item Užívateľ buď pomocou \emph{Drag\&Drop} nahrá obrázok, alebo klikne na~element a~následne si z~modálneho okna zvolí obrázok.
 	\item Obrázok sa zmenší, oreže a~zobrazí.
 	\item Pokiaľ užívateľ nie je spokojný s~obrázokom, pokračuje prvým bodom.
 	\item Pokiaľ užívateľ nie je spokojný s~orezaním, držaním stlačeného ľavého tlačidla myši posúva obrázok, dokým nie je spokojný.
-	\item Keď je užívateľ spokojný s~obrázkom aj jeho orezaním, odošle formulár. Až vtedy sa zmenšená a~orezaná verzia nahraje na~server.
+	\item Keď je užívateľ spokojný s~obrázkom aj jeho orezaním, odošle formulár. Až vtedy sa zmenšená a~orezaná verzia nahrá na~server.
 \end{enumerate}
 
 Hoc sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia, a~teda všetky úkony je možné vykonať dotykom. Interne oba elementy využívajú nasledujúce HTML:
@@ -99,9 +99,9 @@ V prípade nahrávania viacerých obrázkov:
 \section{Použité technológie, služby a~postupy}
 \subsection{Webové komponenty}
 
-Webové komponenty (v originále Web Components) pozostávajú zo~štyroch oddelených technológií - \emph{Custom Elements}, \emph{HTML Templates}, \emph{Shadow DOM} a~\emph{HTML Imports}. Využívajú sa na~vytvorenie znovu použiteľných komponentov užívateľského rozhrania. Keďže sú \footnote{Ako vysvetľuje ďalší odstavec, podpora v~čase písania tejto práce nebola úplná.} súčasťou prehliadačov, nepotrebujú externé knižnice ako \emph{jQuery} alebo \emph{Dojo}. Existujúce webové komponenty je možné používať jednoduchým importovaním v~HTML, teda bez~písania dodatočného (JavaScriptového) kódu. \cite{MDN_WebComponents}
+Webové komponenty (v originále Web Components) pozostávajú zo~štyroch oddelených technológií -- \emph{Custom Elements}, \emph{HTML Templates}, \emph{Shadow DOM} a~\emph{HTML Imports}. Využívajú sa na~vytvorenie znovu použiteľných komponentov užívateľského rozhrania. Keďže sú \footnote{Ako vysvetľuje ďalší odstavec, podpora v~čase písania tejto práce nebola úplná.} súčasťou prehliadačov, nepotrebujú externé knižnice ako \emph{jQuery} alebo \emph{Dojo}. Existujúce webové komponenty je možné používať jednoduchým importovaním v~HTML, teda bez~písania dodatočného (JavaScriptového) kódu. \cite{MDN_WebComponents}
 
-V dobe písania tejto práce boli webové komponenty podporované plne len v~\emph{Chrome} a~v pokročilom stave vývoja v~prehliadači \emph{Firefox}\footnote{Funkciu je možné zapnúť v~\emph{about:config}\label{aboutconfig}}. Podrobnejší popis podpory uvádzame v~tabuľkách \ref{tab:webcomponents-support-desktop} a~\ref{tab:webcomponents-support-mobile}\footnote{V tabuľke neuvádzame prehliadač \emph{Opera}, pretože využíva rovnaké vykresľovacie jadro ako \emph{Chrome} \cite{Opera_History}}. Vzhľadom k~tomuto stavu v~práci používame náhradu (tzv. \quoted{polyfill}) \emph{webcomponents.js} \cite{Webcomponents_polyfill}. Tá poskytuje podporu pre~webové komponenty aj do~všetkých aktuálnych dnes používaných prehliadačov, ktoré ich ešte nemajú zabudované. Výnimku tvorí \emph{Internet Explorer 10}, ktorý nepodporuje \emph{Custom Elements} a~\emph{HTML Imports}. \cite{Webcomponents_polyfill}
+V dobe písania tejto práce boli webové komponenty podporované plne len v~\emph{Chrome} a~v pokročilom stave vývoja v~prehliadači \emph{Firefox}\footnote{Funkciu je možné zapnúť v~\emph{about:config}\label{aboutconfig}}. Podrobnejší popis podpory uvádzame v~tabuľkách \ref{tab:webcomponents-support-desktop} a~\ref{tab:webcomponents-support-mobile}\footnote{V tabuľke neuvádzame prehliadač \emph{Opera}, pretože využíva rovnaké vykresľovacie jadro ako \emph{Chrome} \cite{Opera_History}}. Vzhľadom na~tento stav v~práci používame náhradu (tzv. \quoted{polyfill}) \emph{webcomponents.js} \cite{Webcomponents_polyfill}. Tá poskytuje podporu pre~webové komponenty aj do~všetkých aktuálnych dnes používaných prehliadačov, ktoré ich ešte nemajú zabudované. Výnimku tvorí \emph{Internet Explorer 10}, ktorý nepodporuje \emph{Custom Elements} a~\emph{HTML Imports}. \cite{Webcomponents_polyfill}
 
 
 \begin{table}[]
@@ -145,7 +145,7 @@ Shadow DOM      & 4.4+            & Nie        & Nie        \\ \bottomrule
 
 \emph{Canvas} je nový tag \emph{HTML5}, ktorý umožňuje pomocou JavaScriptu vykresľovať grafy, upravovať fotografie, animovať a~dokonca aj spracovať videá. Využíva ho aj \emph{WebGL} na~hardvérovo akcelerovanú 3D grafiku na~webe \cite{MDN_Canvas}.
 
-V našej práci ho využívame na~zobrazovanie obrázka. Samotná knižnica už obsahuje potrebné nástroje na~vkladanie a~zmenšovanie obrázka, čo nám uľahčuje prácu a~zároveň nám \emph{<canvas>} umožňuje prístup k~jednotlivým pixelom, čo ocenia najmä tvorcovia pokročilých rozšírení (napr. detegovať nevyužívanú plochu obrázka alebo prevod do~čierno-bielej verzie). Keď užívateľ presúva obrázok kvôli orezaniu, prekresľujeme daný výrez do~\emph{<canvas>} pomocou \emph{requestAnimationFrame} \cite{MDN_RequestAnimationFrame} pre~maximálnu plynulosť.
+V našej práci ho využívame na~zobrazovanie obrázka. Samotná knižnica už obsahuje potrebné nástroje na~vkladanie a~zmenšovanie obrázka, čo nám uľahčuje prácu a~zároveň nám \emph{<canvas>} umožňuje prístup k~jednotlivým pixelom, čo ocenia najmä tvorcovia pokročilých rozšírení (napr. na~detekciu nevyužívanej plochy obrázka alebo prevod do~čierno-bielej verzie). Keď užívateľ presúva obrázok kvôli orezaniu, prekresľujeme daný výrez do~\emph{<canvas>} pomocou \emph{requestAnimationFrame} \cite{MDN_RequestAnimationFrame} pre~maximálnu plynulosť.
 
 
 \subsection{Drag\&Drop}
@@ -157,9 +157,7 @@ V našej práci ho využívame na~zobrazovanie obrázka. Samotná knižnica už 
 \subsection{File Reader}
 \label{sec:file-reader}
 
-\emph{File Reader} umožňuje čítať obsah súborov vo webovom prostredí. Tie môžu byť načítané buď pomocou tagu \emph{<input>} alebo pomocou \emph{Drag\&Drop} (pozri \ref{sec:drag-n-drop}) 
-
-\cite{MDN_FileReader}\footnote{Citovaný MDN udáva ešte aj HTMLCanvasElement.mozGetAsFile(), ktorý je neštandardizovaný a~v dobe písanie tejto práce podporovaný iba prehliadačom Firefox.}.
+\emph{File Reader} umožňuje čítať obsah súborov vo webovom prostredí. Tie môžu byť načítané buď pomocou tagu \emph{<input>} alebo pomocou \emph{Drag\&Drop} (pozri \ref{sec:drag-n-drop}) \cite{MDN_FileReader}\footnote{Citovaný MDN udáva ešte aj HTMLCanvasElement.mozGetAsFile(), ktorý je neštandardizovaný a~v dobe písanie tejto práce podporovaný iba prehliadačom Firefox.}.
 
 Použili sme ho práve pre~prečítanie zvolených súborov, ktoré sme následne zobrazili v~\emph{<canvas>} (pozri \ref{sec:canvas-element}).
 
@@ -183,7 +181,7 @@ Naša knižnica využíva \emph{TypeScript}, pretože umožňuje rýchlejšie od
 
 \subsection{GitHub}
 
-Počas tvorby sme používali \emph{Git} a~výsledok našej práce sme uverejnili v~službe \emph{GitHub} - webovej službe na~správu \emph{Git} repozitárov. \emph{Git} je (v čase písania tejto práce) bezplatný nástroj na~spravovanie verzií. Na~rozdiel od~\emph{Apache Subversion} (SVN) je distribuovaný. \emph{GitHub} je server pre~\emph{Git}, ktorý však pridáva vlastné funkcie. Pokým \emph{Git} je nástroj ovládaný príkazovým riadkom, \emph{GitHub} poskytuje webové rozhranie. Ďalej poskytuje nástroje pre~lepšiu spoluprácu ako wiki stránky a~jednoduchú správu úloh, umožňuje nastaviť prístupové práva, a~tiež možnosť kopírovať repozitáre medzi~užívateľmi \cite{Git_TechCrunch}. 
+Počas tvorby sme používali \emph{Git} a~výsledok našej práce sme uverejnili v~službe \emph{GitHub} -- webovej službe na~správu \emph{Git} repozitárov. \emph{Git} je (v čase písania tejto práce) bezplatný nástroj na~spravovanie verzií. Na~rozdiel od~\emph{Apache Subversion} (SVN) je distribuovaný. \emph{GitHub} je server pre~\emph{Git}, ktorý však pridáva vlastné funkcie. Pokým \emph{Git} je nástroj ovládaný príkazovým riadkom, \emph{GitHub} poskytuje webové rozhranie. Ďalej poskytuje nástroje pre~lepšiu spoluprácu ako wiki stránky a~jednoduchú správu úloh, umožňuje nastaviť prístupové práva, a~tiež možnosť kopírovať repozitáre medzi~užívateľmi \cite{Git_TechCrunch}. 
 
 
 \section{Postup nahrávania a~nastavenia}
@@ -193,7 +191,7 @@ V tejto sekcii sa budeme venovať samotnému procesu nahrávania obrázka, od~je
 
 \subsection{Zvolenie obrázka}
 
-Užívateľ môže obrázok zvoliť dvoma spôsobmi - výberom z~modálneho okna alebo pomocou \emph{Drag\&Drop}. V~prípade nahrávania obrázka cez~modálne okno, užívateľ musí kliknúť na~\emph{<x-cupe>} element, do~ktorého chce obrázok nahrať. Interne sa tento klik prevedie na~\emph{<input type="file"\textgreater} a~to spôsobí otvorenie modálneho okna. Po~tom, čo si užívateľ zvolí obrázok, je tento súbor pomocou \emph{File Reader} (pozri \ref{sec:file-reader}) prečítaný a~pripravený na~ďalšie spracovanie. V~prípade, že chceme tento spôsob nahrávania zakázať, stačí nastaviť atribút \emph{allow-select} na~hodnotu \emph{false}.
+Užívateľ môže obrázok zvoliť dvoma spôsobmi -- výberom z~modálneho okna alebo pomocou \emph{Drag\&Drop}. V~prípade nahrávania obrázka cez~modálne okno musí užívateľ kliknúť na~\emph{<x-cupe>} element, do~ktorého chce obrázok nahrať. Interne sa tento klik prevedie na~\emph{<input type="file"\textgreater} a~to spôsobí otvorenie modálneho okna. Po~tom, čo si užívateľ zvolí obrázok, je tento súbor pomocou \emph{File Reader} (pozri \ref{sec:file-reader}) prečítaný a~pripravený na~ďalšie spracovanie. V~prípade, že chceme tento spôsob nahrávania zakázať, stačí nastaviť atribút \emph{allow-select} na~hodnotu \emph{false}.
 
 V prípade použitia \emph{Drag\&Drop}, a~teda označenie obrázka, jeho presunutie ponad cieľový element a~následné pustenie myši/oddialenie prsta od~dotykovej plochy, je postup podobný. Element (<x-cupe>) vie pomocou zachytenia udalosti \emph{drop} zachytiť presúvaný obrázok a~ďalej ho rovnako ako pri~modálnom okne pomocou \emph{File Reader} prečítať. Ak chceme tento spôsob zakázať, je potrebné nastaviť atribút \emph{allow-drop} na~hodnotu \emph{false}.
 
@@ -227,12 +225,12 @@ Takisto sme si všimli, že ak zmenšíme veľmi veľký obrázok, jeho kvalita 
 
 Pokiaľ je povolené orezanie obrázka, je možné toto orezanie meniť posúvaním obrázka. Aby sme odlíšili kliknutie, kedy má vyskočiť modálne okno s~možnosťou výberu obrázka, a~samotné posúvanie, nastavili sme limit, počas ktorého musí užívateľ držať myš stlačenú na~100 ms. Rovnaký limit platí aj pre~dotykové zariadenia. Po~spustení udalosti presúvania sa vyrátava súčasná pozícia myši a~porovnáva sa s~pozíciou, na~ktorej začalo presúvanie. Rozdielom týchto hodnôt získavame informáciu o~tom, ako máme posunúť obrázok. Tento rozdiel sa následne priráta k~orezaniu obrázka. Nakoniec už zmenšený obrázok s~novým nastavením orezania vykreslíme s~využitím \emph{requestAnimationFrame}. Posúvanie obrázka sa dá vypnúť nastavím atribútu \emph{allow\_move} na~hodnotu \emph{false}.
 
-Vzhľadom k~tomu, že ukladanie (pozri \ref{sec:odoslanie-obrazka}) je časovo náročná operácia, počas posúvania k~nemu nedochádza. Keď ale užívateľ posúvanie ukončí, obrázok je uložený.
+Vzhľadom na~to, že ukladanie (pozri \ref{sec:odoslanie-obrazka}) je časovo náročná operácia, počas posúvania k~nemu nedochádza. Keď ale užívateľ posúvanie ukončí, obrázok je uložený.
 
 \subsection{Odoslanie obrázka}
 \label{sec:odoslanie-obrazka}
 
-Pre odoslanie obrázka stačí vložiť element (\emph{<x-cupe>}) do~elementu \emph{<form>} a~nastaviť mu atribút \emph{name}. Po~odoslaní formulára sa obrázky prenášajú vo formáte PNG ako Base64 reťazce. Interne každý \emph{<x-cupe>} element obsahuje \emph{<input type="text"\textgreater}, ako je spomenuté v~sekcii \ref{predstavenie-riesenia}. Tomu sa nastaví \emph{name} a~jeho hodnota je odoslaná na~server (po odoslaní formulára). Keďže nevieme, kedy užívateľ odošle formulár, obrázok sa do~inputu priebežne ukladá - po~načítaní obrázka a~potom, ako skončí jeho posúvanie (pozri \ref{sec:posuvanie-obrazka}).
+Pre odoslanie obrázka stačí vložiť element (\emph{<x-cupe>}) do~elementu \emph{<form>} a~nastaviť mu atribút \emph{name}. Po~odoslaní formulára sa obrázky prenášajú vo formáte PNG ako Base64 reťazce. Interne každý \emph{<x-cupe>} element obsahuje \emph{<input type="text"\textgreater}, ako je spomenuté v~sekcii \ref{sec:predstavenie-riesenia}. Tomu sa nastaví \emph{name} a~jeho hodnota je odoslaná na~server (po odoslaní formulára). Keďže nevieme, kedy užívateľ odošle formulár, obrázok sa do~inputu priebežne ukladá -- po~načítaní obrázka a~potom, ako skončí jeho posúvanie (pozri \ref{sec:posuvanie-obrazka}).
 
 Samotné ukladanie je časovo náročná operácia, ktorá môže byť pri~použití \emph{XMLHttpRequest} úplne zbytočná. Preto je možné túto funkciu vypnúť jednoduchým neuvedením atribútu \emph{name} a~využívať metódu \emph{getContent()} elementu \emph{<x-cupe>}. Vďaka nej je možné získať prístup priamo k~vlastnosti \emph{context} elementu \emph{<canvas>}, alebo uložiť obrázok vo formátoch \emph{PNG}, \emph{JPG} a~\emph{WEBP}\footnote{Nemusí byť podporovaný v~každom prehliadači}. V~prípade formátov \emph{JPG} a~\emph{WEBP} je tiež možné nastaviť kvalitu v~rozsahu od~0 (0\%) po~1 (100\%), predvolená hodnota je 0.92. Obrázky sú ukladané (a odosielané) v~96 dpi \cite{Canvas_toURL}. Funkcia vracia obrázok ako Base64 reťazec. Použitie znázorňuje ukážka \ref{pouzitie-getContent-metody}.
 
@@ -246,7 +244,7 @@ V prípade elementu \emph{<x-cupe-gallery>} sa pridáva na~začiatok ďalší pa
 Nahrávanie viacerých obrázkov cez~formulár zatiaľ nie je možné. Keďže \emph{Shadow DOM} vytvára HTML štruktúru, ktorá ale nie je súčasťou DOM, formulár (element \emph{<form>}) nemá prístup k~elementom \emph{<input>} v~Shadow DOM, a~teda nie je možné obrázky poslať. Tento problém sa dá vyriešiť dvoma spôsobmi:
 
 \begin{itemize}
-	\item \emph{Custom Element} využíva \emph{Shadow DOM} na~internú reprezentáciu, ale tiež môže reflektovať aj obsah, ktorý je vložený dovnútra elementu v~DOM na~konkrétne miesto v~\emph{Shadow DOM}. Problémom však je, že sa tvorcovia prehliadačov nevedia dohodnúť na~tom, ako by to malo fungovať \cite{WebComponents_state}. Kým v~pôvodnej špecifikácii sa objavuje nový element \emph{<content>}, \emph{MDN}\footnote{Mozilla Developer Network - najväčšia a~najlepšia dokumentácia k~webovým technológiám.} ho už neodporúča používať \cite{MDN_Content_Element}. Miesto toho navrhuje používať element \emph{<slot>}, lenže jeho presná špecifikácia a~podpora nie je známa. Ani náhrada (tzv. \quoted{polyfill}) \emph{webcomponents.js}, ktorú používame, aby sme dosiahli maximálnu možnú kompatibilitu s~používanými prehliadačmi ho zatiaľ nepodporuje.
+	\item \emph{Custom Element} využíva \emph{Shadow DOM} na~internú reprezentáciu, ale tiež môže reflektovať aj obsah, ktorý je vložený dovnútra elementu v~DOM na~konkrétne miesto v~\emph{Shadow DOM}. Problémom však je, že sa tvorcovia prehliadačov nevedia dohodnúť na~tom, ako by to malo fungovať \cite{WebComponents_state}. Kým v~pôvodnej špecifikácii sa objavuje nový element \emph{<content>}, \emph{MDN}\footnote{Mozilla Developer Network -- najväčšia a~najlepšia dokumentácia k~webovým technológiám.} ho už neodporúča používať \cite{MDN_Content_Element}. Miesto toho navrhuje používať element \emph{<slot>}, lenže jeho presná špecifikácia a~podpora nie je známa. Ani náhrada (tzv. \quoted{polyfill}) \emph{webcomponents.js}, ktorú používame, aby sme dosiahli maximálnu možnú kompatibilitu s~používanými prehliadačmi ho zatiaľ nepodporuje.
 	\item Vložiť element \emph{<input>} do~\emph{CustomElement}u, ale nie do~\emph{Shadow DOM}. Je to jednoduchý trik. Keďže takýto element je súčasťou DOM, ale nie je súčasťou \emph{ShadowDOM}, prehliadač nevie, ako ho má vykresliť, a~preto ho ani nevykreslí. Avšak pri~odosielaní formulára jeho obsah odosiela. Tento trik využívame v~elemente \emph{<x-cupe>}, avšak nemôžeme ho využiť v~\emph{<x-cupe-gallery>}, pretože ak by sme nevkladali elementy \emph{<x-cupe>} v~\emph{<x-cupe-gallery>} do~\emph{ShadowDOM}, neboli by viditeľné a~to je nežiadúce.
 \end{itemize}
 
@@ -263,7 +261,7 @@ Nakoľko naša knižnica používa na~spracovanie a~zobrazovanie obrazu tag \emp
 \subsection{Systém rozšírení}
 \label{sec:system-rozsireni}
 
-Predstavme si dve rozšírenia - \quoted{zoom} (rozšírenie umožňujúce zväčšovať a~zmenšovať obraz) a~\quoted{black\&white} (rozšírenie, ktoré prevedie obraz do~čierno-bielej škály). Chceli sme, aby tvorca stránky vedel stanoviť, ktoré \emph{<x-cupe>} elementy budú používať \quoted{black\&white}, a~ktoré nie. Tiež sme chceli, aby vedel nastaviť rozšírenie \quoted{zoom} pre~všetky \emph{<x-cupe>} elementy. \textbf{Naším cieľom teda bolo, aby rozšírenie bolo možné aplikovať aj pre~jednotlivé \emph(<x-cupe>) elementy, ale aj univerzálne - pre~všetky \emph(<x-cupe>) elementy}. Naším ďalším cieľom bolo, aby \textbf{rozšírenia bolo možné kombinovať}, a~teda aby tvorca stránky vedel nastaviť obe rozšírenia - \quoted{zoom} aj \quoted{black\&white} na~rovnaký \emph{<x-cupe>} element. Naším posledným cieľom bolo, aby boli rozšírenia nezávislé moduly - samostatné súbory, ktoré o~sebe nevedia (resp. nemusia vedieť).
+Predstavme si dve rozšírenia -- \quoted{zoom} (rozšírenie umožňujúce zväčšovať a~zmenšovať obraz) a~\quoted{black\&white} (rozšírenie, ktoré prevedie obraz do~čierno-bielej škály). Chceli sme, aby tvorca stránky vedel stanoviť, ktoré \emph{<x-cupe>} elementy budú používať \quoted{black\&white} a~ktoré nie. Tiež sme chceli, aby vedel nastaviť rozšírenie \quoted{zoom} pre~všetky \emph{<x-cupe>} elementy. \textbf{Naším cieľom teda bolo, aby rozšírenie bolo možné aplikovať aj pre~jednotlivé \emph(<x-cupe>) elementy, ale aj univerzálne -- pre~všetky \emph(<x-cupe>) elementy}. Naším ďalším cieľom bolo, aby \textbf{rozšírenia bolo možné kombinovať}, a~teda aby tvorca stránky vedel nastaviť obe rozšírenia -- \quoted{zoom} aj \quoted{black\&white} na~rovnaký \emph{<x-cupe>} element. Naším posledným cieľom bolo, aby boli rozšírenia nezávislé moduly -- samostatné súbory, ktoré o~sebe nevedia (resp. nemusia vedieť).
 
 Zhodnotili sme existujúce riešenia a~rozhodli sme sa, že rozšírenia budú funkcie, ktoré budú upravovať metódy našej knižnice. Tým dosiahneme \quoted{cibuľový efekt}.
 
@@ -350,7 +348,7 @@ Pre lepšie porozumenie opíšeme postup pre~vzorový scenár popísaný obrázk
 
 	\item[Vykreslenie obrázka.] Element \emph{<x-cupe>} sa štandardne snaží zmenšiť obrázok tak, aby bolo vidno čo najviac jeho obsahu pri~zachovaní pomerov strán. To znamená, že v~tomto prípade nastaví výšku na~300px, a~šírku na~540px, pričom vykreslí 500px a~umožní užívateľovi posúvať obrázok po~šírke o~40px. V~rozšírení \emph{zoom} sa na~konci tohto výpočtu prenásobia oba rozmery hodnotou aktuálneho priblíženia, čím sa pomerne zväčšia. V~prípade priblíženia s~hodnotou 1,4 budú teda rozmery 420px a~700px.
 
-	\item[Zväčšovanie obrázka.] Pri~točení stredným tlačidlom myši sa určí smer - +1 pre~točenie smerom hore a~-1 pre~točenie smerom dole a~vynásobia sa krokom. Získame tak hodnotu buď 0,1 alebo -0,1 a~túto hodnotu prirátame k~aktuálnemu priblíženiu.
+	\item[Zväčšovanie obrázka.] Pri~točení stredným tlačidlom myši sa určí smer, a~to $+1$ pre~točenie smerom hore a~$\minus1$ pre~točenie smerom dole a~vynásobia sa krokom. Získame tak hodnotu buď 0,1 alebo $\minus0,1$ a~túto hodnotu prirátame k~aktuálnemu priblíženiu.
 \end{description}
 
 

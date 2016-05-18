@@ -2,7 +2,7 @@
 \section{Podpora mobilných zariadení}
 
 % Android 5.0.2 - LG G2
-Naše riešenie sme testovali na~dvoch zariadeniach - LG G2 (Android 5.0.2, natívny prehliadač aj Chrome) a~iPhone 6 (iOS 9.3.1, Safari aj Chrome) a~v oboch prípadoch boli výsledky úspešné. Cieľom bolo overiť, či naše riešenie funguje správne na~dvoch najväčších platformách. Implementácia sa pre~mobilné prehliadače jemne líši. Kým užívatelia na~stolových počítačoch používajú v~prevažnej miere myš, mobilné zariadenia sú dotykové, a~teda bolo potrebné zabezpečiť, aby sa dotyky správne interpretovali - používanie \emph{event.changedTouches[0].pageX} miesto \emph{event.pageX} a~tiež povolenie posúvania obrázka len jedným prstom.
+Naše riešenie sme testovali na~dvoch zariadeniach -- LG G2 (Android 5.0.2, natívny prehliadač aj Chrome) a~iPhone 6 (iOS 9.3.1, Safari aj Chrome) a~v oboch prípadoch boli výsledky úspešné. Cieľom bolo overiť, či naše riešenie funguje správne na~dvoch najväčších platformách. Implementácia sa pre~mobilné prehliadače jemne líši. Kým užívatelia na~stolových počítačoch používajú v~prevažnej miere myš, mobilné zariadenia sú dotykové, a~teda bolo potrebné zabezpečiť, aby sa dotyky správne interpretovali -- používanie \emph{event.changedTouches[0].pageX} miesto \emph{event.pageX} a~tiež povolenie posúvania obrázka len jedným prstom.
 
 Takisto sme si všimli, že náhrada (\quoted{polyfill}) \emph{webcomponents.js}, ktorú používame, aby sme dosiahli plnú podporu na~dosiaľ nepodporovaných prehliadačoch, nevytvára pseudotriedu \emph{:host} na~mobilných zariadeniach, preto je potrebné do~CSS manuálne vložiť spôsob, akým sa má element vykresliť, ako uvádza ukážka \ref{sourcecode_host}.
 
@@ -12,18 +12,18 @@ x-cupe, x-cupe-gallery { display: inline-block; }
 
 \section{Porovnanie s~ďalšími riešeniami}
 
-Vzhľadom k~tomu, že knižníc na~nahrávanie obrázkov je veľa, rozhodli sme sa porovnať tú našu s~vybranými ostatnými. Porovnávali sme spôsob a~rýchlosť nahrávania, spôsob spracovania a~ponúkané možnosti. Všetky knižnice musia upravovať obrázok v~prehliadači.
-Testy sme vykonávali s~dvoma obrázkami - s~obrázkom ABSTRACT ($3000\times2000$px; 72dpi; 5,38MB) a~s väčším obrázkom PANORAMA ($24442\times4195$px; 150dpi; 28,1MB).
+Vzhľadom na~to, že knižníc na~nahrávanie obrázkov je veľa, rozhodli sme sa porovnať tú našu s~vybranými ostatnými. Porovnávali sme spôsob a~rýchlosť nahrávania, spôsob spracovania a~ponúkané možnosti. Všetky knižnice musia upravovať obrázok v~prehliadači.
+Testy sme vykonávali s~dvoma obrázkami -- s~obrázkom ABSTRACT ($3000\times2000$px; 72dpi; 5,38MB) a~s väčším obrázkom PANORAMA ($24442\times4195$px; 150dpi; 28,1MB).
 
 \begin{description}
 	
 	\item[http://scottcheng.github.io/cropit/ (A)] (30. 4. 2016)\\
-	je jQuery rozšírením, umožňuje nahrávať obrázky pomocou \emph{Drag\&Drop} aj vybraním obrázka cez~modálne okno. Podporuje približovanie (len pomocou posuvníka), a~tiež rotovanie obrázka. Na~vykresľovanie obrázka nepoužíva \emph{<canvas>}, ale \emph{<img>}, s~tým, že keď je potrebné obrázok uložiť, prekreslí vybraný výsek obrázka do~elementu \emph{canvas}, z~ktorého výsledok vyexportuje. Aj napriek tomu, že na~stránke projektu sa uvádza, že je veľmi rýchle aj pri~veľkých obrázkoch, v~našich meraniach trvalo nahranie obrázka PANORAMA 26 sekúnd, a~následné posúvanie nebolo možné, nakoľko sa obrázok prekresľoval niekoľko sekúnd.
+	je \emph{jQuery} rozšírením, umožňuje nahrávať obrázky pomocou \emph{Drag\&Drop} aj vybraním obrázka cez~modálne okno. Podporuje približovanie (len pomocou posuvníka), a~tiež rotovanie obrázka. Na~vykresľovanie obrázka nepoužíva \emph{<canvas>}, ale \emph{<img>}, s~tým, že keď je potrebné obrázok uložiť, prekreslí vybraný výsek obrázka do~elementu \emph{canvas}, z~ktorého výsledok vyexportuje. Aj napriek tomu, že na~stránke projektu sa uvádza, že je veľmi rýchle aj pri~veľkých obrázkoch, v~našich meraniach trvalo nahranie obrázka PANORAMA 26 sekúnd, a~následné posúvanie nebolo možné, nakoľko sa obrázok prekresľoval niekoľko sekúnd.
 	
 	%25.99
 	
 	\item[http://foliotek.github.io/Croppie/ (B)] (30. 4. 2016)\\
-	je ďalšie jQuery rozšírenie, ktoré slúži na~úpravu obrázkov. Podporuje približovanie aj stredným tlačidlom myši. Samotná knižnica nepodporuje nahrávanie obrázkov. Umožňuje úpravu obrázkov už nahraných, a~to takým spôsobom, že ich vykreslí do~elementu \emph{<img>}, ktorým umožňuje posúvať a~pri uložení prekreslí výrez obrázka do~elementu \emph{<canvas>}, ktorý vyexportuje. Vzorové použitie však ukazuje aj prípad, kedy knižnica dokáže spracovať nahrané dáta. V~tom prípade celý obrázok vykreslí do~elementu \emph{<canvas>}. Následne s~ním pracuje rovnako ako v~prvom prípade s~elementom \emph{<img>}. Nahrávanie obrázka PANORAMA trvalo priemerne 13 sekúnd (od odoslania po~zobrazenie obrázka), ale na~jeho plynulé posúvanie bolo potrebné čakať ešte zhruba minútu a~pol. Myslíme si, že je to spôsobené tým, že vytvorený element \emph{<canvas>} mal rovnaké rozlíšenie ako originálny obrázok, čo značne predlžovalo dobu vykreslenia v~prehliadači.
+	je ďalšie \emph{jQuery} rozšírenie, ktoré slúži na~úpravu obrázkov. Podporuje približovanie aj stredným tlačidlom myši. Samotná knižnica nepodporuje nahrávanie obrázkov. Umožňuje úpravu obrázkov už nahraných, a~to takým spôsobom, že ich vykreslí do~elementu \emph{<img>}, ktorým umožňuje posúvať a~pri uložení prekreslí výrez obrázka do~elementu \emph{<canvas>}, ktorý vyexportuje. Vzorové použitie však ukazuje aj prípad, kedy knižnica dokáže spracovať nahrané dáta. V~tom prípade celý obrázok vykreslí do~elementu \emph{<canvas>}. Následne s~ním pracuje rovnako ako v~prvom prípade s~elementom \emph{<img>}. Nahrávanie obrázka PANORAMA trvalo priemerne 13 sekúnd (od odoslania po~zobrazenie obrázka), ale na~jeho plynulé posúvanie bolo potrebné čakať ešte zhruba minútu a~pol. Myslíme si, že je to spôsobené tým, že vytvorený element \emph{<canvas>} mal rovnaké rozlíšenie ako originálny obrázok, čo značne predlžovalo dobu vykreslenia v~prehliadači.
 	
 	%15.34
 	%2.06.11
@@ -33,7 +33,7 @@ Testy sme vykonávali s~dvoma obrázkami - s~obrázkom ABSTRACT ($3000\times2000
 	
 	
 	\item[http://codecanyon.stbeets.nl/ (D)](30. 4. 2016)\\
-	je platené (11\$) rozšírenie jQuery, umožňuje nahrávanie obrázkov aj cez~modálne okno, aj cez~\emph{Drag\&Drop}. Nahraný obrázok vykresľuje v~elemente \emph{<img>}, ktorým umožňuje posúvať, a~následné uloženie obrázka spôsobí prekreslenie do~elementu \emph{<canvas>}. Uloženie je potrebné spraviť ručne. Pri~nahratí obrázka ABSTRACT posúvanie mierne sekalo, pri~nahratí obrázka PANORAMA nebolo možné.
+	je platené (11\$) rozšírenie \emph{jQuery}, umožňuje nahrávanie obrázkov aj cez~modálne okno, aj cez~\emph{Drag\&Drop}. Nahraný obrázok vykresľuje v~elemente \emph{<img>}, ktorým umožňuje posúvať, a~následné uloženie obrázka spôsobí prekreslenie do~elementu \emph{<canvas>}. Uloženie je potrebné spraviť ručne. Pri~nahratí obrázka ABSTRACT posúvanie mierne sekalo, pri~nahratí obrázka PANORAMA nebolo možné.
 
 \end{description}
 
@@ -54,7 +54,7 @@ Tieto vybrané knižnice sme porovnali v~nasledujúcich vlastnostiach:
 	\begin{tabular}{@{}|l|c|c|c|c|c|@{}}
 	\toprule
 		  		   & \multicolumn{1}{l|}{Naša knižnica} & \multicolumn{1}{l|}{A} & \multicolumn{1}{l|}{B} & \multicolumn{1}{l|}{C} & \multicolumn{1}{l|}{D} \\ \midrule
-	1              & žiadne                & jQuery                 & jQuery                 & žiadne                 & jQuery                 \\ \midrule
+	1              & žiadne                & \emph{jQuery}          & \emph{jQuery}          & žiadne                 & \emph{jQuery}          \\ \midrule
 	2 		       & áno                   & nie                    & nie                    & nie                    & áno                    \\ \midrule
 	3  			   & áno                   & nie                    & nie                    & nie                    & nie                    \\ \midrule
 	4			   & áno                   & nie                    & nie                    & nie                    & áno                    \\ \midrule

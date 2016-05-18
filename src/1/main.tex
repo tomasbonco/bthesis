@@ -5,7 +5,7 @@ Aby sa dali veci robiť lepšie a~efektívnejšie, je najprv potrebné preskúma
 
 \section{HTML tag <input\textgreater}
 
-Historicky prvým spôsobom je nepárový tag \emph{<input type="file"\textgreater}. Objavil sa už v~roku 1997, keď konzorcium W3C vydalo štandard \emph{HTML 3.2} \cite{html32}. Umožňuje nahrávanie súborov, a~teda aj obrázkov, ako súčasť zaslaného formulára (musí sa vyskytovať uprostred tagu <form\textgreater). Scenár nahrávania prebieha nasledovne:
+Historicky prvým spôsobom je nepárový tag \emph{<input type="file"\textgreater}. Objavil sa už v~roku 1997, keď konzorcium W3C vydalo štandard \emph{HTML~3.2} \cite{html32}. Umožňuje nahrávanie súborov, a~teda aj obrázkov, ako súčasť zaslaného formulára (musí sa vyskytovať uprostred tagu <form\textgreater). Scenár nahrávania prebieha nasledovne:
 
 \begin{figure}[!hbt]
 	\centering
@@ -27,7 +27,7 @@ Historicky prvým spôsobom je nepárový tag \emph{<input type="file"\textgreat
 
 Výhody tohto riešenia sú predovšetkým:
 \begin{itemize}
-	\item Natívna podpora v~prehliadačoch - nie sú potrebné žiadne ďalšie JavaScriptové súbory.
+	\item Natívna podpora v~prehliadačoch -- nie sú potrebné žiadne ďalšie JavaScriptové súbory.
 	\item Jednoduché na~implementáciu.
 	\item Podpora \emph{Drag\&Drop}.
 \end{itemize}
@@ -71,8 +71,8 @@ Výhody tohto riešenia sú predovšetkým:
 
 \section{Riešenia založené na~Adobe Flash a~Microsoft Silverlight}
 
-V dobe písania tejto práce boli stále veľmi rozšírené riešenia, založené na~technológii Adobe Flash (ďalej spomínaný už len ako Flash). Flash, pôvodne navrhnutý pre~tvorbu multimediálneho obsahu - vektorovej grafiky, animácií, hier pre~prehliadač - sa stal populárnym aj na~tvorbu väčších aplikácií v~prehliadači, pracovanie so~vstupm z~webovej kamery či mikrofónu, až po~prehrávanie videí a~zvuku.
+V dobe písania tejto práce boli stále veľmi rozšírené riešenia, založené na~technológii Adobe Flash (ďalej spomínaný už len ako Flash). Flash, pôvodne navrhnutý pre~tvorbu multimediálneho obsahu -- vektorovej grafiky, animácií, hier pre~prehliadač -- sa stal populárnym aj na~tvorbu väčších aplikácií v~prehliadači, pracovanie so~vstupom z~webovej kamery či mikrofónu, až po~prehrávanie videí a~zvuku.
 
-O~niečo podobné sa pokúšal Microsoft s~technológiou Silverlight (ďalej len Silverlight). Obe technológie nepoužívajú Javascript, ale iné jazyky - v~prípade technológie Flash ide o~ActionScript a~v prípade Silverlight ide o~Visual Basic, C\#, Ruby alebo Python. \textbf{V~týchto technológiách by preto bolo možné napísať aj celú našu knižnicu}, avšak nemohli by sme dosiahnuť podporu mobilných zariadení a~obe technológie vyžadujú inštaláciu rozšírení tretích strán do~prehliadača.
+O~niečo podobné sa pokúšal Microsoft s~technológiou Silverlight (ďalej len Silverlight). Obe technológie nepoužívajú JavaScript, ale iné jazyky -- v~prípade technológie Flash ide o~ActionScript a~v prípade Silverlight ide o~Visual Basic, C\#, Ruby alebo Python. \textbf{V~týchto technológiách by preto bolo možné napísať aj celú našu knižnicu}, avšak nemohli by sme dosiahnuť podporu mobilných zariadení a~obe technológie vyžadujú inštaláciu rozšírení tretích strán do~prehliadača.
 
 Hlavným dôvodom neúspechu technológie Flash a~Silverlight sa stalo odmietnutie podpory od~firmy Apple (pozri \ref{sec:mobile-support}). V~súčasnej dobe nie je podporovaný na~mobilných zariadeniach s~operačným systémom iOS, Android a~Windows Phone. Samotné Adobe už prestáva ďalej Flash podporovať a~zameriava sa radšej na~HTML5 \cite{Flash_dead}.
