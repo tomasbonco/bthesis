@@ -33,7 +33,7 @@ Scenár nahrávania môže vyzerať takto:
 	\item Keď je užívateľ spokojný s~obrázkom aj jeho orezaním, odošle formulár. Až vtedy sa zmenšená a~orezaná verzia nahrá na~server.
 \end{enumerate}
 
-Hoc sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia, a~teda všetky úkony je možné vykonať dotykom. Interne oba elementy využívajú nasledujúce HTML:
+Hoci sa v~scenári spomína klikanie, knižnica podporuje aj dotykové zariadenia, a~teda všetky úkony je možné vykonať dotykom. Interne oba elementy využívajú nasledujúce HTML:
 
 \begin{lstlisting}[language=HTML,caption=Interná štruktúra elementov \emph{<x-cupe>} a~\emph{<x-cupe-gallery>}.]
 <canvas></canvas>
@@ -101,7 +101,7 @@ V prípade nahrávania viacerých obrázkov:
 
 Webové komponenty (v originále Web Components) pozostávajú zo~štyroch oddelených technológií -- \emph{Custom Elements}, \emph{HTML Templates}, \emph{Shadow DOM} a~\emph{HTML Imports}. Využívajú sa na~vytvorenie znovu použiteľných komponentov užívateľského rozhrania. Keďže sú \footnote{Ako vysvetľuje ďalší odstavec, podpora v~čase písania tejto práce nebola úplná.} súčasťou prehliadačov, nepotrebujú externé knižnice ako \emph{jQuery} alebo \emph{Dojo}. Existujúce webové komponenty je možné používať jednoduchým importovaním v~HTML, teda bez~písania dodatočného (JavaScriptového) kódu. \cite{MDN_WebComponents}
 
-V dobe písania tejto práce boli webové komponenty podporované plne len v~\emph{Chrome} a~v pokročilom stave vývoja v~prehliadači \emph{Firefox}\footnote{Funkciu je možné zapnúť v~\emph{about:config}\label{aboutconfig}}. Podrobnejší popis podpory uvádzame v~tabuľkách \ref{tab:webcomponents-support-desktop} a~\ref{tab:webcomponents-support-mobile}\footnote{V tabuľke neuvádzame prehliadač \emph{Opera}, pretože využíva rovnaké vykresľovacie jadro ako \emph{Chrome} \cite{Opera_History}}. Vzhľadom na~tento stav v~práci používame náhradu (tzv. \quoted{polyfill}) \emph{webcomponents.js} \cite{Webcomponents_polyfill}. Tá poskytuje podporu pre~webové komponenty aj do~všetkých aktuálnych dnes používaných prehliadačov, ktoré ich ešte nemajú zabudované. Výnimku tvorí \emph{Internet Explorer 10}, ktorý nepodporuje \emph{Custom Elements} a~\emph{HTML Imports}. \cite{Webcomponents_polyfill}
+V dobe písania tejto práce boli webové komponenty podporované plne len v~\emph{Chrome} a~v pokročilom stave vývoja v~prehliadači \emph{Firefox}\footnote{Funkciu je možné zapnúť v~\emph{about:config}\label{aboutconfig}}. Podrobnejší popis podpory uvádzame v~tabuľkách \ref{tab:webcomponents-support-desktop}\footnote{V tabuľke neuvádzame prehliadač \emph{Opera}, pretože využíva rovnaké vykresľovacie jadro ako \emph{Chrome} \cite{Opera_History}} a~\ref{tab:webcomponents-support-mobile}. Vzhľadom na~tento stav v~práci používame náhradu (tzv. \quoted{polyfill}) \emph{webcomponents.js} \cite{Webcomponents_polyfill}. Tá poskytuje podporu pre~webové komponenty aj do~všetkých aktuálnych dnes používaných prehliadačov, ktoré ich ešte nemajú zabudované. Výnimku tvorí \emph{Internet Explorer 10}, ktorý nepodporuje \emph{Custom Elements} a~\emph{HTML Imports}. \cite{Webcomponents_polyfill}
 
 
 \begin{table}[]
@@ -164,7 +164,7 @@ Použili sme ho práve pre~prečítanie zvolených súborov, ktoré sme následn
 
 \subsection{Promise}
 
-\emph{Promise} je objekt určený pre~asynchrónne výpočty a~výpočty naplánované na~neskôr (napríklad cez~\emph{setTimeout} alebo \emph{setInterval}). Nevracia priamo metódu, ale vracia \quoted{prísľub}, že niekedy v~budúcnosti hodnota bude dostupná \cite{MDN_Promise}. V~silno asynchrónnej aplikácii zabraňuje tzv. \quoted{callback hell}, kde množstvo callbackov bráni zrozumiteľnosti a~ladeniu kódu.
+\emph{Promise} je objekt určený pre~asynchrónne výpočty a~výpočty naplánované na~neskôr (napríklad cez~\emph{setTimeout} alebo \emph{setInterval}). Nevracia priamo hodnotu, ale vracia \quoted{prísľub}, že niekedy v~budúcnosti hodnota bude dostupná \cite{MDN_Promise}. V~silno asynchrónnej aplikácii zabraňuje tzv. \quoted{callback hell}, kde množstvo callbackov bráni zrozumiteľnosti a~ladeniu kódu.
 
 \emph{Promise} používame namiesto preposielania callbackov, predovšetkým pri~čítaní užívateľovho obrázka.
 
@@ -176,7 +176,7 @@ Naša knižnica využíva \emph{TypeScript}, pretože umožňuje rýchlejšie od
 
 \subsection{Mocha}
 
-\emph{Mocha} je JavaScriptový framework používaný na~jednotkové testy. Známy je predovšetkým pre~jednoduchý zápis testov a~prehľadnú dokumentáciu. Zvolili sme ho, pretože s~ním máme predchádzajúce skúsenosti.
+\emph{Mocha} je JavaScriptový framework používaný na~jednotkové testy. Známy je predovšetkým pre~jednoduchý zápis testov a~prehľadnú dokumentáciu.
 
 
 \subsection{GitHub}
@@ -187,7 +187,7 @@ Počas tvorby sme používali \emph{Git} a~výsledok našej práce sme uverejnil
 \section{Postup nahrávania a~nastavenia}
 \label{sec:upload-and-settings}
 
-V tejto sekcii sa budeme venovať samotnému procesu nahrávania obrázka, od~jeho zvolenia, úpravy po~odoslanie na~server.
+V tejto sekcii sa budeme venovať samotnému procesu nahrávania obrázka, od~jeho zvolenia, úpravy až po~odoslanie na~server.
 
 \subsection{Zvolenie obrázka}
 
@@ -218,7 +218,7 @@ Po zvolení obrázka spravidla prebieha jeho zmenšenie a~orezanie. Pre~túto č
 
 Obrázok sa orezáva posúvaním obrázka (pozri \ref{sec:posuvanie-obrazka}) a~základným nastavením je orezanie na~stred. To sa dá zmeniť atribútom \emph{align}, pričom valídne hodnoty pozostávajú z~kombinácie slov \emph{left}, \emph{right}, \emph{top}, \emph{bottom} a~\emph{center}, napríklad: \emph{<x-cupe align="left bottom"\textgreater}. Pri~zadaní iba jednej osi pre~zarovnanie sa automaticky predpokladá, že druhá sa má zarovnať na~stred. Orezanie sa dá úplne vypnúť, a~to nastavením atribútu \emph{crop} na~hodnotu \emph{false}. Vnútorne knižnica pracuje tak, že sa textové hodnoty prerátajú na~odsadenie obrázka zľava a~zhora, ale obrázok sa nijako nemodifikuje. To nastáva až pri~vykreslení.
 
-Takisto sme si všimli, že ak zmenšíme veľmi veľký obrázok, jeho kvalita je nízka. Oproti pôvodnému obrázku je zdanlivo ostrejší, a~to je spôsobené nevyhovujúcim spôsobom prekresľovania obrázka, tzv. \emph{downsampling}-om. Problém je, že prehliadač musí z~plochy napríklad 4x4 pixely vytvoriť iba jeden pixel a~aby to spravil najrýchlejšie, jeden z~nich vyberie, pričom sa neberie do~úvahy kontext. Preto sme aplikovali jednoduchý algoritmus, ktorý obrázok zmenší postupne. Počet prekreslení je možné nastaviť atribútom \emph{quality} a~jeho predvolená hodnota je 3. Čím vyššia táto hodnota je, tým dlhšie trvá proces od~zvolenia obrázka po~jeho vykreslenie. Keď je táto hodnota príliš nízka (napríklad 1), tak je slabšia kvalita. Zmenšený obrázok sa uloží, aby pri~jeho ďalšej manipulácii ho nebolo potrebné opäť zmenšovať.
+Takisto sme si všimli, že ak zmenšíme veľmi veľký obrázok, jeho kvalita je nízka. Oproti pôvodnému obrázku je zdanlivo ostrejší, a~to je spôsobené nevyhovujúcim spôsobom prekresľovania obrázka, tzv. \emph{downsampling}-om. Problém je, že prehliadač musí z~plochy napríklad 4x4 pixely vytvoriť iba jeden pixel a~aby to spravil najrýchlejšie, jeden z~nich vyberie, pričom sa neberie do~úvahy kontext. Preto sme aplikovali jednoduchý algoritmus, ktorý obrázok zmenší postupne. Počet prekreslení je možné nastaviť atribútom \emph{quality} a~jeho predvolená hodnota je 3. Čím vyššia je táto hodnota, tým dlhšie trvá proces od~zvolenia obrázka po~jeho vykreslenie. Keď je táto hodnota príliš nízka (napríklad 1), tak je slabšia kvalita. Zmenšený obrázok sa uloží, aby ho pri~jeho ďalšej manipulácii nebolo potrebné opäť zmenšovať.
 
 \subsection{Posúvanie obrázka}
 \label{sec:posuvanie-obrazka}
@@ -261,7 +261,7 @@ Nakoľko naša knižnica používa na~spracovanie a~zobrazovanie obrazu tag \emp
 \subsection{Systém rozšírení}
 \label{sec:system-rozsireni}
 
-Predstavme si dve rozšírenia -- \quoted{zoom} (rozšírenie umožňujúce zväčšovať a~zmenšovať obraz) a~\quoted{black\&white} (rozšírenie, ktoré prevedie obraz do~čierno-bielej škály). Chceli sme, aby tvorca stránky vedel stanoviť, ktoré \emph{<x-cupe>} elementy budú používať \quoted{black\&white} a~ktoré nie. Tiež sme chceli, aby vedel nastaviť rozšírenie \quoted{zoom} pre~všetky \emph{<x-cupe>} elementy. \textbf{Naším cieľom teda bolo, aby rozšírenie bolo možné aplikovať aj pre~jednotlivé \emph(<x-cupe>) elementy, ale aj univerzálne -- pre~všetky \emph(<x-cupe>) elementy}. Naším ďalším cieľom bolo, aby \textbf{rozšírenia bolo možné kombinovať}, a~teda aby tvorca stránky vedel nastaviť obe rozšírenia -- \quoted{zoom} aj \quoted{black\&white} na~rovnaký \emph{<x-cupe>} element. Naším posledným cieľom bolo, aby boli rozšírenia nezávislé moduly -- samostatné súbory, ktoré o~sebe nevedia (resp. nemusia vedieť).
+Predstavme si dve rozšírenia -- \quoted{zoom} (rozšírenie umožňujúce zväčšovať a~zmenšovať obraz) a~\quoted{black\&white} (rozšírenie, ktoré prevedie obraz do~čierno-bielej škály). Chceli sme, aby tvorca stránky vedel stanoviť, ktoré \emph{<x-cupe>} elementy budú používať \quoted{black\&white} a~ktoré nie. Tiež sme chceli, aby vedel nastaviť rozšírenie \quoted{zoom} pre~všetky \emph{<x-cupe>} elementy. Naším cieľom teda bolo, aby rozšírenie bolo možné aplikovať aj pre~jednotlivé \emph(<x-cupe>) elementy, ale aj univerzálne -- pre~všetky \emph(<x-cupe>) elementy. Naším ďalším cieľom bolo, aby rozšírenia bolo možné kombinovať, a~teda aby tvorca stránky vedel nastaviť obe rozšírenia -- \quoted{zoom} aj \quoted{black\&white} na~rovnaký \emph{<x-cupe>} element. Naším posledným cieľom bolo, aby boli rozšírenia nezávislé moduly -- samostatné súbory, ktoré o~sebe nevedia (resp. nemusia vedieť).
 
 Zhodnotili sme existujúce riešenia a~rozhodli sme sa, že rozšírenia budú funkcie, ktoré budú upravovať metódy našej knižnice. Tým dosiahneme \quoted{cibuľový efekt}.
 

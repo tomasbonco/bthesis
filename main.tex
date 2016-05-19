@@ -67,6 +67,7 @@
 \usepackage{amsmath}
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{hyphenat}
 
 % Styles
 \tikzset{
@@ -76,7 +77,7 @@
     rounded corners, 
     % fill=black!10,
     draw=black, very thick,
-    text width=10em, 
+    text width=10em,
     minimum height=3em, 
     text centered, 
     on chain},
@@ -137,6 +138,9 @@
 
 % Document
 \begin{document}
+
+\hyphenation{Ja-va-Scrip-to-vé-ho}
+\sloppy
 
 % Chapter files listing
 \input{src/0/main.tex}
